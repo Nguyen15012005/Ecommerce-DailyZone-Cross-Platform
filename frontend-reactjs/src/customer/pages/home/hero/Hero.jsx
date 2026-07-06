@@ -1,11 +1,18 @@
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import videoFashion from "../../../../../public/assets/video/hero_video.mp4";
 
-export default function HeroSection() {
+const Hero = () => {
   const videoRef = useRef(null);
+  const [muted, setMuted] = useState(true);
 
   useEffect(() => {
     const video = videoRef.current;
+
+    if (!video) return;
+
+    // Cho video tự chạy
+    video.muted = true;
+    video.play().catch(() => {});
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -16,23 +23,41 @@ export default function HeroSection() {
         }
       },
       {
-        threshold: 0.5,
+        threshold: 0.3,
       },
     );
 
-    if (video) observer.observe(video);
+    observer.observe(video);
 
     return () => {
-      if (video) observer.unobserve(video);
+      observer.unobserve(video);
     };
   }, []);
 
+  const toggleSound = () => {
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    if (muted) {
+      video.muted = false;
+      video.volume = 1;
+      video.play().catch(() => {});
+    } else {
+      video.muted = true;
+    }
+
+    setMuted(!muted);
+  };
+
   return (
-    <section className="">
+    <section className="h-screen">
       <div className="relative h-full overflow-hidden shadow-2xl">
         {/* Video */}
         <video
           ref={videoRef}
+          autoPlay
+          muted={muted}
           loop
           playsInline
           preload="auto"
@@ -43,6 +68,14 @@ export default function HeroSection() {
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/45" />
+
+        {/* Nút bật / tắt âm thanh */}
+        <button
+          onClick={toggleSound}
+          className="absolute bottom-8 right-8 z-30 flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-white/10 text-2xl text-white backdrop-blur-md transition-all duration-300 hover:scale-110 hover:bg-white/20"
+        >
+          {muted ? "🔇" : "🔊"}
+        </button>
 
         {/* Content */}
         <div className="relative z-10 flex h-full flex-col justify-between px-8 py-10 md:px-14 md:py-14 lg:px-10 lg:py-5">
@@ -88,12 +121,13 @@ export default function HeroSection() {
 
             <div className="text-right">
               <p className="text-sm text-white/50">Scroll</p>
-
-              <div className="mt-3 h-12 w-px bg-white/30 mx-auto" />
+              <div className="mx-auto mt-3 h-12 w-px bg-white/30" />
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Hero;
