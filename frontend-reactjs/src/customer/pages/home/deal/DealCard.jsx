@@ -1,11 +1,30 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../../../../store/cartSlice";
 
 const DealCard = ({ item }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleNavigate = () => {
     navigate(`/product-detail/${item.id}`);
+  };
+  const handleBuyNow = async (e) => {
+    e.stopPropagation();
+
+    try {
+      await dispatch(
+        addToCart({
+          productId: item.id,
+          quantity: 1,
+        }),
+      ).unwrap();
+
+      navigate("/cart");
+    } catch (error) {
+      console.error("Thêm vào giỏ thất bại", error);
+    }
   };
 
   return (
@@ -42,10 +61,7 @@ const DealCard = ({ item }) => {
         </div>
 
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            navigate(`/product-detail/${item.id}`);
-          }}
+          onClick={handleBuyNow}
           className="mt-3 w-full rounded-lg bg-gradient-to-r from-orange-400 to-red-500 px-3 py-2 text-xs font-semibold text-white transition hover:opacity-90 active:scale-95"
         >
           Mua ngay

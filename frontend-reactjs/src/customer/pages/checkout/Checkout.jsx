@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "../../../store/userSlice";
 import { createOrder, clearOrderMessages } from "../../../store/orderSlice";
 import PricingCard from "../cart/PricingCard";
-
+import { useLocation } from "react-router-dom";
 const style = {
   position: "absolute",
   top: "50%",
@@ -63,6 +63,12 @@ const paymentGatwayList = [
 ];
 
 const Checkout = () => {
+  const location = useLocation();
+
+  const buyNowProduct = location.state?.product;
+  const buyNowQuantity = location.state?.quantity || 1;
+
+  const isBuyNow = !!buyNowProduct;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -127,6 +133,7 @@ const Checkout = () => {
 
   return (
     <div className="min-h-screen px-5 pt-10 sm:px-10 md:px-20 lg:px-20">
+      
       <div className="grid grid-cols-1 gap-9 rounded-lg bg-gray-50 p-10 lg:grid-cols-3 lg:space-y-0">
         <div className="col-span-2 space-y-5">
           <div className="flex items-center justify-between">

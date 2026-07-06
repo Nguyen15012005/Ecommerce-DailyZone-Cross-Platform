@@ -1,0 +1,99 @@
+import { useEffect, useRef } from "react";
+import videoFashion from "../../../../../public/assets/video/hero_video.mp4";
+
+export default function HeroSection() {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      {
+        threshold: 0.5,
+      },
+    );
+
+    if (video) observer.observe(video);
+
+    return () => {
+      if (video) observer.unobserve(video);
+    };
+  }, []);
+
+  return (
+    <section className="">
+      <div className="relative h-full overflow-hidden shadow-2xl">
+        {/* Video */}
+        <video
+          ref={videoRef}
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover scale-[1.03]"
+        >
+          <source src={videoFashion} type="video/mp4" />
+        </video>
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/45" />
+
+        {/* Content */}
+        <div className="relative z-10 flex h-full flex-col justify-between px-8 py-10 md:px-14 md:py-14 lg:px-10 lg:py-5">
+          {/* Top */}
+          <div className="max-w-2xl">
+            <span className="inline-block rounded-full border border-white/20 bg-white/15 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white backdrop-blur-md">
+              Autumn / Winter 2026
+            </span>
+
+            <h1 className="mt-8 text-5xl font-extralight uppercase leading-[0.9] tracking-[-0.05em] text-white/70 md:text-7xl lg:text-[110px]">
+              ELEVATE
+              <br />
+              YOUR STYLE
+            </h1>
+
+            <p className="mt-8 max-w-md text-base leading-8 text-white/70">
+              Contemporary silhouettes crafted with premium materials, designed
+              for those who appreciate timeless elegance.
+            </p>
+
+            <div className="mt-12 flex gap-4">
+              <button className="rounded-full bg-white px-8 py-4 text-sm font-medium uppercase tracking-[0.25em] text-black transition hover:scale-105">
+                Explore Collection
+              </button>
+
+              <button className="rounded-full border border-white/30 px-8 py-4 text-sm uppercase tracking-[0.25em] text-white backdrop-blur-md transition hover:bg-white/10">
+                Lookbook
+              </button>
+            </div>
+          </div>
+
+          {/* Bottom */}
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="text-xs uppercase tracking-[0.4em] text-white/50">
+                Since 2026
+              </p>
+
+              <p className="mt-2 text-sm text-white/70">
+                Premium Fashion House
+              </p>
+            </div>
+
+            <div className="text-right">
+              <p className="text-sm text-white/50">Scroll</p>
+
+              <div className="mt-3 h-12 w-px bg-white/30 mx-auto" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -38,9 +38,7 @@ const CategorySheet = ({ selectedCategory, setShowSheet }) => {
   const handleNavigate = (child) => {
     setShowSheet(false);
 
-    navigate(
-      `/product-list?category=${selectedCategory}&type=${child.categoryId}`,
-    );
+    navigate(`/products/${selectedCategory}?type=${child.categoryId}`);
   };
 
   return (

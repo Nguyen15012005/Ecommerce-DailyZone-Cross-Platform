@@ -7,7 +7,7 @@ const Item = ({ img1, img2, title, path }) => {
   return (
     <div
       onClick={() => navigate(path)}
-      className="relative h-full w-full cursor-pointer overflow-hidden rounded-xl group"
+      className="group relative my-10 h-full w-full cursor-pointer overflow-hidden rounded-xl"
     >
       <img
         className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
@@ -31,7 +31,7 @@ const Item = ({ img1, img2, title, path }) => {
             e.stopPropagation();
             navigate(path);
           }}
-          className="mt-2 rounded-full bg-white px-4 py-1.5 text-xs text-black opacity-0 translate-y-4 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100"
+          className="mt-2 translate-y-4 rounded-full bg-white px-4 py-1.5 text-xs text-black opacity-0 transition duration-500 group-hover:translate-y-0 group-hover:opacity-100"
         >
           Khám phá
         </button>
@@ -42,7 +42,20 @@ const Item = ({ img1, img2, title, path }) => {
 
 const CategoryGrid = () => {
   return (
-    <div className="px-3 py-6 md:px-5 lg:px-20">
+    <section className="px-3 mt-5 py-12 md:px-5 lg:px-20">
+      {/* Header */}
+      <div className="mb-5 text-center">
+        <p className="text-sm font-semibold uppercase tracking-[0.5em] text-[#C8A45D]">
+          DISCOVER
+        </p>
+
+        <h2 className="mt-4 text-4xl font-light tracking-tight text-[#C8A45D] md:text-5xl lg:text-6xl">
+          Khám Phá Các Sản Phẩm Của Daily Zone
+        </h2>
+
+        <div className="mx-auto mt-6 h-[2px] w-20 rounded-full bg-[#C8A45D]" />
+      </div>
+      {/* Grid */}
       <div
         className="
           grid gap-4
@@ -108,7 +121,7 @@ const CategoryGrid = () => {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -7,6 +7,8 @@ import { Storefront } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import HeroSection from "./video_hero_section/HeroSection";
+import BestSellerPage from "./best_seller/BestSellerPage";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -24,23 +26,25 @@ const Home = () => {
   return (
     <div>
       {/* CATEGORY QUICK */}
-      <section>{/* <ElectricCategory /> */}</section>
-
+      <section>{/* <ElectricCategory /> */}</section>{" "}
+      <section>
+        <HeroSection />
+      </section>
       {/* TREND GRID */}
       <section>
         <CategoryGrid />
       </section>
-
       {/* DEAL */}
       <section>
         <Deal />
       </section>
-
+      <section>
+        <BestSellerPage />
+      </section>
       {/* SHOP BY CATEGORY */}
       <section>
         <ShopByCategory />
       </section>
-
       <section className="relative pt-20">
         <img
           className="h-full w-full object-cover"

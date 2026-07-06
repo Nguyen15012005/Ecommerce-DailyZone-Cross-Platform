@@ -119,7 +119,7 @@ const Deal = () => {
   };
 
   return (
-    <div className="relative px-3 py-10 md:px-5 lg:px-20">
+    <div className="relative my-10 px-3 py-10 md:px-5 lg:px-20">
       <div className="mb-8 flex items-end justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-widest text-[#C6A15B]">

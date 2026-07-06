@@ -1,7 +1,25 @@
 import React from "react";
-import { Facebook, Instagram, YouTube, Twitter } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
+import { Facebook, Instagram, YouTube, Twitter } from "@mui/icons-material";
 
+const socialLinks = [
+  {
+    icon: Facebook,
+    url: "https://www.facebook.com/trungnguyen1501.05",
+  },
+  {
+    icon: Instagram,
+    url: "https://www.instagram.com/trungnguyen1501.05/",
+  },
+  {
+    icon: YouTube,
+    url: "https://www.youtube.com/@nopitacoder-7",
+  },
+  {
+    icon: Twitter,
+    url: "https://www.linkedin.com/in/nguy%C3%AAn-nguy%E1%BB%85n-nam-trung-8687a9381/",
+  },
+];
 const Footer = () => {
   const navigate = useNavigate();
 
@@ -55,13 +73,16 @@ const Footer = () => {
           </p>
 
           <div className="flex gap-3">
-            {[Facebook, Instagram, YouTube, Twitter].map((Icon, index) => (
-              <div
+            {socialLinks.map(({ icon: Icon, url }, index) => (
+              <a
                 key={index}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-[#EADFCB] bg-white text-[#B88A44] transition-all duration-300 hover:scale-105 hover:bg-[#C9A96E] hover:text-white"
               >
                 <Icon fontSize="small" />
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -73,10 +94,10 @@ const Footer = () => {
           <ul className="space-y-3 text-sm">
             <li>
               <Link
-                to="/product-list?category=men"
+                to="/"
                 className="cursor-pointer text-[#8B7355] transition-all duration-200 hover:translate-x-1 hover:text-[#B88A44]"
               >
-                Men
+                Trang chủ
               </Link>
             </li>
 
@@ -85,7 +106,7 @@ const Footer = () => {
                 to="/product-list?category=women"
                 className="cursor-pointer text-[#8B7355] transition-all duration-200 hover:translate-x-1 hover:text-[#B88A44]"
               >
-                Women
+                Nam
               </Link>
             </li>
 
@@ -94,7 +115,7 @@ const Footer = () => {
                 to="/product-list?category=kid"
                 className="cursor-pointer text-[#8B7355] transition-all duration-200 hover:translate-x-1 hover:text-[#B88A44]"
               >
-                Kid
+                Nữ
               </Link>
             </li>
 
@@ -103,7 +124,7 @@ const Footer = () => {
                 to="/product-list?category=furniture"
                 className="cursor-pointer text-[#8B7355] transition-all duration-200 hover:translate-x-1 hover:text-[#B88A44]"
               >
-                Furniture
+                Nhà Bếp
               </Link>
             </li>
           </ul>
@@ -157,10 +178,10 @@ const Footer = () => {
           <h2 className="mb-4 font-bold text-[#3B2B12]">Liên hệ</h2>
 
           <p className="mb-2 text-sm text-[#8B7355]">
-            Email: support@dailyzone.com
+            Email: nguyennamtrungnguyen@gmail.com
           </p>
 
-          <p className="mb-4 text-sm text-[#8B7355]">Hotline: 1900 1234</p>
+          <p className="mb-4 text-sm text-[#8B7355]">Hotline: 0825570615</p>
 
           <div className="rounded-2xl border border-[#F2E8D7] bg-white p-4 transition hover:shadow-[0_8px_25px_rgba(201,169,110,0.15)]">
             <p className="text-sm font-bold text-[#3B2B12]">Hỗ trợ 24/7</p>
