@@ -112,7 +112,7 @@ const BestSellerPage = () => {
 
       {/* Products */}
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-        <div className="mb-10 flex items-center justify-between">
+        {/* <div className="mb-10 flex items-center justify-between">
           <div>
             <p className="uppercase tracking-[0.3em] text-[#B88E2F] text-sm">
               Collection
@@ -126,7 +126,7 @@ const BestSellerPage = () => {
           <p className="hidden text-gray-500 md:block">
             {products.length} sản phẩm
           </p>
-        </div>
+        </div> */}
 
         {/* Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">

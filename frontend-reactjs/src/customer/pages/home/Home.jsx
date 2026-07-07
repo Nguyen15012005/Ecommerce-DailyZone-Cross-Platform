@@ -17,7 +17,7 @@ const Home = () => {
 
   const handleBecomeSeller = () => {
     if (isAuthenticated && role === "SELLER") {
-      navigate("/seller");
+      navigate("/become-seller");
     } else {
       navigate("/seller/register");
     }

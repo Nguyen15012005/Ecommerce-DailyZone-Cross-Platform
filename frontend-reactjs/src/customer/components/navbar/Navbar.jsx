@@ -336,7 +336,7 @@ const Navbar = () => {
 
               {isLarge && (
                 <Button
-                  onClick={() => navigate("/seller/login")}
+                  onClick={() => navigate("/become-seller")}
                   startIcon={<Storefront />}
                   variant="outlined"
                   className="normal-case border border-[#C9A96E] px-6 py-2 text-[#B88A44]"
