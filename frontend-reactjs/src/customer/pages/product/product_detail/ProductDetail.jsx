@@ -1,4 +1,10 @@
-import { Alert, Button, CircularProgress, Divider, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Button,
+  CircularProgress,
+  Divider,
+  Snackbar,
+} from "@mui/material";
 import {
   ShieldCheck,
   Star,
@@ -15,7 +21,10 @@ import SimilarProduct from "../SimilarProduct/SimilarProduct";
 import ReviewCard from "../../review/ReviewCard";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductById, clearProductDetail } from "../../../../store/productSlice";
+import {
+  fetchProductById,
+  clearProductDetail,
+} from "../../../../store/productSlice";
 import { addToCart, fetchCart } from "../../../../store/cartSlice";
 import { addToWishlist } from "../../../../store/wishlistSlice";
 import { fetchReviews } from "../../../../store/reviewSlice";
@@ -23,9 +32,13 @@ import { fetchReviews } from "../../../../store/reviewSlice";
 const ProductDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { productId } = useParams();
 
-  const { productDetail, detailLoading, error: productError } = useSelector((s) => s.product);
+  const {
+    productDetail,
+    detailLoading,
+    error: productError,
+  } = useSelector((s) => s.product);
   const { reviews } = useSelector((s) => s.review);
   const { addLoading, error: cartError } = useSelector((s) => s.cart);
   const { error: wishlistError } = useSelector((s) => s.wishlist);
@@ -36,12 +49,12 @@ const ProductDetail = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchProductById(id));
-      dispatch(fetchReviews(id));
+    if (productId) {
+      dispatch(fetchProductById(productId));
+      dispatch(fetchReviews(productId));
     }
     return () => dispatch(clearProductDetail());
-  }, [dispatch, id]);
+  }, [dispatch, productId]);
 
   // cập nhật ảnh chính khi load xong
   useEffect(() => {
@@ -69,7 +82,7 @@ const ProductDetail = () => {
     product?.discountPercent ||
     (product?.mrpPrice && product?.sellingPrice
       ? Math.round(
-          ((product.mrpPrice - product.sellingPrice) / product.mrpPrice) * 100
+          ((product.mrpPrice - product.sellingPrice) / product.mrpPrice) * 100,
         )
       : 33);
 
@@ -83,7 +96,9 @@ const ProductDetail = () => {
     }
 
     if (role && role !== "CUSTOMER") {
-      setMessage("Vui lòng đăng nhập bằng tài khoản khách hàng để mua sản phẩm.");
+      setMessage(
+        "Vui lòng đăng nhập bằng tài khoản khách hàng để mua sản phẩm.",
+      );
       return false;
     }
 
@@ -94,7 +109,7 @@ const ProductDetail = () => {
     if (!canUseCustomerActions() || !product?.id) return;
 
     dispatch(
-      addToCart({ productId: Number(product.id), size: "FREE", quantity })
+      addToCart({ productId: Number(product.id), size: "FREE", quantity }),
     ).then((result) => {
       if (addToCart.fulfilled.match(result)) {
         dispatch(fetchCart());
@@ -133,10 +148,11 @@ const ProductDetail = () => {
             Không tìm thấy sản phẩm
           </h1>
           <p className="mt-2 text-sm text-gray-500">
-            {productError || "Sản phẩm không tồn tại hoặc API chưa trả dữ liệu."}
+            {productError ||
+              "Sản phẩm không tồn tại hoặc API chưa trả dữ liệu."}
           </p>
           <Button
-            onClick={() => navigate("/product-list")}
+            onClick={() => navigate("/products")}
             variant="contained"
             sx={{ mt: 3, backgroundColor: "#C9A96E" }}
           >
@@ -229,7 +245,7 @@ const ProductDetail = () => {
             <Divider orientation="vertical" flexItem />
 
             <button
-              onClick={() => navigate(`/product/${id}/reviews`)}
+              onClick={() => navigate(`/reviews/${productId}`)}
               className="text-sm text-gray-500 hover:text-[#C9A96E]"
             >
               {product?.numRatings || 0} đánh giá
@@ -242,11 +258,12 @@ const ProductDetail = () => {
                 {formatPrice(product?.sellingPrice || 199000)}
               </span>
 
-              {product?.mrpPrice && product.mrpPrice !== product.sellingPrice && (
-                <span className="text-gray-400 line-through">
-                  {formatPrice(product.mrpPrice)}
-                </span>
-              )}
+              {product?.mrpPrice &&
+                product.mrpPrice !== product.sellingPrice && (
+                  <span className="text-gray-400 line-through">
+                    {formatPrice(product.mrpPrice)}
+                  </span>
+                )}
 
               {discountPercent > 0 && (
                 <span className="rounded bg-red-100 px-2 py-1 text-sm text-red-500">
@@ -283,18 +300,29 @@ const ProductDetail = () => {
             <h1 className="mb-2 font-medium">Số lượng</h1>
             <div className="flex w-[140px] items-center gap-2">
               <Button
-                disabled={quantity === 1}
-                onClick={() => setQuantity(quantity - 1)}
                 variant="outlined"
                 size="small"
+                disabled={quantity <= 1}
+                onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
               >
                 <Minus size={16} />
               </Button>
-              <span className="px-3 text-lg font-semibold">{quantity}</span>
+
+              <span className="min-w-[32px] text-center text-lg font-semibold">
+                {quantity}
+              </span>
+
               <Button
-                onClick={() => setQuantity(quantity + 1)}
                 variant="outlined"
                 size="small"
+                disabled={product?.quantity && quantity >= product.quantity}
+                onClick={() =>
+                  setQuantity((prev) =>
+                    product?.quantity
+                      ? Math.min(product.quantity, prev + 1)
+                      : prev + 1,
+                  )
+                }
               >
                 <Plus size={16} />
               </Button>
@@ -342,7 +370,7 @@ const ProductDetail = () => {
               <ReviewCard key={review.id} review={review} />
             ))}
             <Divider />
-            <Button onClick={() => navigate(`/product/${id}/reviews`)}>
+            <Button onClick={() => navigate(`/reviews/${productId}`)}>
               Xem tất cả đánh giá
             </Button>
           </div>
@@ -350,7 +378,10 @@ const ProductDetail = () => {
       </div>
 
       <div id="reviews" className="mt-20">
-        <SimilarProduct category={product?.category?.name} currentId={id} />
+        <SimilarProduct
+          category={product?.category?.name}
+          currentId={productId}
+        />
       </div>
     </div>
   );

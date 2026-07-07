@@ -114,7 +114,7 @@ const Navbar = () => {
       navigate("/");
     } else {
       setSelectedCategory(key);
-      navigate(`/product-list?category=${key}`);
+      navigate(`/products/${key}`);
     }
 
     setOpenMenu(false);
@@ -127,7 +127,7 @@ const Navbar = () => {
 
     if (!query) return;
 
-    navigate(`/product-list?query=${encodeURIComponent(query)}`);
+    navigate(`/products/all?search=${encodeURIComponent(query)}`);
     setOpenSearch(false);
   };
 

@@ -13,7 +13,8 @@ const FALLBACK_DEALS = [
     name: "Giày Sneaker Thời Trang Cao Cấp",
     discount: 20,
     oldPrice: "500K",
-    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&q=80",
+    image:
+      "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&q=80",
   },
   {
     id: 2,
@@ -21,7 +22,8 @@ const FALLBACK_DEALS = [
     name: "Laptop Gaming Hiệu Năng Cao",
     discount: 15,
     oldPrice: "25.000K",
-    image: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=500&q=80",
+    image:
+      "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=500&q=80",
   },
   {
     id: 3,
@@ -29,7 +31,8 @@ const FALLBACK_DEALS = [
     name: "Điện Thoại Smartphone Màn Hình Lớn",
     discount: 10,
     oldPrice: "12.000K",
-    image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80",
+    image:
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80",
   },
   {
     id: 4,
@@ -37,7 +40,8 @@ const FALLBACK_DEALS = [
     name: "Tai Nghe Bluetooth Chống Ồn",
     discount: 30,
     oldPrice: "1.200K",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
+    image:
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
   },
   {
     id: 5,
@@ -45,7 +49,8 @@ const FALLBACK_DEALS = [
     name: "Đồng Hồ Thời Trang Nam Nữ",
     discount: 25,
     oldPrice: "2.000K",
-    image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500&q=80",
+    image:
+      "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=500&q=80",
   },
   {
     id: 6,
@@ -53,7 +58,8 @@ const FALLBACK_DEALS = [
     name: "Balo Laptop Chống Nước Cao Cấp",
     discount: 18,
     oldPrice: "700K",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
+    image:
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80",
   },
   {
     id: 7,
@@ -61,7 +67,8 @@ const FALLBACK_DEALS = [
     name: "Áo Khoác Streetwear Unisex",
     discount: 35,
     oldPrice: "900K",
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80",
+    image:
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80",
   },
   {
     id: 8,
@@ -69,7 +76,8 @@ const FALLBACK_DEALS = [
     name: "Máy Ảnh Du Lịch Mini Cao Cấp",
     discount: 12,
     oldPrice: "8.500K",
-    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&q=80",
+    image:
+      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&q=80",
   },
 ];
 

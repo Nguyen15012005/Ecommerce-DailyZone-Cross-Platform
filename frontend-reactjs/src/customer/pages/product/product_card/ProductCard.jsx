@@ -38,7 +38,7 @@ const ProductCard = ({ product }) => {
     product?.discountPercent ||
     (product?.mrpPrice && product?.sellingPrice
       ? Math.round(
-          ((product.mrpPrice - product.sellingPrice) / product.mrpPrice) * 100
+          ((product.mrpPrice - product.sellingPrice) / product.mrpPrice) * 100,
         )
       : 25);
 
@@ -52,8 +52,14 @@ const ProductCard = ({ product }) => {
     return () => clearInterval(interval);
   }, [isHovered, images.length]);
 
-  const goToDetail = () => navigate(`/product-detail/${productId}`);
-  const isWishlisted = wishlist?.products?.some((item) => item.id === productId);
+  const goToDetail = () => {
+    navigate(
+      `/product-details/${product.category.id}/${encodeURIComponent(product.title)}/${product.id}`,
+    );
+  };
+  const isWishlisted = wishlist?.products?.some(
+    (item) => item.id === productId,
+  );
 
   const requireLogin = () => {
     if (!isAuthenticated || !localStorage.getItem("jwt")) {
@@ -62,7 +68,9 @@ const ProductCard = ({ product }) => {
     }
 
     if (role && role !== "CUSTOMER") {
-      setMessage("Vui lòng đăng nhập bằng tài khoản khách hàng để mua sản phẩm.");
+      setMessage(
+        "Vui lòng đăng nhập bằng tài khoản khách hàng để mua sản phẩm.",
+      );
       return false;
     }
 

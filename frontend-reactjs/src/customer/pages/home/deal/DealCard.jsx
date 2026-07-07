@@ -8,7 +8,9 @@ const DealCard = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleNavigate = () => {
-    navigate(`/product-detail/${item.id}`);
+    navigate(
+      `/product-details/${item.categoryId}/${encodeURIComponent(item.name)}/${item.id}`,
+    );
   };
   const handleBuyNow = async (e) => {
     e.stopPropagation();

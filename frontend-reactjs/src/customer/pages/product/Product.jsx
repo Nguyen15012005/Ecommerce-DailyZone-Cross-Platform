@@ -15,7 +15,7 @@ import FilterSection from "./filter_product/FilterSection";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../../store/productSlice";
 import { fetchWishlist } from "../../../store/wishlistSlice";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 const parsePriceRange = (value) => {
   if (!value) return {};
@@ -35,6 +35,7 @@ const Product = () => {
   const isLarge = useMediaQuery(theme.breakpoints.up("lg"));
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
+  const { category } = useParams();
 
   const { products, totalPages, loading } = useSelector((s) => s.product);
 
@@ -45,7 +46,7 @@ const Product = () => {
     const priceRange = parsePriceRange(searchParams.get("price"));
     const params = {
       query: searchParams.get("query") || undefined,
-      category: searchParams.get("category") || undefined,
+      category: category || searchParams.get("category") || undefined,
       brand: searchParams.get("brand") || undefined,
       colors: searchParams.get("color") || undefined,
       sizes: searchParams.get("sizes") || undefined,
@@ -102,9 +103,9 @@ const Product = () => {
             </p>
 
             <h2 className="mt-1 text-xl font-bold leading-tight sm:text-2xl lg:text-6xl">
-              {searchParams.get("category")
-                ? searchParams.get("category").toUpperCase()
-                : "Tất cả sản phẩm"}
+              <h2 className="mt-1 text-xl font-bold leading-tight sm:text-2xl lg:text-6xl">
+                {category ? category.toUpperCase() : "Tất cả sản phẩm"}
+              </h2>
             </h2>
 
             <p className="mt-2 text-xs opacity-90 sm:text-sm lg:text-base lg:text-gray-600">
