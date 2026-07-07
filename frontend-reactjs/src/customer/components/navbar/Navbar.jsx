@@ -61,7 +61,6 @@ const Navbar = () => {
   }, [isAuthenticated, user, dispatch]);
 
   const menuItems = [
-    { name: "Trang Chủ", key: "/" },
     { name: "Nam", key: "men" },
     { name: "Nữ", key: "women" },
     { name: "Điện Tử", key: "electronics" },
