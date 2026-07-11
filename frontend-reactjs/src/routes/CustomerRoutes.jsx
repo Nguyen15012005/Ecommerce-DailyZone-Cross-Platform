@@ -36,17 +36,17 @@ export const customerRoutes = [
   {
     path: "/login",
     element: (
-      <CustomerLayout>
-        <LoginPage />
-      </CustomerLayout>
+      // <CustomerLayout>
+      <LoginPage />
+      // </CustomerLayout>
     ),
   },
   {
     path: "/register",
     element: (
-      <CustomerLayout>
-        <RegisterPage />
-      </CustomerLayout>
+      // <CustomerLayout>
+      <RegisterPage />
+      // </CustomerLayout>
     ),
   },
   {
@@ -117,9 +117,9 @@ export const customerRoutes = [
   {
     path: "/become-seller",
     element: (
-      <CustomerLayout>
-        <BecomeSeller />
-      </CustomerLayout>
+      // <CustomerLayout>
+      <BecomeSeller />
+      // </CustomerLayout>
     ),
   },
 ];
