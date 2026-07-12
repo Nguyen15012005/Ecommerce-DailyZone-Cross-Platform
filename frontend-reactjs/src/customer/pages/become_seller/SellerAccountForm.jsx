@@ -1,13 +1,16 @@
-import { Step, StepLabel, Stepper } from "@mui/material";
+import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import React, { useState } from "react";
 const steps = [
-  "Tax Details & Mobile",
-  "Pickup Address",
-  "Bank Details",
-  "Supplier Details",
+  "Thông tin thuế & Số điện thoại",
+  "Địa chỉ lấy hàng",
+  "Thông tin ngân hàng",
+  "Thông tin nhà cung cấp",
 ];
 const SellerAccountForm = () => {
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
+  const handleStep = (value) => () => {
+    setActiveStep(activeStep + value);
+  };
   return (
     <div>
       <Stepper activeStep={activeStep} alternativeLabel>
@@ -17,6 +20,26 @@ const SellerAccountForm = () => {
           </Step>
         ))}
       </Stepper>
+
+      <section></section>
+      
+
+      <div className="flex items-center justify-between">
+        <Button
+          onClick={handleStep(-1)}
+          variant="contained"
+          disabled={activeStep == 0}
+        >
+          Quay lại
+        </Button>
+        <Button
+          onClick={handleStep(1)}
+          variant="contained"
+          disabled={activeStep == steps.length - 1}
+        >
+          Tiếp tục
+        </Button>
+      </div>
     </div>
   );
 };
