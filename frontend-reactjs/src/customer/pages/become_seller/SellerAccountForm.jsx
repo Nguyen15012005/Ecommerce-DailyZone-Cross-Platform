@@ -1,5 +1,7 @@
 import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import React, { useState } from "react";
+import BecomeSellerStep1 from "./BecomeSellerStep1";
+import { useFormik } from "formik";
 const steps = [
   "Thông tin thuế & Số điện thoại",
   "Địa chỉ lấy hàng",
@@ -9,7 +11,7 @@ const steps = [
 const SellerAccountForm = () => {
   const [activeStep, setActiveStep] = useState(0);
   const handleStep = (value) => () => {
-    ((activeStep < steps.length - 1) || (activeStep > 0 && value === -1)) &&
+    (activeStep < steps.length - 1 || (activeStep > 0 && value === -1)) &&
       setActiveStep(activeStep + value);
     activeStep === steps.length - 1 && handleCreateAccount();
   };
@@ -17,6 +19,26 @@ const SellerAccountForm = () => {
   const handleCreateAccount = () => {
     console.log("create account");
   };
+
+  const formik = useFormik({
+    initialValues: {
+      mobile: "",
+      otp: "",
+      mst: "",
+      pickupAddress: {
+        name: "",
+        mobile: "",
+        postalCode: "",
+        address: "",
+        ward: "",
+        district: "",
+        province: "",
+      },
+      bankDetails: {
+        account
+      }
+    },
+  });
   return (
     <div>
       <Stepper activeStep={activeStep} alternativeLabel>
@@ -27,7 +49,9 @@ const SellerAccountForm = () => {
         ))}
       </Stepper>
 
-      <section></section>
+      <section>
+        {activeStep === 0 ? <BecomeSellerStep1 formik={formik} /> : ""}
+      </section>
 
       <div className="flex items-center justify-between">
         <Button
