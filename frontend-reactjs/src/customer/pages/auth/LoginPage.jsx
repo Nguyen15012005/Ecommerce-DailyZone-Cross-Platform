@@ -1,14 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import {
   sendLoginOtp,
   loginWithOtp,
   resetOtpState,
 } from "../../../store/authSlice";
 import OtpInput from "./OtpInput";
+import FormField from "./FormField";
 import { Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
+
+// ─── Validation schemas ─────────────────────────────────────────────────────
+const emailSchema = Yup.object({
+  email: Yup.string()
+    .email("Vui lòng nhập địa chỉ email hợp lệ.")
+    .required("Vui lòng nhập email."),
+});
+
+const otpSchema = Yup.object({
+  otp: Yup.string()
+    .length(6, "Mã OTP phải gồm 6 số.")
+    .required("Vui lòng nhập mã OTP."),
+});
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -23,9 +39,6 @@ const LoginPage = () => {
     isAuthenticated,
   } = useSelector((s) => s.auth);
 
-  const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
@@ -45,35 +58,37 @@ const LoginPage = () => {
     [dispatch],
   );
 
-  const validateEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  // ── Formik bước 1: Email ──
+  const emailForm = useFormik({
+    initialValues: { email: "" },
+    validationSchema: emailSchema,
+    onSubmit: (values) => {
+      dispatch(sendLoginOtp({ email: values.email }));
+      setCountdown(60);
+    },
+  });
 
-  const handleSendOtp = (e) => {
-    e.preventDefault();
-    if (!validateEmail(email)) {
-      setEmailError("Vui lòng nhập địa chỉ email hợp lệ.");
-      return;
-    }
-    setEmailError("");
-    dispatch(sendLoginOtp({ email }));
-    setCountdown(60);
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (otp.length !== 6) return;
-    dispatch(loginWithOtp({ email, otp }));
-  };
+  // ── Formik bước 2: OTP ──
+  const otpForm = useFormik({
+    initialValues: { otp: "" },
+    validationSchema: otpSchema,
+    onSubmit: (values) => {
+      dispatch(
+        loginWithOtp({ email: emailForm.values.email, otp: values.otp }),
+      );
+    },
+  });
 
   const handleResend = () => {
     if (countdown > 0) return;
-    setOtp("");
-    dispatch(sendLoginOtp({ email }));
+    otpForm.resetForm();
+    dispatch(sendLoginOtp({ email: emailForm.values.email }));
     setCountdown(60);
   };
 
   const handleBack = () => {
     dispatch(resetOtpState());
-    setOtp("");
+    otpForm.resetForm();
   };
 
   const step = otpSent ? 2 : 1;
@@ -134,40 +149,21 @@ const LoginPage = () => {
                 Nhập email để nhận mã xác thực.
               </p>
 
-              <form onSubmit={handleSendOtp}>
-                <label
-                  htmlFor="login-email"
-                  className="mb-1.5 block text-sm font-medium text-[#221A0F]"
-                >
-                  Email
-                </label>
-                <input
-                  id="login-email"
+              <form onSubmit={emailForm.handleSubmit}>
+                <FormField
+                  formik={emailForm}
+                  name="email"
+                  label="Email"
                   type="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    setEmailError("");
-                  }}
-                  placeholder="you@example.com"
-                  className={`w-full rounded-lg border bg-[#FAFAF8] px-3.5 py-2.5 text-sm text-[#221A0F] outline-none transition-colors placeholder:text-[#B8AC94] focus:border-[#C9A96E] focus:bg-white focus:ring-2 focus:ring-[#C9A96E]/20 ${
-                    emailError || sendOtpError
-                      ? "border-red-400"
-                      : "border-[#E5DFCC]"
-                  }`}
                   autoComplete="email"
                   autoFocus
+                  serverError={sendOtpError}
                 />
-                {(emailError || sendOtpError) && (
-                  <p className="mt-1.5 text-xs font-medium text-red-500">
-                    {emailError || sendOtpError}
-                  </p>
-                )}
 
                 <button
                   type="submit"
-                  disabled={sendOtpLoading || !email.trim()}
-                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#221A0F] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3B2B12] disabled:cursor-not-allowed disabled:opacity-40"
+                  disabled={sendOtpLoading}
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-[#221A0F] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3B2B12] disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {sendOtpLoading ? (
                     <>
@@ -204,11 +200,21 @@ const LoginPage = () => {
               </h1>
               <p className="mb-6 text-sm text-[#8B7355]">
                 Mã 6 số đã gửi tới{" "}
-                <span className="font-medium text-[#221A0F]">{email}</span>
+                <span className="font-medium text-[#221A0F]">
+                  {emailForm.values.email}
+                </span>
               </p>
 
-              <form onSubmit={handleLogin}>
-                <OtpInput value={otp} onChange={setOtp} />
+              <form onSubmit={otpForm.handleSubmit}>
+                <OtpInput
+                  value={otpForm.values.otp}
+                  onChange={(val) => otpForm.setFieldValue("otp", val)}
+                />
+                {otpForm.touched.otp && otpForm.errors.otp && (
+                  <p className="mt-3 text-center text-xs font-medium text-red-500">
+                    {otpForm.errors.otp}
+                  </p>
+                )}
                 {loginError && (
                   <p className="mt-3 text-center text-xs font-medium text-red-500">
                     {loginError}
@@ -217,7 +223,7 @@ const LoginPage = () => {
 
                 <button
                   type="submit"
-                  disabled={loginLoading || otp.length !== 6}
+                  disabled={loginLoading || otpForm.values.otp.length !== 6}
                   className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#221A0F] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3B2B12] disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {loginLoading ? (

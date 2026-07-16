@@ -1,14 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import {
   sendRegisterOtp,
   registerUser,
   resetOtpState,
 } from "../../../store/authSlice";
 import OtpInput from "./OtpInput";
+import FormField from "./FormField";
 import { Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
+
+// ─── Validation schemas ─────────────────────────────────────────────────────
+const infoSchema = Yup.object({
+  fullName: Yup.string()
+    .trim()
+    .min(2, "Vui lòng nhập họ tên (ít nhất 2 ký tự).")
+    .required("Vui lòng nhập họ tên."),
+  phone: Yup.string()
+    .trim()
+    .matches(
+      /^(0|\+84)[3|5|7|8|9][0-9]{8}$/,
+      "Vui lòng nhập số điện thoại hợp lệ.",
+    )
+    .required("Vui lòng nhập số điện thoại."),
+  email: Yup.string()
+    .email("Vui lòng nhập địa chỉ email hợp lệ.")
+    .required("Vui lòng nhập email."),
+});
+
+const otpSchema = Yup.object({
+  otp: Yup.string()
+    .length(6, "Mã OTP phải gồm 6 số.")
+    .required("Vui lòng nhập mã OTP."),
+});
 
 const RegisterPage = () => {
   const dispatch = useDispatch();
@@ -23,11 +50,6 @@ const RegisterPage = () => {
     isAuthenticated,
   } = useSelector((s) => s.auth);
 
-  const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
-  const [errors, setErrors] = useState({});
   const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
@@ -47,52 +69,45 @@ const RegisterPage = () => {
     [dispatch],
   );
 
-  const validateStep1 = () => {
-    const newErrors = {};
-    if (!fullName.trim() || fullName.trim().length < 2)
-      newErrors.fullName = "Vui lòng nhập họ tên (ít nhất 2 ký tự).";
-    if (
-      !phone.trim() ||
-      !/^(0|\+84)[3|5|7|8|9][0-9]{8}$/.test(phone.replace(/\s+/g, ""))
-    )
-      newErrors.phone = "Vui lòng nhập số điện thoại hợp lệ.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-      newErrors.email = "Vui lòng nhập địa chỉ email hợp lệ.";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  // ── Formik bước 1: Thông tin ──
+  const infoForm = useFormik({
+    initialValues: { fullName: "", phone: "", email: "" },
+    validationSchema: infoSchema,
+    onSubmit: (values) => {
+      dispatch(sendRegisterOtp({ email: values.email }));
+      setCountdown(60);
+    },
+  });
 
-  const handleSendOtp = (e) => {
-    e.preventDefault();
-    if (!validateStep1()) return;
-    dispatch(sendRegisterOtp({ email }));
-    setCountdown(60);
-  };
-
-  const handleRegister = (e) => {
-    e.preventDefault();
-    if (otp.length !== 6) return;
-    dispatch(registerUser({ email, fullName, phone, otp }));
-  };
+  // ── Formik bước 2: OTP ──
+  const otpForm = useFormik({
+    initialValues: { otp: "" },
+    validationSchema: otpSchema,
+    onSubmit: (values) => {
+      dispatch(
+        registerUser({
+          email: infoForm.values.email,
+          fullName: infoForm.values.fullName,
+          phone: infoForm.values.phone,
+          otp: values.otp,
+        }),
+      );
+    },
+  });
 
   const handleResend = () => {
     if (countdown > 0) return;
-    setOtp("");
-    dispatch(sendRegisterOtp({ email }));
+    otpForm.resetForm();
+    dispatch(sendRegisterOtp({ email: infoForm.values.email }));
     setCountdown(60);
   };
 
   const handleBack = () => {
     dispatch(resetOtpState());
-    setOtp("");
+    otpForm.resetForm();
   };
 
   const step = registerOtpSent ? 2 : 1;
-
-  const inputClass = (hasError) =>
-    `w-full rounded-lg border bg-[#FAFAF8] px-3.5 py-2.5 text-sm text-[#221A0F] outline-none transition-colors placeholder:text-[#B8AC94] focus:border-[#C9A96E] focus:bg-white focus:ring-2 focus:ring-[#C9A96E]/20 ${
-      hasError ? "border-red-400" : "border-[#E5DFCC]"
-    }`;
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#FAF8F3] px-4 py-10 font-sans">
@@ -150,99 +165,35 @@ const RegisterPage = () => {
                 Điền thông tin để bắt đầu.
               </p>
 
-              <form onSubmit={handleSendOtp} className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="register-fullname"
-                    className="mb-1.5 block text-sm font-medium text-[#221A0F]"
-                  >
-                    Họ và tên
-                  </label>
-                  <input
-                    id="register-fullname"
-                    type="text"
-                    value={fullName}
-                    onChange={(e) => {
-                      setFullName(e.target.value);
-                      setErrors((prev) => ({ ...prev, fullName: "" }));
-                    }}
-                    placeholder="Nguyễn Văn A"
-                    className={inputClass(errors.fullName)}
-                    autoComplete="name"
-                    autoFocus
-                  />
-                  {errors.fullName && (
-                    <p className="mt-1.5 text-xs font-medium text-red-500">
-                      {errors.fullName}
-                    </p>
-                  )}
-                </div>
+              <form onSubmit={infoForm.handleSubmit} className="space-y-4">
+                <FormField
+                  formik={infoForm}
+                  name="fullName"
+                  label="Họ và tên"
+                  autoComplete="name"
+                  autoFocus
+                />
 
-                <div>
-                  <label
-                    htmlFor="register-phone"
-                    className="mb-1.5 block text-sm font-medium text-[#221A0F]"
-                  >
-                    Số điện thoại
-                  </label>
-                  <input
-                    id="register-phone"
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => {
-                      setPhone(e.target.value);
-                      setErrors((prev) => ({ ...prev, phone: "" }));
-                    }}
-                    placeholder="0912345678"
-                    className={inputClass(errors.phone)}
-                    autoComplete="tel"
-                  />
-                  {errors.phone && (
-                    <p className="mt-1.5 text-xs font-medium text-red-500">
-                      {errors.phone}
-                    </p>
-                  )}
-                </div>
+                <FormField
+                  formik={infoForm}
+                  name="phone"
+                  label="Số điện thoại"
+                  type="tel"
+                  autoComplete="tel"
+                />
 
-                <div>
-                  <label
-                    htmlFor="register-email"
-                    className="mb-1.5 block text-sm font-medium text-[#221A0F]"
-                  >
-                    Email
-                  </label>
-                  <input
-                    id="register-email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      setErrors((prev) => ({ ...prev, email: "" }));
-                    }}
-                    placeholder="you@example.com"
-                    className={inputClass(errors.email || sendRegisterOtpError)}
-                    autoComplete="email"
-                  />
-                  {errors.email && (
-                    <p className="mt-1.5 text-xs font-medium text-red-500">
-                      {errors.email}
-                    </p>
-                  )}
-                  {sendRegisterOtpError && (
-                    <p className="mt-1.5 text-xs font-medium text-red-500">
-                      {sendRegisterOtpError}
-                    </p>
-                  )}
-                </div>
+                <FormField
+                  formik={infoForm}
+                  name="email"
+                  label="Email"
+                  type="email"
+                  autoComplete="email"
+                  serverError={sendRegisterOtpError}
+                />
 
                 <button
                   type="submit"
-                  disabled={
-                    sendRegisterOtpLoading ||
-                    !email.trim() ||
-                    !fullName.trim() ||
-                    !phone.trim()
-                  }
+                  disabled={sendRegisterOtpLoading}
                   className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#221A0F] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3B2B12] disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {sendRegisterOtpLoading ? (
@@ -280,18 +231,28 @@ const RegisterPage = () => {
               </h1>
               <p className="mb-4 text-sm text-[#8B7355]">
                 Mã 6 số đã gửi tới{" "}
-                <span className="font-medium text-[#221A0F]">{email}</span>
+                <span className="font-medium text-[#221A0F]">
+                  {infoForm.values.email}
+                </span>
               </p>
 
               <div className="mb-5 flex items-center justify-between rounded-lg border border-[#E5DFCC] bg-[#FAFAF8] px-3.5 py-2.5">
                 <span className="text-xs text-[#8B7355]">Đăng ký cho</span>
                 <span className="text-sm font-semibold text-[#221A0F]">
-                  {fullName}
+                  {infoForm.values.fullName}
                 </span>
               </div>
 
-              <form onSubmit={handleRegister}>
-                <OtpInput value={otp} onChange={setOtp} />
+              <form onSubmit={otpForm.handleSubmit}>
+                <OtpInput
+                  value={otpForm.values.otp}
+                  onChange={(val) => otpForm.setFieldValue("otp", val)}
+                />
+                {otpForm.touched.otp && otpForm.errors.otp && (
+                  <p className="mt-3 text-center text-xs font-medium text-red-500">
+                    {otpForm.errors.otp}
+                  </p>
+                )}
                 {registerError && (
                   <p className="mt-3 text-center text-xs font-medium text-red-500">
                     {registerError}
@@ -300,7 +261,7 @@ const RegisterPage = () => {
 
                 <button
                   type="submit"
-                  disabled={registerLoading || otp.length !== 6}
+                  disabled={registerLoading || otpForm.values.otp.length !== 6}
                   className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#221A0F] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3B2B12] disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {registerLoading ? (
