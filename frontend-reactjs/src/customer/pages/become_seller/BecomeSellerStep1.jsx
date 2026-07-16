@@ -5,8 +5,8 @@ const BecomeSellerStep1 = ({ formik }) => {
   return (
     <div>
       <Box>
-        <p className="text-xl font-bold text-center pb-9">Thông tin liên hệ</p>
-        <div className="space-y-9">
+        <p className="text-xl font-bold text-center pb-4">Thông tin liên hệ</p>
+        <div className="space-y-4 mb-4">
           <TextField
             fullWidth
             name="mobile"

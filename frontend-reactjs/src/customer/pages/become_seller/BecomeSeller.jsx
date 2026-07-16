@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Storefront,
   TrendingUp,
   LocalShipping,
   Dashboard,
@@ -9,42 +8,9 @@ import {
 
 import SellerAccountForm from "./SellerAccountForm";
 import SellerLoginForm from "./SellerLoginForm";
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-
-const features = [
-  {
-    icon: <Storefront sx={{ color: "#B88A44", fontSize: 32 }} />,
-    title: "Đăng ký miễn phí",
-    desc: "Tạo gian hàng chỉ trong vài phút và bắt đầu bán hàng ngay.",
-  },
-  {
-    icon: <Dashboard sx={{ color: "#B88A44", fontSize: 32 }} />,
-    title: "Quản lý thông minh",
-    desc: "Theo dõi đơn hàng, doanh thu và tồn kho trên một giao diện.",
-  },
-  {
-    icon: <TrendingUp sx={{ color: "#B88A44", fontSize: 32 }} />,
-    title: "Tăng trưởng doanh thu",
-    desc: "Tiếp cận hàng nghìn khách hàng mỗi ngày cùng Daily Zone.",
-  },
-];
-
-const stats = [
-  {
-    number: "15K+",
-    title: "Nhà bán hàng",
-  },
-  {
-    number: "250K+",
-    title: "Đơn hàng",
-  },
-  {
-    number: "99%",
-    title: "Hài lòng",
-  },
-];
 
 const BecomeSeller = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -52,71 +18,35 @@ const BecomeSeller = () => {
 
   return (
     <div className="relative min-h-screen bg-[#FCFAF6]">
-      <div className="mx-auto grid min-h-screen max-w-[1600px] lg:grid-cols-[1.2fr_0.8fr]">
-        {/* LEFT */}
-        <section className="hidden lg:flex flex-col justify-between px-16 py-14 bg-gradient-to-br from-[#FFFDF8] via-[#FCFAF6] to-[#F7F0E5] border-r border-[#EFE3CF]">
-          <div className="mt-10">
-            <span className="inline-flex items-center rounded-full border border-[#E8D8BE] bg-white px-4 py-2 text-sm font-medium text-[#B88A44]">
-              <Storefront sx={{ fontSize: 18, mr: 1 }} />
-              DAILY ZONE SELLER
-            </span>
-
-            {/* FEATURES */}
-            <div className="mt-4 grid gap-5">
-              {features.map((item, index) => (
-                <div
-                  key={index}
-                  className="group flex items-start gap-5 rounded-3xl border border-[#EFE3CF] bg-white p-6 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
-                >
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#FFF7E8]">
-                    {item.icon}
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-semibold text-[#3B2B12]">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm leading-7 text-[#7C6A53]">
-                      {item.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* STATS */}
-          <div className="mt-10 grid grid-cols-3 gap-6">
-            {stats.map((item, index) => (
-              <div
-                key={index}
-                className="rounded-3xl border border-[#EFE3CF] bg-white p-6 text-center"
-              >
-                <h2 className="text-3xl font-bold text-[#B88A44]">
-                  {item.number}
-                </h2>
-
-                <p className="mt-2 text-sm text-[#7C6A53]">{item.title}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* RIGHT */}
+      <div className="mx-auto grid min-h-screen max-w-[2000px] ">
         <section className="flex items-center justify-center px-6 py-2 md:px-12 lg:px-16">
           <div className="w-full max-w-lg rounded-[36px] border border-[#EFE3CF] bg-white p-8 shadow-[0_15px_60px_rgba(0,0,0,.06)] lg:p-12">
             <div className="mb-8 text-center">
-              <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#FFF7E8]">
-                <Storefront
-                  sx={{
-                    color: "#B88A44",
-                    fontSize: 42,
-                  }}
-                />
-              </div>
+              <button>
+                <div className="flex cursor-pointer items-center gap-2 lg:gap-3 mb-4">
+                  <div className="flex flex-col leading-none">
+                    <span className="font-serif text-[26px] text-[#C9A96E] lg:text-[40px]">
+                      D
+                    </span>
 
-              <h2 className="font-serif text-4xl text-[#3B2B12]">
+                    <span className="-mt-4 ml-2 font-serif text-[26px] text-[#C9A96E] lg:-mt-6 lg:ml-3 lg:text-[40px]">
+                      Z
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <h1 className="mb-1 font-serif text-[14px] tracking-[2px] text-[#3B2B12] sm:text-[16px] lg:mb-2 lg:text-[20px] lg:tracking-[3px]">
+                      DAILY ZONE
+                    </h1>
+
+                    <span className="hidden text-[8px] uppercase tracking-[5px] text-[#8B7355] sm:block lg:text-[9px]">
+                      Style your life
+                    </span>
+                  </div>
+                </div>
+              </button>
+
+              <h2 className="font-serif text-4xl text-[#C9A96E]">
                 {isLogin ? "Chào mừng trở lại" : "Trở thành Nhà Bán Hàng"}
               </h2>
 
@@ -159,30 +89,6 @@ const BecomeSeller = () => {
               >
                 {isLogin ? "Tạo tài khoản mới" : "Đăng nhập Seller"}
               </Button>
-            </div>
-
-            {/* MOBILE BENEFITS */}
-            <div className="mt-10 grid gap-4 lg:hidden">
-              <div className="flex items-center gap-3 rounded-2xl bg-[#FFF7E8] p-4">
-                <TrendingUp sx={{ color: "#B88A44" }} />
-                <span className="text-sm text-[#3B2B12]">
-                  Gia tăng doanh thu cùng Daily Zone
-                </span>
-              </div>
-
-              <div className="flex items-center gap-3 rounded-2xl bg-[#FFF7E8] p-4">
-                <LocalShipping sx={{ color: "#B88A44" }} />
-                <span className="text-sm text-[#3B2B12]">
-                  Quản lý đơn hàng dễ dàng
-                </span>
-              </div>
-
-              <div className="flex items-center gap-3 rounded-2xl bg-[#FFF7E8] p-4">
-                <Dashboard sx={{ color: "#B88A44" }} />
-                <span className="text-sm text-[#3B2B12]">
-                  Dashboard trực quan và thông minh
-                </span>
-              </div>
             </div>
           </div>
         </section>

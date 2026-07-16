@@ -22,21 +22,38 @@ const SellerAccountForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      mobile: "",
+      phone: "",
       otp: "",
       mst: "",
+
       pickupAddress: {
         name: "",
-        mobile: "",
+        phone: "",
         postalCode: "",
         address: "",
-        ward: "",
         district: "",
         province: "",
       },
+
       bankDetails: {
-        account
-      }
+        accountHolderName: "",
+        accountNumber: "",
+        bankName: "",
+        branch: "",
+      },
+
+      businessDetails: {
+        businessName: "",
+        businessEmail: "",
+        businessPhone: "",
+        businessAddress: "",
+        logo: "",
+        banner: "",
+      },
+    },
+
+    onSubmit: (values) => {
+      console.log(values);
     },
   });
   return (
