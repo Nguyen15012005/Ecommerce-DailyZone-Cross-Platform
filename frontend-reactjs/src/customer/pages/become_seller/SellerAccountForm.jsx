@@ -10,6 +10,11 @@ const SellerAccountForm = () => {
   const [activeStep, setActiveStep] = useState(0);
   const handleStep = (value) => () => {
     setActiveStep(activeStep + value);
+    activeStep === steps.length - 1 && handleCreateAccount();
+  };
+
+  const handleCreateAccount = () => {
+    console.log("create account");
   };
   return (
     <div>
@@ -22,7 +27,6 @@ const SellerAccountForm = () => {
       </Stepper>
 
       <section></section>
-      
 
       <div className="flex items-center justify-between">
         <Button

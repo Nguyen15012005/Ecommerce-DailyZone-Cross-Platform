@@ -130,6 +130,19 @@ const Navbar = () => {
     setOpenSearch(false);
   };
 
+  const handleLogoClick = () => {
+    if (window.location.pathname === "/") {
+      // Đang ở Home thì chỉ cuộn lên đầu
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } else {
+      // Đang ở trang khác thì chuyển về Home
+      navigate("/");
+    }
+  };
+
   return (
     <div className="navbar sticky top-0 z-50 bg-white text-[#6B4F1D] shadow-sm">
       <Box sx={{ zIndex: 2 }} className="sticky left-0 right-0 top-0 bg-white">
@@ -151,7 +164,7 @@ const Navbar = () => {
                 </IconButton>
               )}
 
-              <button onClick={() => navigate("/")}>
+              <button onClick={handleLogoClick}>
                 <div className="flex cursor-pointer items-center gap-2 lg:gap-3">
                   <div className="flex flex-col leading-none">
                     <span className="font-serif text-[26px] text-[#C9A96E] lg:text-[40px]">
