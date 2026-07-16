@@ -7,6 +7,8 @@ import {
   resetOtpState,
 } from "../../../store/authSlice";
 import OtpInput from "./OtpInput";
+import { Button } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 
 // ─── Tái dùng style đã inject ở LoginPage (nếu chưa có mới inject) ─────────────
 const styleEl = document.createElement("style");
@@ -153,7 +155,10 @@ const RegisterPage = () => {
     const newErrors = {};
     if (!fullName.trim() || fullName.trim().length < 2)
       newErrors.fullName = "Vui lòng nhập họ tên (ít nhất 2 ký tự).";
-    if (!phone.trim() || !/^(0|\+84)[3|5|7|8|9][0-9]{8}$/.test(phone.replace(/\s+/g, "")))
+    if (
+      !phone.trim() ||
+      !/^(0|\+84)[3|5|7|8|9][0-9]{8}$/.test(phone.replace(/\s+/g, ""))
+    )
       newErrors.phone = "Vui lòng nhập số điện thoại hợp lệ.";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
       newErrors.email = "Vui lòng nhập địa chỉ email hợp lệ.";
@@ -321,9 +326,7 @@ const RegisterPage = () => {
                     autoComplete="tel"
                   />
                 </div>
-                {errors.phone && (
-                  <p className="dz-error-msg">{errors.phone}</p>
-                )}
+                {errors.phone && <p className="dz-error-msg">{errors.phone}</p>}
               </div>
 
               {/* Email */}
@@ -355,7 +358,10 @@ const RegisterPage = () => {
                 type="submit"
                 className="dz-btn-primary"
                 disabled={
-                  sendRegisterOtpLoading || !email.trim() || !fullName.trim() || !phone.trim()
+                  sendRegisterOtpLoading ||
+                  !email.trim() ||
+                  !fullName.trim() ||
+                  !phone.trim()
                 }
               >
                 {sendRegisterOtpLoading ? (
@@ -481,6 +487,29 @@ const RegisterPage = () => {
           Bằng cách đăng ký, bạn đồng ý với <a href="#">Điều khoản dịch vụ</a>{" "}
           &amp; <a href="#">Chính sách bảo mật</a> của DailyZone.
         </p>
+      </div>
+      <div className="absolute left-6 top-6 z-50">
+        <Button
+          startIcon={<ArrowBack />}
+          onClick={() => navigate("/")}
+          sx={{
+            bgcolor: "#fff",
+            color: "#3B2B12",
+            px: 2.5,
+            py: 1.2,
+            borderRadius: "14px",
+            border: "1px solid #EFE3CF",
+            textTransform: "none",
+            fontWeight: 600,
+            boxShadow: "0 8px 24px rgba(0,0,0,.06)",
+            "&:hover": {
+              bgcolor: "#FFF7E8",
+              borderColor: "#B88A44",
+            },
+          }}
+        >
+          Quay lại
+        </Button>
       </div>
     </div>
   );

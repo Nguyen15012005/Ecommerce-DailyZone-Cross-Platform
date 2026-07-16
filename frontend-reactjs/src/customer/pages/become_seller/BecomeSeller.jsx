@@ -104,7 +104,7 @@ const BecomeSeller = () => {
         </section>
 
         {/* RIGHT */}
-        <section className="flex items-center justify-center px-6 py-10 md:px-12 lg:px-16">
+        <section className="flex items-center justify-center px-6 py-2 md:px-12 lg:px-16">
           <div className="w-full max-w-lg rounded-[36px] border border-[#EFE3CF] bg-white p-8 shadow-[0_15px_60px_rgba(0,0,0,.06)] lg:p-12">
             <div className="mb-8 text-center">
               <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-[#FFF7E8]">
@@ -129,7 +129,7 @@ const BecomeSeller = () => {
 
             {isLogin ? <SellerLoginForm /> : <SellerAccountForm />}
 
-            <div className="mt-10 border-t border-[#EFE3CF] pt-8">
+            <div className="mt-5 border-t border-[#EFE3CF] pt-8">
               <div className="mb-5 flex items-center justify-center gap-2 text-sm text-[#7C6A53]">
                 <CheckCircle
                   sx={{
@@ -190,7 +190,7 @@ const BecomeSeller = () => {
       <div className="absolute left-6 top-6 z-50">
         <Button
           startIcon={<ArrowBack />}
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           sx={{
             bgcolor: "#fff",
             color: "#3B2B12",

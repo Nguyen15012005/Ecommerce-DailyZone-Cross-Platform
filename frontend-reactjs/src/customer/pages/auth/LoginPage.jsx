@@ -7,6 +7,8 @@ import {
   resetOtpState,
 } from "../../../store/authSlice";
 import OtpInput from "./OtpInput";
+import { Button } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 
 // ─── Inject keyframes ─────────────────────────────────────────────────────────
 const styleEl = document.createElement("style");
@@ -404,7 +406,7 @@ const LoginPage = () => {
   const step = otpSent ? 2 : 1;
 
   return (
-    <div className="dz-auth-page mt-5 -mb-5">
+    <div className="dz-auth-page -mb-5">
       {/* ── Left decorative panel ── */}
       <div className="dz-auth-left">
         <div className="dz-circle dz-c1" />
@@ -593,6 +595,29 @@ const LoginPage = () => {
           Bằng cách tiếp tục, bạn đồng ý với <a href="#">Điều khoản dịch vụ</a>{" "}
           &amp; <a href="#">Chính sách bảo mật</a> của DailyZone.
         </p>
+      </div>
+      <div className="absolute left-6 top-6 z-50">
+        <Button
+          startIcon={<ArrowBack />}
+          onClick={() => navigate("/")}
+          sx={{
+            bgcolor: "#fff",
+            color: "#3B2B12",
+            px: 2.5,
+            py: 1.2,
+            borderRadius: "14px",
+            border: "1px solid #EFE3CF",
+            textTransform: "none",
+            fontWeight: 600,
+            boxShadow: "0 8px 24px rgba(0,0,0,.06)",
+            "&:hover": {
+              bgcolor: "#FFF7E8",
+              borderColor: "#B88A44",
+            },
+          }}
+        >
+          Quay lại
+        </Button>
       </div>
     </div>
   );
