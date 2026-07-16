@@ -33,6 +33,14 @@ public class User {
 
     private String phone;
 
+    /**
+     * Lưu URL ảnh đại diện
+     * Ví dụ:
+     * https://res.cloudinary.com/xxx/image/upload/avatar.jpg
+     */
+    @Column(length = 1000)
+    private String avatar;
+
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.CUSTOMER;
 

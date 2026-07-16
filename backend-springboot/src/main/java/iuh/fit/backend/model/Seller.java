@@ -42,7 +42,7 @@ public class Seller {
     @JsonIgnore
     private Address pickupAddress = new Address();
 
-    private String GSTIN;
+    private String MST;
 
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.SELLER;

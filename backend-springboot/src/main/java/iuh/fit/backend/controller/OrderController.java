@@ -1,6 +1,5 @@
 package iuh.fit.backend.controller;
 
-import com.razorpay.PaymentLink;
 import iuh.fit.backend.domain.PaymentMethod;
 import iuh.fit.backend.model.*;
 import iuh.fit.backend.repository.PaymentOrderRepository;
@@ -50,16 +49,6 @@ public class OrderController {
 
         if (paymentMethod.equals(PaymentMethod.COD)) {
             res.setPayment_link_url(null);
-        }
-        else if (paymentMethod.equals(PaymentMethod.RAZORPAY)){
-            PaymentLink payment = paymentService.createRazorpayPaymentLink(user, paymentOrder.getAmount(), paymentOrder.getId());
-            String paymentUrl = payment.get("short_url");
-            String paymentUrlId = payment.get("id");
-
-            res.setPayment_link_url(paymentUrl);
-
-            paymentOrder.setPaymentLinkId(paymentUrlId);
-            paymentOrderRepository.save(paymentOrder);
         }
         else {
             String paymentUrl = paymentService.createStripePaymentLink(user, paymentOrder.getAmount(), paymentOrder.getId());

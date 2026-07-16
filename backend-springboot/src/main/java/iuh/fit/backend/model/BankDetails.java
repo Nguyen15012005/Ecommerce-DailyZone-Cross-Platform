@@ -15,8 +15,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BankDetails {
-    private String accountNumber;
-    private String accountHolderName;
-//    private String bankName;
-    private String ifscCode;
+    private String accountNumber;       // Số tài khoản
+    private String accountHolderName;   // Chủ tài khoản
+    private String bankName;            // Tên ngân hàng
+    private String branch;              // Chi nhánh (không bắt buộc)
 }

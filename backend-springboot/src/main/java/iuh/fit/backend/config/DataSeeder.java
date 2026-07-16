@@ -49,17 +49,16 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         Address address = new Address();
-        address.setName("DailyZone Warehouse");
-        address.setLocality("District 1");
-        address.setAddress("12 Nguyen Hue");
-        address.setCity("Ho Chi Minh");
-        address.setState("Ho Chi Minh");
-        address.setPinCode("700000");
+        address.setName("Kho DailyZone");
+        address.setDistrict("Quận 1");
+        address.setAddress("12 Nguyễn Huệ");
+        address.setProvince("TP. Hồ Chí Minh");
+        address.setPostalCode("700000");
         address.setPhone("0909000001");
 
         BusinessDetails businessDetails = new BusinessDetails();
         businessDetails.setBusinessName("DailyZone Official Store");
-        businessDetails.setBusinessAddress("12 Nguyen Hue, District 1, Ho Chi Minh");
+        businessDetails.setBusinessAddress("12 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh");
         businessDetails.setBusinessPhone("0909000001");
         businessDetails.setBusinessEmail(SELLER_EMAIL);
         businessDetails.setLogo("/assets/image/logo.png");
@@ -68,7 +67,8 @@ public class DataSeeder implements CommandLineRunner {
         BankDetails bankDetails = new BankDetails();
         bankDetails.setAccountHolderName("DailyZone Official Store");
         bankDetails.setAccountNumber("0123456789");
-        bankDetails.setIfscCode("VCB0001");
+        bankDetails.setBankName("Ngân Hàng Quân ĐỘi MB Bank");
+        bankDetails.setBranch("Chi nhánh TP. Hồ Chí Minh");
 
         Seller seller = new Seller();
         seller.setSellerName("DailyZone Official Store");
@@ -78,7 +78,7 @@ public class DataSeeder implements CommandLineRunner {
         seller.setPickupAddress(address);
         seller.setBusinessDetails(businessDetails);
         seller.setBankDetails(bankDetails);
-        seller.setGSTIN("DZ-SEED-001");
+        seller.setMST("0312345678"); // MST mẫu
         seller.setRole(UserRole.SELLER);
         seller.setEmailVerified(true);
         seller.setAccountStatus(AccountStatus.ACTIVE);

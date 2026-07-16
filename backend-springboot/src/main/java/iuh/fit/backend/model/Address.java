@@ -23,15 +23,15 @@ public class Address {
 
     private String name;
 
-    private String locality;
-
-    private String address;
-
-    private String city;
-
-    private String state;
-
-    private String pinCode;
-
     private String phone;
+
+    private String address;      // Số nhà, tên đường
+
+    private String ward;         // Phường/Xã
+
+    private String district;     // Quận/Huyện/Thị xã
+
+    private String province;     // Tỉnh/Thành phố trực thuộc TW
+
+    private String postalCode;   // Mã bưu chính (không bắt buộc)
 }
