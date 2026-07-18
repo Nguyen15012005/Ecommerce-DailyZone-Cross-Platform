@@ -10,7 +10,7 @@ const BecomeSellerStep1 = ({ formik }) => {
           <TextField
             fullWidth
             name="mobile"
-            label="mobile"
+            label="Số điện thoại"
             value={formik.values.mobile}
             onChange={formik.handleChange}
             error={formik.touched.mobile && Boolean(formik.errors.mobile)}
@@ -19,7 +19,7 @@ const BecomeSellerStep1 = ({ formik }) => {
           <TextField
             fullWidth
             name="MST"
-            label="MST"
+            label="Mã số thuế"
             value={formik.values.MST}
             onChange={formik.handleChange}
             error={formik.touched.MST && Boolean(formik.errors.MST)}

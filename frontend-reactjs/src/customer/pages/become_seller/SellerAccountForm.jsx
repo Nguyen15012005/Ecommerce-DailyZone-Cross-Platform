@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import BecomeSellerStep1 from "./BecomeSellerStep1";
 import { useFormik } from "formik";
 const steps = [
-  "Thông tin thuế & Số điện thoại",
+  "SDT - MST",
   "Địa chỉ lấy hàng",
   "Thông tin ngân hàng",
   "Thông tin nhà cung cấp",
