@@ -1,8 +1,8 @@
-# Ecommerce-VShop-Cross-Platform
+# Ecommerce-DailyZone-Cross-Platform
 
 ## Overview
 
-Ecommerce-VShop-Cross-Platform is a full-stack multi-vendor e-commerce platform developed using Spring Boot, React, React Native, and MySQL. The system delivers a seamless online shopping experience across web and mobile applications, supporting customers, sellers, and administrators through a secure, scalable, and modern architecture.
+Ecommerce-DailyZone-Cross-Platform is a full-stack multi-vendor e-commerce platform developed using Spring Boot, React, React Native, and MySQL. The system delivers a seamless online shopping experience across web and mobile applications, supporting customers, sellers, and administrators through a secure, scalable, and modern architecture.
 
 ## Technology Stack
 
@@ -13,7 +13,7 @@ Ecommerce-VShop-Cross-Platform is a full-stack multi-vendor e-commerce platform 
 - Spring Security
 - JWT Authentication
 - Java Mail Sender
-- MySQL
+- MariaDB (MySql)
 - RESTful API
 
 ### Frontend
@@ -96,7 +96,7 @@ Client Applications
             │
             ▼
 
-      MySQL Database
+      Maria Database
 
 ## Installation
 
@@ -111,7 +111,7 @@ mvn spring-boot:run
 ### Frontend Web
 
 ```bash
-cd frontend-web
+cd frontend-reactjs
 npm install
 npm run dev
 ```
