@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { CheckCircle } from "@mui/icons-material";
-
-import SellerAccountForm from "./SellerAccountForm";
-import SellerLoginForm from "./SellerLoginForm";
 import { Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import RegisterSellerForm from "./RegisterSellerForm";
+import LoginSeller from "./LoginSeller";
 
 const RegisterSeller = () => {
   const [isLogin, setIsLogin] = useState(false);
@@ -52,7 +51,7 @@ const RegisterSeller = () => {
               </p>
             </div>
 
-            {isLogin ? <SellerLoginForm /> : <SellerAccountForm />}
+            {isLogin ? <LoginSeller /> : <RegisterSellerForm />}
 
             <div className="mt-5 border-t border-[#EFE3CF] pt-8">
               <div className="mb-5 flex items-center justify-center gap-2 text-sm text-[#7C6A53]">

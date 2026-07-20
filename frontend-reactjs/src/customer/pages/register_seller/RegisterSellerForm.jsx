@@ -11,7 +11,7 @@ const steps = [
   "Thông tin ngân hàng",
   "Thông tin nhà bán hàng",
 ];
-const SellerAccountForm = () => {
+const RegisterSellerForm = () => {
   const [activeStep, setActiveStep] = useState(0);
   const handleStep = (value) => () => {
     (activeStep < steps.length - 1 || (activeStep > 0 && value === -1)) &&
@@ -100,4 +100,4 @@ const SellerAccountForm = () => {
   );
 };
 
-export default SellerAccountForm;
+export default RegisterSellerForm;
