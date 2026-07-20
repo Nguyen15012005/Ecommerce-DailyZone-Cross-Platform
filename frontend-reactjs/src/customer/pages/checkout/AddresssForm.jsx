@@ -54,9 +54,14 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
       postalCode: "",
     },
     validationSchema: ContactSchema,
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       onAddAddress(values);
-      formik.resetForm();
+
+      resetForm();
+
+      setDistricts([]);
+      setWards([]);
+
       handleClose();
     },
   });
@@ -231,7 +236,7 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
                 </MenuItem>
               ) : (
                 provinces.map((p) => (
-                  <MenuItem key={p.code} value={p.name}>
+                  <MenuItem key={p.code} value={p.code}>
                     {p.name}
                   </MenuItem>
                 ))
