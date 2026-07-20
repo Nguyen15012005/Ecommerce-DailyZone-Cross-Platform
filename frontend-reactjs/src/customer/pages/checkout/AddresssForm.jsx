@@ -67,24 +67,30 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
   });
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchProvinces = async () => {
       setLoadingProvince(true);
 
       try {
         const res = await axios.get("https://provinces.open-api.vn/api/p/");
-        setProvinces(res.data);
+        if (isMounted) setProvinces(res.data);
       } catch (err) {
         console.error(err);
       } finally {
-        setLoadingProvince(false);
+        if (isMounted) setLoadingProvince(false);
       }
     };
 
     fetchProvinces();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleProvinceChange = async (e) => {
-    const value = e.target.value;
+    const value = e.target.value; // đây là tên tỉnh (name), đồng bộ với district/ward
 
     formik.setFieldValue("province", value);
     formik.setFieldValue("district", "");
@@ -93,6 +99,8 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
     setDistricts([]);
     setWards([]);
 
+    // FIX: trước đây so sánh p.name với value (là p.code) => luôn sai.
+    // Giờ value đã là p.name, nên so sánh đúng theo name.
     const province = provinces.find((p) => p.name === value);
 
     if (province) {
@@ -102,7 +110,7 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
         const res = await axios.get(
           `https://provinces.open-api.vn/api/p/${province.code}?depth=2`,
         );
-        setDistricts(res.data.districts);
+        setDistricts(res.data.districts || []);
       } catch (err) {
         console.error(err);
       } finally {
@@ -128,7 +136,7 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
         const res = await axios.get(
           `https://provinces.open-api.vn/api/d/${district.code}?depth=2`,
         );
-        setWards(res.data.wards);
+        setWards(res.data.wards || []);
       } catch (err) {
         console.error(err);
       } finally {
@@ -231,12 +239,12 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
               helperText={formik.touched.province && formik.errors.province}
             >
               {loadingProvince ? (
-                <MenuItem>
+                <MenuItem value="" disabled>
                   <CircularProgress size={20} />
                 </MenuItem>
               ) : (
                 provinces.map((p) => (
-                  <MenuItem key={p.code} value={p.code}>
+                  <MenuItem key={p.code} value={p.name}>
                     {p.name}
                   </MenuItem>
                 ))
@@ -258,7 +266,7 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
               helperText={formik.touched.district && formik.errors.district}
             >
               {loadingDistrict ? (
-                <MenuItem>
+                <MenuItem value="" disabled>
                   <CircularProgress size={20} />
                 </MenuItem>
               ) : (
@@ -285,7 +293,7 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
               helperText={formik.touched.ward && formik.errors.ward}
             >
               {loadingWard ? (
-                <MenuItem>
+                <MenuItem value="" disabled>
                   <CircularProgress size={20} />
                 </MenuItem>
               ) : (
