@@ -17,7 +17,7 @@ const PosterSeller = () => {
         {/* BUTTON */}
         <div className="absolute bottom-14 left-2 lg:left-[4rem]">
           <Button
-            onClick={() => navigate("/become-seller")}
+            onClick={() => navigate("/register-seller")}
             startIcon={<Storefront />}
             variant="contained"
             className="

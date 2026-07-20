@@ -12,7 +12,7 @@ import Checkout from "../customer/pages/checkout/Checkout";
 import Payment from "../customer/pages/checkout/Payment";
 import Review from "../customer/pages/review/Review";
 import Wishlist from "../customer/pages/wishlist/Wishlist";
-import BecomeSeller from "./../customer/pages/become_seller/BecomeSeller";
+import RegisterSeller from "./../customer/pages/register_seller/RegisterSeller";
 
 const CustomerLayout = ({ children }) => {
   return (
@@ -115,10 +115,10 @@ export const customerRoutes = [
   },
 
   {
-    path: "/become-seller",
+    path: "/register-seller",
     element: (
       // <CustomerLayout>
-      <BecomeSeller />
+      <RegisterSeller />
       // </CustomerLayout>
     ),
   },

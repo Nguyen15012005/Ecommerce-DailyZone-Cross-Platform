@@ -263,7 +263,7 @@ const LoginPage = () => {
           .
         </p>
       </div>
-      <div className="absolute left-6 top-6 z-50">
+      <div className="fixed left-6 top-6 z-[9999]">
         <Button
           startIcon={<ArrowBack />}
           onClick={() => navigate("/")}

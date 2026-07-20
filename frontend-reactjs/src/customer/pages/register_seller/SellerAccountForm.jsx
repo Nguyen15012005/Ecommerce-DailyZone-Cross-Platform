@@ -1,7 +1,7 @@
 import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import React, { useState } from "react";
-import BecomeSellerStep1 from "./BecomeSellerStep1";
 import { useFormik } from "formik";
+import RegisterSellerStep1 from "./RegisterSellerStep1";
 const steps = [
   "SDT - MST",
   "Địa chỉ lấy hàng",
@@ -50,10 +50,13 @@ const SellerAccountForm = () => {
         logo: "",
         banner: "",
       },
+
+      password: "",
     },
 
     onSubmit: (values) => {
-      console.log(values);
+      console.log(values, "formik submitted");
+      console.log("active step ", activeStep);
     },
   });
   return (
@@ -67,7 +70,7 @@ const SellerAccountForm = () => {
       </Stepper>
 
       <section>
-        {activeStep === 0 ? <BecomeSellerStep1 formik={formik} /> : ""}
+        {activeStep === 0 ? <RegisterSellerStep1 formik={formik} /> : ""}
       </section>
 
       <div className="flex items-center justify-between">

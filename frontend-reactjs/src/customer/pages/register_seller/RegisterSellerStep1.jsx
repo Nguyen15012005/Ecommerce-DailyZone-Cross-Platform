@@ -1,11 +1,11 @@
 import { Box, TextField } from "@mui/material";
 import React from "react";
 
-const BecomeSellerStep1 = ({ formik }) => {
+const RegisterSellerStep1 = ({ formik }) => {
   return (
     <div>
       <Box>
-        <p className="text-xl font-bold text-center pb-4">Thông tin liên hệ</p>
+        <p className="text-2xl font-bold text-center pb-4 text-[#C9A96E] mt-4">Thông tin liên hệ</p>
         <div className="space-y-4 mb-4">
           <TextField
             fullWidth
@@ -31,4 +31,4 @@ const BecomeSellerStep1 = ({ formik }) => {
   );
 };
 
-export default BecomeSellerStep1;
+export default RegisterSellerStep1;

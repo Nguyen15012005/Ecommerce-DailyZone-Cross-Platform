@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  TrendingUp,
-  LocalShipping,
-  Dashboard,
-  CheckCircle,
-} from "@mui/icons-material";
+import { CheckCircle } from "@mui/icons-material";
 
 import SellerAccountForm from "./SellerAccountForm";
 import SellerLoginForm from "./SellerLoginForm";
@@ -12,7 +7,7 @@ import { Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
-const BecomeSeller = () => {
+const RegisterSeller = () => {
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
 
@@ -93,7 +88,7 @@ const BecomeSeller = () => {
           </div>
         </section>
       </div>
-      <div className="absolute left-6 top-6 z-50">
+      <div className="fixed left-6 top-6 z-[9999]">
         <Button
           startIcon={<ArrowBack />}
           onClick={() => navigate("/")}
@@ -120,4 +115,4 @@ const BecomeSeller = () => {
   );
 };
 
-export default BecomeSeller;
+export default RegisterSeller;
