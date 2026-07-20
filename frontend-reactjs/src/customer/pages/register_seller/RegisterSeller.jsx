@@ -42,7 +42,7 @@ const RegisterSeller = () => {
               </button>
 
               <h2 className="font-serif text-4xl text-[#C9A96E]">
-                {isLogin ? "Chào mừng trở lại" : "Trở thành Nhà Bán Hàng"}
+                {isLogin ? "Chào Mừng Trở Lại" : "Trở Thành Nhà Bán Hàng"}
               </h2>
 
               <p className="mt-4 text-sm leading-7 text-[#7C6A53]">

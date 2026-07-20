@@ -2,6 +2,7 @@ import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import RegisterSellerStep1 from "./RegisterSellerStep1";
+import RegisterSellerStep2 from "./RegisterSellerStep2";
 const steps = [
   "SDT - MST",
   "Địa chỉ lấy hàng",
@@ -71,7 +72,13 @@ const SellerAccountForm = () => {
 
       <section className="space-y-10 mt-5">
         <div className="">
-          {activeStep === 0 ? <RegisterSellerStep1 formik={formik} /> : ""}
+          {activeStep === 0 ? (
+            <RegisterSellerStep1 formik={formik} />
+          ) : activeStep === 1 ? (
+            <RegisterSellerStep2 formik={formik} />
+          ) : (
+            ""
+          )}
         </div>
       </section>
 

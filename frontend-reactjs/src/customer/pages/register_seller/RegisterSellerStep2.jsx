@@ -4,15 +4,13 @@ import * as Yup from "yup";
 import axios from "axios";
 import {
   Box,
-  Button,
   TextField,
   Grid,
   MenuItem,
   CircularProgress,
 } from "@mui/material";
 
-
-const RegisterSellerStep2 = ({ handleClose, onAddAddress }) => {
+const RegisterSellerStep2 = ({ handleClose, onAddAddress, formik }) => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
@@ -93,28 +91,9 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress }) => {
   };
 
   return (
-    <Box
-      sx={{
-        maxWidth: {
-          xs: "100%",
-          sm: 800,
-          md: 1000,
-          lg: 1400,
-        },
-        width: "100%",
-        mx: "auto",
-        p: {
-          xs: 2,
-          sm: 3,
-          md: 4,
-        },
-        borderRadius: "20px",
-        backgroundColor: "#fff",
-      }}
-      className="shadow-lg"
-    >
-      <p className="pb-6 text-center text-xl font-semibold text-gray-800">
-        Thêm địa chỉ giao hàng
+    <Box className="mb-5">
+      <p className="text-2xl font-bold text-center pb-4 text-[#C9A96E] mt-4">
+        Địa chỉ lấy hàng
       </p>
 
       <form onSubmit={formik.handleSubmit}>
@@ -247,40 +226,6 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress }) => {
                 ))
               )}
             </TextField>
-          </Grid>
-
-          <Grid item xs={12}>
-            <div className="flex gap-3">
-              <Button
-                onClick={handleClose}
-                variant="outlined"
-                fullWidth
-                sx={{
-                  py: "14px",
-                  borderRadius: "10px",
-                  fontWeight: 600,
-                  textTransform: "none",
-                }}
-              >
-                Hủy
-              </Button>
-
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                sx={{
-                  py: "14px",
-                  borderRadius: "10px",
-                  fontWeight: 600,
-                  textTransform: "none",
-                  background: "#C6A15B",
-                  "&:hover": { background: "#a07830" },
-                }}
-              >
-                Thêm địa chỉ
-              </Button>
-            </div>
           </Grid>
         </Grid>
       </form>
