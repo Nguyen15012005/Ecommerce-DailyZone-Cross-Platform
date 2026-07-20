@@ -12,17 +12,23 @@ import {
 } from "@mui/material";
 
 const ContactSchema = Yup.object().shape({
-  name: Yup.string().required("Bắt buộc"),
-  mobile: Yup.string()
-    .matches(/^[0-9]{10}$/, "Số điện thoại không hợp lệ")
-    .required("Bắt buộc"),
-  pinCode: Yup.string()
-    .matches(/^[0-9]{6}$/, "Mã bưu điện không hợp lệ")
-    .required("Bắt buộc"),
-  address: Yup.string().required("Bắt buộc"),
-  locality: Yup.string().required("Bắt buộc"),
-  city: Yup.string().required("Bắt buộc"),
-  state: Yup.string().required("Bắt buộc"),
+  name: Yup.string().required("Họ tên là bắt buộc"),
+
+  phone: Yup.string()
+    .matches(/^(0|\+84)[0-9]{9}$/, "Số điện thoại không hợp lệ")
+    .required("Số điện thoại là bắt buộc"),
+
+  postalCode: Yup.string()
+    .matches(/^[0-9]{5,6}$/, "Mã bưu chính không hợp lệ")
+    .nullable(),
+
+  address: Yup.string().required("Địa chỉ là bắt buộc"),
+
+  ward: Yup.string().required("Vui lòng chọn Phường/Xã"),
+
+  district: Yup.string().required("Vui lòng chọn Quận/Huyện"),
+
+  province: Yup.string().required("Vui lòng chọn Tỉnh/Thành phố"),
 });
 
 const AddressForm = ({ handleClose, onAddAddress }) => {
