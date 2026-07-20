@@ -39,9 +39,9 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress, formik }) => {
   const handleProvinceChange = async (e) => {
     const value = e.target.value;
 
-    formik.setFieldValue("state", value);
-    formik.setFieldValue("city", "");
-    formik.setFieldValue("locality", "");
+    formik.setFieldValue("pickupAddress.province", value);
+    formik.setFieldValue("pickupAddress.district", "");
+    formik.setFieldValue("pickupAddress.ward", "");
 
     setDistricts([]);
     setWards([]);
@@ -67,8 +67,8 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress, formik }) => {
   const handleDistrictChange = async (e) => {
     const value = e.target.value;
 
-    formik.setFieldValue("city", value);
-    formik.setFieldValue("locality", "");
+    formik.setFieldValue("pickupAddress.district", value);
+    formik.setFieldValue("pickupAddress.ward", "");
 
     setWards([]);
 
@@ -101,52 +101,76 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress, formik }) => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              name="name"
+              name="pickupAddress.name"
               label="Họ và tên"
-              value={formik.values.name}
+              value={formik.values.pickupAddress.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.name && Boolean(formik.errors.name)}
-              helperText={formik.touched.name && formik.errors.name}
+              error={
+                formik.touched.pickupAddress?.name &&
+                Boolean(formik.errors.pickupAddress?.name)
+              }
+              helperText={
+                formik.touched.pickupAddress?.name &&
+                formik.errors.pickupAddress?.name
+              }
             />
           </Grid>
 
           <Grid item xs={12} md={6}>
             <TextField
               fullWidth
-              name="mobile"
+              name="pickupAddress.phone"
+              value={formik.values.pickupAddress.phone}
               label="Số điện thoại"
-              value={formik.values.mobile}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.mobile && Boolean(formik.errors.mobile)}
-              helperText={formik.touched.mobile && formik.errors.mobile}
+              error={
+                formik.touched.pickupAddress?.phone &&
+                Boolean(formik.errors.pickupAddress?.phone)
+              }
+              helperText={
+                formik.touched.pickupAddress?.phone &&
+                formik.errors.pickupAddress?.phone
+              }
             />
           </Grid>
 
           <Grid item xs={12} md={6}>
             <TextField
               fullWidth
-              name="pinCode"
+              name="pickupAddress.postalCode"
+              value={formik.values.pickupAddress.postalCode}
               label="Mã bưu điện"
-              value={formik.values.pinCode}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.pinCode && Boolean(formik.errors.pinCode)}
-              helperText={formik.touched.pinCode && formik.errors.pinCode}
+              error={
+                formik.touched.pickupAddress?.postalCode &&
+                Boolean(formik.errors.pickupAddress?.postalCode)
+              }
+              helperText={
+                formik.touched.pickupAddress?.postalCode &&
+                formik.errors.pickupAddress?.postalCode
+              }
             />
           </Grid>
 
           <Grid item xs={12}>
             <TextField
               fullWidth
-              name="address"
+              name="pickupAddress.address"
+              value={formik.values.pickupAddress.address}
               label="Địa chỉ cụ thể"
-              value={formik.values.address}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.address && Boolean(formik.errors.address)}
-              helperText={formik.touched.address && formik.errors.address}
+              error={
+                formik.touched.pickupAddress?.address &&
+                Boolean(formik.errors.pickupAddress?.address)
+              }
+              helperText={
+                formik.touched.pickupAddress?.address &&
+                formik.errors.pickupAddress?.address
+              }
             />
           </Grid>
 
@@ -154,12 +178,21 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress, formik }) => {
             <TextField
               select
               fullWidth
+              name="pickupAddress.province"
               label="Tỉnh / Thành phố"
-              value={formik.values.state}
+              value={formik.values.pickupAddress.province}
               onChange={handleProvinceChange}
-              onBlur={() => formik.setFieldTouched("state", true)}
-              error={formik.touched.state && Boolean(formik.errors.state)}
-              helperText={formik.touched.state && formik.errors.state}
+              onBlur={() =>
+                formik.setFieldTouched("pickupAddress.province", true)
+              }
+              error={
+                formik.touched.pickupAddress?.province &&
+                Boolean(formik.errors.pickupAddress?.province)
+              }
+              helperText={
+                formik.touched.pickupAddress?.province &&
+                formik.errors.pickupAddress?.province
+              }
             >
               {loadingProvince ? (
                 <MenuItem>
@@ -179,13 +212,22 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress, formik }) => {
             <TextField
               select
               fullWidth
+              name="pickupAddress.district"
               label="Quận / Huyện"
-              value={formik.values.city}
+              value={formik.values.pickupAddress.district}
               onChange={handleDistrictChange}
-              onBlur={() => formik.setFieldTouched("city", true)}
+              onBlur={() =>
+                formik.setFieldTouched("pickupAddress.district", true)
+              }
               disabled={!districts.length}
-              error={formik.touched.city && Boolean(formik.errors.city)}
-              helperText={formik.touched.city && formik.errors.city}
+              error={
+                formik.touched.pickupAddress?.district &&
+                Boolean(formik.errors.pickupAddress?.district)
+              }
+              helperText={
+                formik.touched.pickupAddress?.district &&
+                formik.errors.pickupAddress?.district
+              }
             >
               {loadingDistrict ? (
                 <MenuItem>
@@ -205,14 +247,20 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress, formik }) => {
             <TextField
               select
               fullWidth
-              name="locality"
+              name="pickupAddress.ward"
               label="Phường / Xã"
-              value={formik.values.locality}
+              value={formik.values.pickupAddress.ward}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               disabled={!wards.length}
-              error={formik.touched.locality && Boolean(formik.errors.locality)}
-              helperText={formik.touched.locality && formik.errors.locality}
+              error={
+                formik.touched.pickupAddress?.ward &&
+                Boolean(formik.errors.pickupAddress?.ward)
+              }
+              helperText={
+                formik.touched.pickupAddress?.ward &&
+                formik.errors.pickupAddress?.ward
+              }
             >
               {loadingWard ? (
                 <MenuItem>

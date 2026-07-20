@@ -3,31 +3,35 @@ import React from "react";
 
 const RegisterSellerStep1 = ({ formik }) => {
   return (
-    <div>
-      <Box>
-        <p className="text-2xl font-bold text-center pb-4 text-[#C9A96E] mt-4">Số điện thoại - Mã số thuế</p>
-        <div className="space-y-4 mb-4">
-          <TextField
-            fullWidth
-            name="mobile"
-            label="Số điện thoại"
-            value={formik.values.mobile}
-            onChange={formik.handleChange}
-            error={formik.touched.mobile && Boolean(formik.errors.mobile)}
-            helperText={formik.touched.mobile && formik.errors.mobile}
-          />
-          <TextField
-            fullWidth
-            name="MST"
-            label="Mã số thuế"
-            value={formik.values.MST}
-            onChange={formik.handleChange}
-            error={formik.touched.MST && Boolean(formik.errors.MST)}
-            helperText={formik.touched.MST && formik.errors.MST}
-          />
-        </div>
-      </Box>
-    </div>
+    <Box>
+      <p className="text-2xl font-bold text-center pb-4 text-[#C9A96E] mt-4">
+        Số điện thoại - Mã số thuế
+      </p>
+
+      <div className="space-y-4 mb-4">
+        <TextField
+          fullWidth
+          name="phone"
+          label="Số điện thoại"
+          value={formik.values.phone}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.phone && Boolean(formik.errors.phone)}
+          helperText={formik.touched.phone && formik.errors.phone}
+        />
+
+        <TextField
+          fullWidth
+          name="mst"
+          label="Mã số thuế"
+          value={formik.values.mst}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.mst && Boolean(formik.errors.mst)}
+          helperText={formik.touched.mst && formik.errors.mst}
+        />
+      </div>
+    </Box>
   );
 };
 

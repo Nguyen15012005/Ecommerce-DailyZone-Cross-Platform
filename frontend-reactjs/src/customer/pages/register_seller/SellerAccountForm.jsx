@@ -30,26 +30,27 @@ const SellerAccountForm = () => {
       pickupAddress: {
         name: "",
         phone: "",
-        postalCode: "",
         address: "",
+        ward: "",
         district: "",
         province: "",
-      },
-
-      bankDetails: {
-        accountHolderName: "",
-        accountNumber: "",
-        bankName: "",
-        branch: "",
+        postalCode: "",
       },
 
       businessDetails: {
         businessName: "",
-        businessEmail: "",
-        businessPhone: "",
         businessAddress: "",
+        businessPhone: "",
+        businessEmail: "",
         logo: "",
         banner: "",
+      },
+
+      bankDetails: {
+        accountNumber: "",
+        accountHolderName: "",
+        bankName: "",
+        branch: "",
       },
 
       password: "",
