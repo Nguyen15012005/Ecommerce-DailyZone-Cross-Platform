@@ -5,7 +5,7 @@ const RegisterSellerStep1 = ({ formik }) => {
   return (
     <Box>
       <p className="text-2xl font-bold text-center pb-4 text-[#C9A96E] mt-4">
-        Số điện thoại - Mã số thuế
+        Số Điện Thoại - Mã Số Thuế
       </p>
 
       <div className="space-y-4 mb-4">

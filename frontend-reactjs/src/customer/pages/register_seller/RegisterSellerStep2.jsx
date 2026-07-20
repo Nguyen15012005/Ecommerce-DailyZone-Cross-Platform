@@ -93,7 +93,7 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress, formik }) => {
   return (
     <Box className="mb-5">
       <p className="text-2xl font-bold text-center pb-4 text-[#C9A96E] mt-4">
-        Địa chỉ lấy hàng
+        Địa Chỉ Lấy Hàng
       </p>
 
       <form onSubmit={formik.handleSubmit}>

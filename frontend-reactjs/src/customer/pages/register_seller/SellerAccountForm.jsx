@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import RegisterSellerStep1 from "./RegisterSellerStep1";
 import RegisterSellerStep2 from "./RegisterSellerStep2";
+import RegisterSellerStep3 from "./RegisterSellerStep3";
+import RegisterSellerStep4 from "./RegisterSellerStep4";
 const steps = [
   "SDT - MST",
   "Địa chỉ lấy hàng",
   "Thông tin ngân hàng",
-  "Thông tin nhà cung cấp",
+  "Thông tin nhà bán hàng",
 ];
 const SellerAccountForm = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -36,7 +38,12 @@ const SellerAccountForm = () => {
         province: "",
         postalCode: "",
       },
-
+      bankDetails: {
+        accountNumber: "",
+        accountHolderName: "",
+        bankName: "",
+        branch: "",
+      },
       businessDetails: {
         businessName: "",
         businessAddress: "",
@@ -45,14 +52,6 @@ const SellerAccountForm = () => {
         logo: "",
         banner: "",
       },
-
-      bankDetails: {
-        accountNumber: "",
-        accountHolderName: "",
-        bankName: "",
-        branch: "",
-      },
-
       password: "",
     },
 
@@ -72,13 +71,15 @@ const SellerAccountForm = () => {
       </Stepper>
 
       <section className="space-y-10 mt-5">
-        <div className="">
+        <div>
           {activeStep === 0 ? (
             <RegisterSellerStep1 formik={formik} />
           ) : activeStep === 1 ? (
             <RegisterSellerStep2 formik={formik} />
+          ) : activeStep === 2 ? (
+            <RegisterSellerStep3 formik={formik} />
           ) : (
-            ""
+            <RegisterSellerStep4 formik={formik} />
           )}
         </div>
       </section>
@@ -91,12 +92,8 @@ const SellerAccountForm = () => {
         >
           Quay lại
         </Button>
-        <Button
-          onClick={handleStep(1)}
-          variant="contained"
-          disabled={activeStep == steps.length - 1}
-        >
-          Tiếp tục
+        <Button onClick={handleStep(1)} variant="contained">
+          {activeStep === steps.length - 1 ? "Hoàn thành" : "Tiếp tục"}
         </Button>
       </div>
     </div>
