@@ -69,15 +69,17 @@ const SellerAccountForm = () => {
         ))}
       </Stepper>
 
-      <section>
-        {activeStep === 0 ? <RegisterSellerStep1 formik={formik} /> : ""}
+      <section className="space-y-10 mt-5">
+        <div className="">
+          {activeStep === 0 ? <RegisterSellerStep1 formik={formik} /> : ""}
+        </div>
       </section>
 
       <div className="flex items-center justify-between">
         <Button
           onClick={handleStep(-1)}
           variant="contained"
-          disabled={activeStep == 0}
+          disabled={activeStep === 0}
         >
           Quay lại
         </Button>
