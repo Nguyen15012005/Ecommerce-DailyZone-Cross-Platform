@@ -151,55 +151,55 @@ const LoginSeller = () => {
             </p>
           </>
         ) : (
-          <>
-            <button
-              onClick={handleBack}
-              className="mb-4 text-sm font-medium text-[#8B7355] hover:text-[#221A0F]"
-            >
-              ← Quay lại
-            </button>
+          // <>
+          //   <button
+          //     onClick={handleBack}
+          //     className="mb-4 text-sm font-medium text-[#8B7355] hover:text-[#221A0F]"
+          //   >
+          //     ← Quay lại
+          //   </button>
 
-            <h1 className="mb-1 text-xl font-semibold text-[#221A0F]">
-              Nhập mã xác thực
-            </h1>
-            <p className="mb-6 text-sm text-[#8B7355]">
-              Mã 6 số đã gửi tới{" "}
-              <span className="font-medium text-[#221A0F]">
-                {emailForm.values.email}
-              </span>
-            </p>
+          //   <h1 className="mb-1 text-xl font-semibold text-[#221A0F]">
+          //     Nhập mã xác thực
+          //   </h1>
+          //   <p className="mb-6 text-sm text-[#8B7355]">
+          //     Mã 6 số đã gửi tới{" "}
+          //     <span className="font-medium text-[#221A0F]">
+          //       {emailForm.values.email}
+          //     </span>
+          //   </p>
 
-            <form onSubmit={otpForm.handleSubmit}>
-              <OtpInput
-                value={otpForm.values.otp}
-                onChange={(val) => otpForm.setFieldValue("otp", val)}
-              />
-              {otpForm.touched.otp && otpForm.errors.otp && (
-                <p className="mt-3 text-center text-xs font-medium text-red-500">
-                  {otpForm.errors.otp}
-                </p>
-              )}
-              {loginError && (
-                <p className="mt-3 text-center text-xs font-medium text-red-500">
-                  {loginError}
-                </p>
-              )}
+          //   <form onSubmit={otpForm.handleSubmit}>
+          //     <OtpInput
+          //       value={otpForm.values.otp}
+          //       onChange={(val) => otpForm.setFieldValue("otp", val)}
+          //     />
+          //     {otpForm.touched.otp && otpForm.errors.otp && (
+          //       <p className="mt-3 text-center text-xs font-medium text-red-500">
+          //         {otpForm.errors.otp}
+          //       </p>
+          //     )}
+          //     {loginError && (
+          //       <p className="mt-3 text-center text-xs font-medium text-red-500">
+          //         {loginError}
+          //       </p>
+          //     )}
 
-              <button
-                type="submit"
-                disabled={loginLoading || otpForm.values.otp.length !== 6}
-                className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#221A0F] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3B2B12] disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {loginLoading ? (
-                  <>
-                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                    Đang xác minh...
-                  </>
-                ) : (
-                  "Đăng nhập"
-                )}
-              </button>
-            </form>
+          //     <button
+          //       type="submit"
+          //       disabled={loginLoading || otpForm.values.otp.length !== 6}
+          //       className="mt-5 flex w-full items-center justify-center gap-2 rounded-lg bg-[#221A0F] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3B2B12] disabled:cursor-not-allowed disabled:opacity-40"
+          //     >
+          //       {loginLoading ? (
+          //         <>
+          //           <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+          //           Đang xác minh...
+          //         </>
+          //       ) : (
+          //         "Đăng nhập"
+          //       )}
+          //     </button>
+          //   </form>
 
             <p className="mt-5 text-center text-sm text-[#8B7355]">
               Không nhận được mã?{" "}
