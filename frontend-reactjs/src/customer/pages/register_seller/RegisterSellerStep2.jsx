@@ -11,19 +11,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 
-const ContactSchema = Yup.object().shape({
-  name: Yup.string().required("Bắt buộc"),
-  mobile: Yup.string()
-    .matches(/^[0-9]{10}$/, "Số điện thoại không hợp lệ")
-    .required("Bắt buộc"),
-  pinCode: Yup.string()
-    .matches(/^[0-9]{6}$/, "Mã bưu điện không hợp lệ")
-    .required("Bắt buộc"),
-  address: Yup.string().required("Bắt buộc"),
-  locality: Yup.string().required("Bắt buộc"),
-  city: Yup.string().required("Bắt buộc"),
-  state: Yup.string().required("Bắt buộc"),
-});
 
 const RegisterSellerStep2 = ({ handleClose, onAddAddress }) => {
   const [provinces, setProvinces] = useState([]);
@@ -33,22 +20,6 @@ const RegisterSellerStep2 = ({ handleClose, onAddAddress }) => {
   const [loadingProvince, setLoadingProvince] = useState(false);
   const [loadingDistrict, setLoadingDistrict] = useState(false);
   const [loadingWard, setLoadingWard] = useState(false);
-
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      mobile: "",
-      pinCode: "",
-      address: "",
-      locality: "",
-      city: "",
-      state: "",
-    },
-    validationSchema: ContactSchema,
-    onSubmit: (values) => {
-      onAddAddress(values);
-    },
-  });
 
   useEffect(() => {
     const fetchProvinces = async () => {
