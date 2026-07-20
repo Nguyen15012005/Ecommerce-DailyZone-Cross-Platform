@@ -19,9 +19,12 @@ const ContactSchema = Yup.object().shape({
     .required("Số điện thoại là bắt buộc"),
 
   postalCode: Yup.string()
-    .matches(/^[0-9]{5,6}$/, "Mã bưu chính không hợp lệ")
-    .nullable(),
-
+    .nullable()
+    .transform((value) => (value === "" ? null : value))
+    .matches(/^[0-9]{5,6}$/, {
+      message: "Mã bưu chính không hợp lệ",
+      excludeEmptyString: true,
+    }),
   address: Yup.string().required("Địa chỉ là bắt buộc"),
 
   ward: Yup.string().required("Vui lòng chọn Phường/Xã"),
@@ -43,16 +46,18 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      mobile: "",
-      pinCode: "",
+      phone: "",
       address: "",
-      locality: "",
-      city: "",
-      state: "",
+      ward: "",
+      district: "",
+      province: "",
+      postalCode: "",
     },
     validationSchema: ContactSchema,
     onSubmit: (values) => {
       onAddAddress(values);
+      formik.resetForm();
+      handleClose();
     },
   });
 
@@ -76,9 +81,9 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
   const handleProvinceChange = async (e) => {
     const value = e.target.value;
 
-    formik.setFieldValue("state", value);
-    formik.setFieldValue("city", "");
-    formik.setFieldValue("locality", "");
+    formik.setFieldValue("province", value);
+    formik.setFieldValue("district", "");
+    formik.setFieldValue("ward", "");
 
     setDistricts([]);
     setWards([]);
@@ -104,8 +109,8 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
   const handleDistrictChange = async (e) => {
     const value = e.target.value;
 
-    formik.setFieldValue("city", value);
-    formik.setFieldValue("locality", "");
+    formik.setFieldValue("district", value);
+    formik.setFieldValue("ward", "");
 
     setWards([]);
 
@@ -170,26 +175,28 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
           <Grid item xs={12} md={6}>
             <TextField
               fullWidth
-              name="mobile"
+              name="phone"
+              value={formik.values.phone}
+              error={formik.touched.phone && Boolean(formik.errors.phone)}
+              helperText={formik.touched.phone && formik.errors.phone}
               label="Số điện thoại"
-              value={formik.values.mobile}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.mobile && Boolean(formik.errors.mobile)}
-              helperText={formik.touched.mobile && formik.errors.mobile}
             />
           </Grid>
 
           <Grid item xs={12} md={6}>
             <TextField
               fullWidth
-              name="pinCode"
+              name="postalCode"
+              value={formik.values.postalCode}
+              error={
+                formik.touched.postalCode && Boolean(formik.errors.postalCode)
+              }
+              helperText={formik.touched.postalCode && formik.errors.postalCode}
               label="Mã bưu điện"
-              value={formik.values.pinCode}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              error={formik.touched.pinCode && Boolean(formik.errors.pinCode)}
-              helperText={formik.touched.pinCode && formik.errors.pinCode}
             />
           </Grid>
 
@@ -210,12 +217,13 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
             <TextField
               select
               fullWidth
+              name="province"
               label="Tỉnh / Thành phố"
-              value={formik.values.state}
+              value={formik.values.province}
               onChange={handleProvinceChange}
-              onBlur={() => formik.setFieldTouched("state", true)}
-              error={formik.touched.state && Boolean(formik.errors.state)}
-              helperText={formik.touched.state && formik.errors.state}
+              onBlur={() => formik.setFieldTouched("province", true)}
+              error={formik.touched.province && Boolean(formik.errors.province)}
+              helperText={formik.touched.province && formik.errors.province}
             >
               {loadingProvince ? (
                 <MenuItem>
@@ -235,13 +243,14 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
             <TextField
               select
               fullWidth
+              name="district"
               label="Quận / Huyện"
-              value={formik.values.city}
+              value={formik.values.district}
               onChange={handleDistrictChange}
-              onBlur={() => formik.setFieldTouched("city", true)}
+              onBlur={() => formik.setFieldTouched("district", true)}
               disabled={!districts.length}
-              error={formik.touched.city && Boolean(formik.errors.city)}
-              helperText={formik.touched.city && formik.errors.city}
+              error={formik.touched.district && Boolean(formik.errors.district)}
+              helperText={formik.touched.district && formik.errors.district}
             >
               {loadingDistrict ? (
                 <MenuItem>
@@ -261,14 +270,14 @@ const AddressForm = ({ handleClose, onAddAddress }) => {
             <TextField
               select
               fullWidth
-              name="locality"
+              name="ward"
               label="Phường / Xã"
-              value={formik.values.locality}
+              value={formik.values.ward}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               disabled={!wards.length}
-              error={formik.touched.locality && Boolean(formik.errors.locality)}
-              helperText={formik.touched.locality && formik.errors.locality}
+              error={formik.touched.ward && Boolean(formik.errors.ward)}
+              helperText={formik.touched.ward && formik.errors.ward}
             >
               {loadingWard ? (
                 <MenuItem>
