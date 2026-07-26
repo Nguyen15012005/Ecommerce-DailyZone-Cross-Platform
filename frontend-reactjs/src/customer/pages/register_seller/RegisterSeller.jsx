@@ -87,7 +87,7 @@ const RegisterSeller = () => {
           </div>
         </section>
       </div>
-      <div className="fixed left-6 top-6 z-[9999]">
+      {/* <div className="fixed left-6 top-6 z-[9999]">
         <Button
           startIcon={<ArrowBack />}
           onClick={() => navigate("/")}
@@ -109,7 +109,7 @@ const RegisterSeller = () => {
         >
           Quay lại
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };
