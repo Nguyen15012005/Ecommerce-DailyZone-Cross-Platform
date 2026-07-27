@@ -8,7 +8,7 @@ const LoginSeller = () => {
       email: "",
       otp: "",
     },
-    onSubmit: () => {
+    onSubmit: (values) => {
       console.log("form data" + values);
     },
   });
