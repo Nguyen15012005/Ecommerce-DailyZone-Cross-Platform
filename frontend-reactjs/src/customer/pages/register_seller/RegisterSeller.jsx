@@ -11,7 +11,7 @@ const RegisterSeller = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen bg-[#FCFAF6]">
+    <div className="relative min-h-screen bg-[#FCFAF6] ">
       <div className="mx-auto grid min-h-screen max-w-[2000px]">
         <section className="flex items-center justify-center px-6 py-2 md:px-12 lg:px-16">
           <div className="w-full max-w-4xl rounded-[36px] border border-[#EFE3CF] bg-white p-8 shadow-[0_15px_60px_rgba(0,0,0,.06)] lg:p-12">

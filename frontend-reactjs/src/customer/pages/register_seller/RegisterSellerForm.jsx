@@ -61,7 +61,7 @@ const RegisterSellerForm = () => {
     },
   });
   return (
-    <div>
+    <div className="rounded-2xl border border-[#EFE8D8] bg-white p-8 shadow-[0_2px_24px_rgba(0,0,0,0.04)]">
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label, index) => (
           <Step key={label}>
