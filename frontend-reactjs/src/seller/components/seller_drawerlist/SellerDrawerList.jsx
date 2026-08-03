@@ -13,52 +13,40 @@ import DrawerList from "../../../components/DrawerList";
 
 const menu = [
   {
-    name: "Dashboard",
+    name: "Tổng quan",
     path: "/seller",
-    icon: <Dashboard className="text-[#C9A96E]" />,
-    activeIcon: <Dashboard className="text-[#3B2B12]" />,
   },
   {
-    name: "Orders",
+    name: "Đơn hàng",
     path: "/seller/orders",
-    icon: <ShoppingBag className="text-[#C9A96E]" />,
-    activeIcon: <ShoppingBag className="text-[#3B2B12]" />,
   },
   {
-    name: "Products",
+    name: "Sản phẩm",
     path: "/seller/products",
-    icon: <Inventory className="text-[#C9A96E]" />,
-    activeIcon: <Inventory className="text-[#3B2B12]" />,
   },
   {
-    name: "Add Product",
+    name: "Thêm sản phẩm",
     path: "/seller/add-product",
-    icon: <Add className="text-[#C9A96E]" />,
-    activeIcon: <Add className="text-[#3B2B12]" />,
   },
   {
-    name: "Payment",
+    name: "Thanh toán",
     path: "/seller/payment",
-    icon: <AccountBalanceWallet className="text-[#C9A96E]" />,
-    activeIcon: <AccountBalanceWallet className="text-[#3B2B12]" />,
   },
   {
-    name: "Transaction",
+    name: "Giao dịch",
     path: "/seller/transaction",
-    icon: <Receipt className="text-[#C9A96E]" />,
-    activeIcon: <Receipt className="text-[#3B2B12]" />,
   },
 ];
 
 const menu2 = [
   {
-    name: "Account",
+    name: "Tài khoản",
     path: "/seller/account",
     icon: <AccountBox className="text-[#C9A96E]" />,
     activeIcon: <AccountBox className="text-[#3B2B12]" />,
   },
   {
-    name: "Logout",
+    name: "Đăng xuất",
     path: "/",
     icon: <Logout className="text-[#C9A96E]" />,
     activeIcon: <Logout className="text-[#3B2B12]" />,
