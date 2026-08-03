@@ -6,9 +6,9 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
+import { resetOtpState } from "../../store/authSlice";
 import FormField from "./FormField";
 import OtpInput from "./OtpInput";
-import { resetOtpState } from "../../../store/authSlice";
 
 const emailSchema = Yup.object({
   email: Yup.string()

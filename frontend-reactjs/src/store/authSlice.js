@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 const extractErrorMessage = (error, defaultMsg) => {
   const data = error.response?.data;
@@ -155,7 +156,9 @@ export const verifySellerEmail = createAsyncThunk(
   "auth/verifySellerEmail",
   async (otp, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`${API_BASE_URL}/sellers/verify/${otp}`);
+      const response = await axios.patch(
+        `${API_BASE_URL}/sellers/verify/${otp}`,
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(

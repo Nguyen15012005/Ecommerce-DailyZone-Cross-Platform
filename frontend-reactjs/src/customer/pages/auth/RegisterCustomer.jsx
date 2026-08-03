@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  sendRegisterOtp,
-  registerUser,
-  resetOtpState,
-} from "../../../store/authSlice";
-import OtpInput from "./OtpInput";
-import FormField from "./FormField";
 import { Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
+import {
+  registerUser,
+  resetOtpState,
+  sendRegisterOtp,
+} from "../../../store/authSlice";
+import FormField from "../../../common/auth/FormField";
+import OtpInput from "../../../common/auth/OtpInput";
 
 // ─── Validation schemas ─────────────────────────────────────────────────────
 const infoSchema = Yup.object({
@@ -37,7 +37,7 @@ const otpSchema = Yup.object({
     .required("Vui lòng nhập mã OTP."),
 });
 
-const RegisterPage = () => {
+const RegisterCustomer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -328,4 +328,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default RegisterCustomer;

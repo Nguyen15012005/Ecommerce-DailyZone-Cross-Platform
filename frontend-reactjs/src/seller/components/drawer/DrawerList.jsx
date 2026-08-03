@@ -9,44 +9,44 @@ import {
   Receipt,
   ShoppingBag,
 } from "@mui/icons-material";
-import DrawerList from "../../../components/DrawerList";
+import DrawerItem from "./DrawerItem";
 
 const menu = [
   {
     name: "Tổng quan",
     path: "/seller",
     icon: <Dashboard className="text-[#C9A96E]" />,
-    activeIcon: <Dashboard className="text-[#3B2B12]" />,
+    activeIcon: <Dashboard className="text-white" />,
   },
   {
     name: "Đơn hàng",
     path: "/seller/orders",
     icon: <ShoppingBag className="text-[#C9A96E]" />,
-    activeIcon: <ShoppingBag className="text-[#3B2B12]" />,
+    activeIcon: <ShoppingBag className="text-white" />,
   },
   {
     name: "Sản phẩm",
     path: "/seller/products",
     icon: <Inventory className="text-[#C9A96E]" />,
-    activeIcon: <Inventory className="text-[#3B2B12]" />,
+    activeIcon: <Inventory className="text-white" />,
   },
   {
     name: "Thêm sản phẩm",
     path: "/seller/add-product",
     icon: <Add className="text-[#C9A96E]" />,
-    activeIcon: <Add className="text-[#3B2B12]" />,
+    activeIcon: <Add className="text-white" />,
   },
   {
     name: "Thanh toán",
     path: "/seller/payment",
     icon: <AccountBalanceWallet className="text-[#C9A96E]" />,
-    activeIcon: <AccountBalanceWallet className="text-[#3B2B12]" />,
+    activeIcon: <AccountBalanceWallet className="text-white" />,
   },
   {
     name: "Giao dịch",
     path: "/seller/transaction",
     icon: <Receipt className="text-[#C9A96E]" />,
-    activeIcon: <Receipt className="text-[#3B2B12]" />,
+    activeIcon: <Receipt className="text-white" />,
   },
 ];
 
@@ -55,18 +55,18 @@ const menu2 = [
     name: "Tài khoản",
     path: "/seller/account",
     icon: <AccountBox className="text-[#C9A96E]" />,
-    activeIcon: <AccountBox className="text-[#3B2B12]" />,
+    activeIcon: <AccountBox className="text-white" />,
   },
   {
     name: "Đăng xuất",
     path: "/",
     icon: <Logout className="text-[#C9A96E]" />,
-    activeIcon: <Logout className="text-[#3B2B12]" />,
+    activeIcon: <Logout className="text-white" />,
   },
 ];
 
-const SellerDrawerList = ({ toggleDrawer }) => {
-  return <DrawerList menu={menu} menu2={menu2} toggleDrawer={toggleDrawer} />;
+const DrawerList = ({ toggleDrawer }) => {
+  return <DrawerItem menu={menu} menu2={menu2} toggleDrawer={toggleDrawer} />;
 };
 
-export default SellerDrawerList;
+export default DrawerList;

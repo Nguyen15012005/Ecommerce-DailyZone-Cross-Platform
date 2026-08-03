@@ -3,8 +3,8 @@ import { CheckCircle } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import RegisterSellerForm from "./RegisterSellerForm";
 import LoginSeller from "./LoginSeller";
+import RegisterSellerForm from "../../components/register_step/RegisterSellerForm";
 
 const RegisterSeller = () => {
   const [isLogin, setIsLogin] = useState(false);

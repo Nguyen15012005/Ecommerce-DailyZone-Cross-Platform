@@ -5,11 +5,11 @@ import * as Yup from "yup";
 import { Button } from "@mui/material";
 import {
   loginSellerWithOtp,
+  resetOtpState,
   sendSellerLoginOtp,
 } from "../../../store/authSlice";
-import { resetOtpState } from "../../../store/authSlice";
-import FormField from "../auth/FormField";
-import OtpInput from "../auth/OtpInput";
+import FormField from "../../../common/auth/FormField";
+import OtpInput from "../../../common/auth/OtpInput";
 
 const emailSchema = Yup.object({
   email: Yup.string()

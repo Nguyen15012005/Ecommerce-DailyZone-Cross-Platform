@@ -1,6 +1,4 @@
 import React from "react";
-import LoginPage from "../customer/pages/auth/LoginPage";
-import RegisterPage from "../customer/pages/auth/RegisterPage";
 import Navbar from "../customer/components/navbar/Navbar";
 import Home from "../customer/pages/home/Home";
 import Footer from "../customer/components/footer/Footer";
@@ -12,7 +10,9 @@ import Checkout from "../customer/pages/checkout/Checkout";
 import Payment from "../customer/pages/checkout/Payment";
 import Review from "../customer/pages/review/Review";
 import Wishlist from "../customer/pages/wishlist/Wishlist";
-import RegisterSeller from "./../customer/pages/register_seller/RegisterSeller";
+import LoginCustomer from "../customer/pages/auth/LoginCustomer";
+import RegisterCustomer from "../customer/pages/auth/RegisterCustomer";
+import RegisterSeller from "../seller/pages/auth/RegisterSeller";
 
 const CustomerLayout = ({ children }) => {
   return (
@@ -37,7 +37,7 @@ export const customerRoutes = [
     path: "/login",
     element: (
       // <CustomerLayout>
-      <LoginPage />
+      <LoginCustomer />
       // </CustomerLayout>
     ),
   },
@@ -45,7 +45,7 @@ export const customerRoutes = [
     path: "/register",
     element: (
       // <CustomerLayout>
-      <RegisterPage />
+      <RegisterCustomer />
       // </CustomerLayout>
     ),
   },

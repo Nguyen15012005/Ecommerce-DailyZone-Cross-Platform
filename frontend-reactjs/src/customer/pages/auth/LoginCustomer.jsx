@@ -1,10 +1,10 @@
+import AuthOtpLogin from "../../../common/auth/AuthOtpLogin";
 import { loginWithOtp, sendLoginOtp } from "../../../store/authSlice";
-import AuthOtpLogin from "./AuthOtpLogin";
 
-const LoginPage = () => {
+const LoginCustomer = () => {
   return (
     <AuthOtpLogin sendOtpAction={sendLoginOtp} loginAction={loginWithOtp} />
   );
 };
 
-export default LoginPage;
+export default LoginCustomer;

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const DrawerItem = ({ item, toggleDrawer }) => {
+const Drawer = ({ item, toggleDrawer }) => {
   return (
     <NavLink
       to={item.path}
@@ -25,7 +25,7 @@ const DrawerItem = ({ item, toggleDrawer }) => {
             className={`
               font-medium transition-all
 
-              ${isActive ? "text-[#3B2B12] font-semibold" : "text-[#8B7355]"}
+              ${isActive ? "text-white font-semibold" : "text-[#8B7355]"}
             `}
           >
             {item.name}
@@ -36,7 +36,7 @@ const DrawerItem = ({ item, toggleDrawer }) => {
   );
 };
 
-const DrawerList = ({ menu, menu2, toggleDrawer }) => {
+const DrawerItem = ({ menu, menu2, toggleDrawer }) => {
   return (
     <div className="h-full">
       <div
@@ -51,22 +51,14 @@ const DrawerList = ({ menu, menu2, toggleDrawer }) => {
         {/* MAIN MENU */}
         <div className="space-y-2 px-4">
           {menu.map((item) => (
-            <DrawerItem
-              key={item.name}
-              item={item}
-              toggleDrawer={toggleDrawer}
-            />
+            <Drawer key={item.name} item={item} toggleDrawer={toggleDrawer} />
           ))}
         </div>
 
         {/* BOTTOM MENU */}
         <div className="space-y-2 px-4">
           {menu2.map((item) => (
-            <DrawerItem
-              key={item.name}
-              item={item}
-              toggleDrawer={toggleDrawer}
-            />
+            <Drawer key={item.name} item={item} toggleDrawer={toggleDrawer} />
           ))}
         </div>
       </div>
@@ -74,4 +66,4 @@ const DrawerList = ({ menu, menu2, toggleDrawer }) => {
   );
 };
 
-export default DrawerList;
+export default DrawerItem;
