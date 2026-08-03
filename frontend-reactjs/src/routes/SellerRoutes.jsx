@@ -3,7 +3,7 @@ import SellerDashboard from "../seller/pages/SellerDashboard/SellerDashboard";
 
 export const sellerRoutes = [
   {
-    path: "/seller",
+    path: "/seller/*",
     element: <SellerDashboard />,
   },
 ];
