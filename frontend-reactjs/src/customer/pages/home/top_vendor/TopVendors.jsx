@@ -107,15 +107,41 @@ const vendors = [
     products: 980,
     verified: true,
   },
+  {
+    id: 8,
+    name: "Samsung Store",
+    category: "Điện tử",
+    banner:
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1200&q=80",
+    avatar:
+      "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=300&q=80",
+    rating: 4.9,
+    followers: "30K",
+    products: 980,
+    verified: true,
+  },
+  {
+    id: 8,
+    name: "Samsung Store",
+    category: "Điện tử",
+    banner:
+      "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1200&q=80",
+    avatar:
+      "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=300&q=80",
+    rating: 4.9,
+    followers: "30K",
+    products: 980,
+    verified: true,
+  },
 ];
 
 const TopVendors = () => {
   return (
     <section className="bg-white py-20">
-      <div className="mx-auto max-w-7xl px-5">
+      <div className="mx-auto max-w-8xl px-5">
         {/* Header */}
         <div className="mb-14 flex flex-col items-center justify-between gap-6 md:flex-row">
-          <div>
+          <div className="px-10">
             <p className="uppercase tracking-[0.35em] text-[#C6A15B]">
               TOP VENDORS
             </p>
@@ -137,7 +163,7 @@ const TopVendors = () => {
         </div>
 
         {/* Vendors */}
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
           {vendors.map((vendor) => (
             <VendorCard key={vendor.id} vendor={vendor} />
           ))}

@@ -82,6 +82,26 @@ const products = [
     image:
       "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=800&q=80",
   },
+  {
+    id: 8,
+    category: "Trang sức",
+    name: "Vòng Cổ Luxury",
+    price: "1.099.000đ",
+    oldPrice: "1.399.000đ",
+    discount: 21,
+    image:
+      "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=800&q=80",
+  },
+  {
+    id: 8,
+    category: "Trang sức",
+    name: "Vòng Cổ Luxury",
+    price: "1.099.000đ",
+    oldPrice: "1.399.000đ",
+    discount: 21,
+    image:
+      "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=800&q=80",
+  },
 ];
 
 const BestSellerPage = () => {
@@ -111,7 +131,7 @@ const BestSellerPage = () => {
       </div>
 
       {/* Products */}
-      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-8xl px-4 py-14 sm:px-6 lg:px-8">
         {/* <div className="mb-10 flex items-center justify-between">
           <div>
             <p className="uppercase tracking-[0.3em] text-[#B88E2F] text-sm">
@@ -129,7 +149,7 @@ const BestSellerPage = () => {
         </div> */}
 
         {/* Grid */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
           {products.map((product) => (
             <BestSellerCard key={product.id} product={product} />
           ))}

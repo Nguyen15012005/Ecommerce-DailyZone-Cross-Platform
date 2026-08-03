@@ -106,10 +106,10 @@ const Deal = () => {
   // Khi DB có endpoint deals riêng thì thay thế bằng useSelector
   const deals = FALLBACK_DEALS;
 
-  const settings = {
+  const settingsLeft = {
     dots: false,
     infinite: true,
-    speed: 600,
+    speed: 500,
     slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: true,
@@ -124,6 +124,11 @@ const Deal = () => {
       { breakpoint: 768, settings: { slidesToShow: 2 } },
       { breakpoint: 480, settings: { slidesToShow: 1 } },
     ],
+  };
+
+  const settingsRight = {
+    ...settingsLeft,
+    rtl: true, // Chạy từ phải sang trái
   };
 
   return (
@@ -143,12 +148,20 @@ const Deal = () => {
       </div>
 
       <div className="relative px-8">
-        <Slider {...settings}>
+        <Slider {...settingsLeft}>
           {deals.map((item) => (
             <div key={item.id} className="px-2">
-              <div className="transition duration-300 hover:-translate-y-2">
-                <DealCard item={item} />
-              </div>
+              <DealCard item={item} />
+            </div>
+          ))}
+        </Slider>
+      </div>
+
+      <div className="relative mt-10 px-8">
+        <Slider {...settingsRight}>
+          {deals.map((item) => (
+            <div key={item.id} className="px-2">
+              <DealCard item={item} />
             </div>
           ))}
         </Slider>
