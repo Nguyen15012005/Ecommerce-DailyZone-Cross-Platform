@@ -1,5 +1,5 @@
 import React from "react";
-import SellerDashboard from "../seller/pages/SellerDashboard/SellerDashboard";
+import SellerDashboard from "../seller/pages/seller_dashboard/SellerDashboard";
 
 export const sellerRoutes = [
   {
