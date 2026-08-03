@@ -5,19 +5,17 @@ const DrawerItem = ({ item, toggleDrawer }) => {
   return (
     <NavLink
       to={item.path}
+      end={item.path === "/seller"}
       onClick={toggleDrawer}
-      className={({ isActive }) =>
-        `
-        group flex items-center gap-4 rounded-2xl px-4 py-3
-        transition-all duration-300
-
-        ${
-          isActive
-            ? "bg-gradient-to-r from-[#D6B57A] via-[#C9A96E] to-[#B88A44] shadow-md"
-            : "hover:bg-[#F5EFE4]"
-        }
-        `
-      }
+      className={({ isActive }) => `
+    group flex items-center gap-4 rounded-2xl px-4 py-3
+    transition-all duration-300
+    ${
+      isActive
+        ? "bg-gradient-to-r from-[#D6B57A] via-[#C9A96E] to-[#B88A44] shadow-md"
+        : "hover:bg-[#F5EFE4]"
+    }
+  `}
     >
       {({ isActive }) => (
         <>
