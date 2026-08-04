@@ -102,10 +102,13 @@ export default function ProductsTable() {
             <TableRow>
               <StyledTableCell>Mã sản phẩm</StyledTableCell>
               <StyledTableCell align="left">Tên sản phẩm</StyledTableCell>
-              <StyledTableCell align="center">Loại hàng</StyledTableCell>
-              <StyledTableCell align="center">Giá</StyledTableCell>
+              <StyledTableCell align="center">Ảnh sản phẩm</StyledTableCell>
+              <StyledTableCell align="center">màu sắc</StyledTableCell>
+              <StyledTableCell align="center">Giá sản phẩm</StyledTableCell>
               <StyledTableCell align="center">Kho</StyledTableCell>
-              <StyledTableCell align="center">Trạng thái</StyledTableCell>
+              <StyledTableCell align="center">
+                Trạng thái sản phẩm
+              </StyledTableCell>
               <StyledTableCell align="center">Hành động</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -116,12 +119,14 @@ export default function ProductsTable() {
                   <strong>{row.productId}</strong>
                 </StyledTableCell>
                 <StyledTableCell align="left">{row.name}</StyledTableCell>
+                <StyledTableCell align="center">Ảnh sản phẩm</StyledTableCell>
                 <StyledTableCell align="center">{row.category}</StyledTableCell>
                 <StyledTableCell align="center">
                   <strong style={{ color: theme.palette.primary.main }}>
                     {row.price}
                   </strong>
                 </StyledTableCell>
+
                 <StyledTableCell align="center">{row.stock}</StyledTableCell>
                 <StyledTableCell align="center">
                   <span

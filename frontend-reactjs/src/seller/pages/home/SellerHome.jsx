@@ -33,7 +33,7 @@ const SellerHome = () => {
       </div>
 
       {/* MAIN LAYOUT */}
-      <div className="lg:flex lg:h-[90vh]">
+      <div className="lg:flex lg:h-[90vh] bg-[#fefdfa]">
         {/* DRAWER */}
         <section className="hidden lg:block h-full">
           <DrawerList toggleDrawer={toggleDrawer} />

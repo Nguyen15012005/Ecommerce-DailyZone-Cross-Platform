@@ -108,19 +108,6 @@ const getTypeColor = (type) => {
   return "#DC2626";
 };
 
-const getStatusBg = (status, theme) => {
-  switch (status) {
-    case "Thành công":
-      return theme.palette.success.main;
-    case "Chờ xác nhận":
-      return "#F59E0B";
-    case "Thất bại":
-      return theme.palette.error.main;
-    default:
-      return theme.palette.text.secondary;
-  }
-};
-
 export default function TransactionTable() {
   const theme = useTheme();
 
@@ -134,11 +121,12 @@ export default function TransactionTable() {
           <TableHead>
             <TableRow>
               <StyledTableCell>Mã giao dịch</StyledTableCell>
-              <StyledTableCell align="left">Loại giao dịch</StyledTableCell>
-              <StyledTableCell align="right">Số tiền</StyledTableCell>
-              <StyledTableCell align="center">Ngày</StyledTableCell>
-              <StyledTableCell align="center">Trạng thái</StyledTableCell>
-              <StyledTableCell align="left">Mô tả</StyledTableCell>
+              <StyledTableCell align="left">
+                Chi tiết khách hàng
+              </StyledTableCell>
+              <StyledTableCell align="center">Mã hóa đơn</StyledTableCell>
+              <StyledTableCell align="center">Ngày giao dịch</StyledTableCell>
+              <StyledTableCell align="center">Tổng tiền</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -148,6 +136,11 @@ export default function TransactionTable() {
                   <strong>{row.transactionId}</strong>
                 </StyledTableCell>
                 <StyledTableCell align="left">
+                  {row.description}
+                </StyledTableCell>
+
+                <StyledTableCell align="center">
+                  {" "}
                   <div
                     style={{
                       display: "flex",
@@ -159,31 +152,14 @@ export default function TransactionTable() {
                     <span>{row.type}</span>
                   </div>
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="center">{row.date}</StyledTableCell>
+
+                <StyledTableCell align="center">
                   <strong
                     style={{ color: getTypeColor(row.type), fontSize: "15px" }}
                   >
                     {row.amount}
                   </strong>
-                </StyledTableCell>
-                <StyledTableCell align="center">{row.date}</StyledTableCell>
-                <StyledTableCell align="center">
-                  <span
-                    style={{
-                      display: "inline-block",
-                      padding: "6px 12px",
-                      borderRadius: "20px",
-                      backgroundColor: getStatusBg(row.status, theme),
-                      color: "#FFFFFF",
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {row.status}
-                  </span>
-                </StyledTableCell>
-                <StyledTableCell align="left">
-                  {row.description}
                 </StyledTableCell>
               </StyledTableRow>
             ))}

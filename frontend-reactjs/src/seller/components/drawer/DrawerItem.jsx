@@ -13,7 +13,7 @@ const Drawer = ({ item, toggleDrawer }) => {
     ${
       isActive
         ? "bg-gradient-to-r from-[#D6B57A] via-[#C9A96E] to-[#B88A44] shadow-md"
-        : "hover:bg-[#F5EFE4]"
+        : "hover:bg-[#fef4e4]"
     }
   `}
     >
@@ -44,7 +44,7 @@ const DrawerItem = ({ menu, menu2, toggleDrawer }) => {
         flex h-full w-[300px]
         flex-col justify-between
         border-r border-[#EEE4D2]
-        bg-[#FFFDF8]
+        bg-[#fbf7ee]
         py-5
         "
       >
