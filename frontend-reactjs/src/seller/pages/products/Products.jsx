@@ -12,7 +12,7 @@ export default function Products() {
   return (
     <div>
       {/* HEADER */}
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -53,10 +53,10 @@ export default function Products() {
         >
           Thêm sản phẩm
         </Button>
-      </div>
+      </div> */}
 
       {/* SEARCH & FILTER */}
-      <div
+      {/* <div
         style={{
           display: "flex",
           gap: "12px",
@@ -132,10 +132,10 @@ export default function Products() {
           <option>Sắp hết</option>
           <option>Hết hàng</option>
         </select>
-      </div>
+      </div> */}
 
       {/* QUICK STATS */}
-      <div
+      {/* <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
@@ -203,7 +203,7 @@ export default function Products() {
           </p>
           <h3 style={{ color: "#DC2626", margin: 0 }}>8</h3>
         </div>
-      </div>
+      </div> */}
 
       {/* TABLE */}
       <ProductsTable />

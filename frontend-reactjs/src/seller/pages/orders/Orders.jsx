@@ -1,8 +1,6 @@
 import React from "react";
-import { Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { Add } from "@mui/icons-material";
-import OrdersTable from './OrdersTable';
+import OrdersTable from "./OrdersTable";
 
 export default function Orders() {
   const theme = useTheme();
@@ -10,7 +8,7 @@ export default function Orders() {
   return (
     <div>
       {/* HEADER */}
-      <div
+      {/* <div
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -49,10 +47,10 @@ export default function Orders() {
         >
           Đơn hàng mới
         </Button>
-      </div>
+      </div> */}
 
       {/* FILTERS */}
-      <div
+      {/* <div
         style={{
           display: "flex",
           gap: "12px",
@@ -93,7 +91,7 @@ export default function Orders() {
           <option>Quý này</option>
           <option>Năm này</option>
         </select>
-      </div>
+      </div> */}
 
       {/* TABLE */}
       <OrdersTable />
