@@ -122,7 +122,7 @@ const SectionCard = ({ eyebrow, title, children }) => (
       p: { xs: 2.5, sm: 3.5 },
       border: "1px solid",
       borderColor: "divider",
-      borderRadius: 3,
+      borderRadius: 2,
     }}
   >
     <Typography
@@ -190,6 +190,12 @@ const AddProduct = () => {
     } finally {
       setUploadingImage(false);
     }
+
+    const image = await uploadToCloudinary(file);
+
+    console.log("Image URL:", image);
+
+    formik.setFieldValue("images", [...formik.values.images, image]);
   };
 
   const handleRemoveImage = (index) => {
@@ -235,7 +241,10 @@ const AddProduct = () => {
             <Grid2 container spacing={3}>
               {/* LEFT: form sections */}
               <Grid2 size={{ xs: 12, md: 8 }}>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                <Box
+                  width="100%"
+                  sx={{ display: "flex", flexDirection: "column", gap: 3 }}
+                >
                   <SectionCard title="Hình ảnh sản phẩm">
                     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5 }}>
                       <input
@@ -250,7 +259,7 @@ const AddProduct = () => {
                           sx={{
                             width: 96,
                             height: 96,
-                            borderRadius: 2.5,
+                            borderRadius: 1,
                             border: "1.5px dashed",
                             borderColor: "divider",
                             display: "flex",
@@ -296,7 +305,7 @@ const AddProduct = () => {
                               width: 96,
                               height: 96,
                               objectFit: "cover",
-                              borderRadius: 2.5,
+                              borderRadius: 1,
                               border: "1px solid",
                               borderColor: "divider",
                             }}
@@ -327,7 +336,7 @@ const AddProduct = () => {
                       fullWidth
                       id="title"
                       name="title"
-                      label="Title"
+                      label="Tên sản phẩm"
                       value={formik.values.title}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -343,7 +352,7 @@ const AddProduct = () => {
                       fullWidth
                       id="description"
                       name="description"
-                      label="Description"
+                      label="Mô tả sản phảm"
                       value={formik.values.description}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -358,13 +367,13 @@ const AddProduct = () => {
                     />
                   </SectionCard>
 
-                  <SectionCard title="Pricing & stock">
+                  <SectionCard title="Giá bán - Tồn kho">
                     <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
                       <TextField
                         sx={{ flex: "1 1 200px" }}
                         id="mrpPrice"
                         name="mrpPrice"
-                        label="MRP Price"
+                        label="Giá niêm yết"
                         type="number"
                         value={formik.values.mrpPrice}
                         onChange={formik.handleChange}
@@ -382,7 +391,7 @@ const AddProduct = () => {
                         sx={{ flex: "1 1 200px" }}
                         id="sellingPrice"
                         name="sellingPrice"
-                        label="Selling Price"
+                        label="Giá bán"
                         type="number"
                         value={formik.values.sellingPrice}
                         onChange={formik.handleChange}
@@ -401,7 +410,7 @@ const AddProduct = () => {
                         sx={{ flex: "1 1 200px" }}
                         id="quantity"
                         name="quantity"
-                        label="Quantity"
+                        label="Số lượng sản phẩm"
                         type="number"
                         value={formik.values.quantity}
                         onChange={formik.handleChange}
@@ -418,13 +427,13 @@ const AddProduct = () => {
                     </Box>
                   </SectionCard>
 
-                  <SectionCard title="Color & size">
+                  <SectionCard title="Màu sắc - Kích cỡ">
                     <Box>
                       <Typography
                         variant="body2"
                         sx={{ mb: 1, fontWeight: 500 }}
                       >
-                        Color
+                        Màu sắc
                       </Typography>
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
                         {colors.map((c) => {
@@ -495,7 +504,7 @@ const AddProduct = () => {
                         variant="body2"
                         sx={{ mb: 1, fontWeight: 500 }}
                       >
-                        Size
+                        Kích cỡ
                       </Typography>
                       <ToggleButtonGroup
                         exclusive
@@ -538,7 +547,7 @@ const AddProduct = () => {
                     </Box>
                   </SectionCard>
 
-                  <SectionCard title="Category">
+                  <SectionCard title="Danh mục">
                     <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
                       <FormControl
                         size="small"
@@ -549,13 +558,13 @@ const AddProduct = () => {
                         }
                         required
                       >
-                        <InputLabel id="category-label">Category</InputLabel>
+                        <InputLabel id="category-label">Danh mục 1</InputLabel>
                         <Select
                           labelId="category-label"
                           id="category"
                           name="category"
                           value={formik.values.category}
-                          label="Category"
+                          label="Danh mục 1"
                           onChange={(e) => {
                             formik.setFieldValue("category", e.target.value);
                             formik.setFieldValue("category2", "");
@@ -580,15 +589,13 @@ const AddProduct = () => {
                       </FormControl>
 
                       <FormControl size="small" sx={{ flex: "1 1 220px" }}>
-                        <InputLabel id="category2-label">
-                          Second Category
-                        </InputLabel>
+                        <InputLabel id="category2-label">Danh mục 2</InputLabel>
                         <Select
                           labelId="category2-label"
                           id="category2"
                           name="category2"
                           value={formik.values.category2}
-                          label="Second Category"
+                          label="Danh mục 2"
                           onChange={(e) => {
                             formik.setFieldValue("category2", e.target.value);
                             formik.setFieldValue("category3", "");
@@ -608,20 +615,18 @@ const AddProduct = () => {
                       </FormControl>
 
                       <FormControl size="small" sx={{ flex: "1 1 220px" }}>
-                        <InputLabel id="category3-label">
-                          Third Category
-                        </InputLabel>
+                        <InputLabel id="category3-label">Danh mục 3</InputLabel>
                         <Select
                           labelId="category3-label"
                           id="category3"
                           name="category3"
                           value={formik.values.category3}
-                          label="Third Category"
+                          label="Danh mục 3"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                         >
                           <MenuItem value="">
-                            <em>None</em>
+                            <em>Không</em>
                           </MenuItem>
                           {formik.values.category2 &&
                             childCategory(
@@ -644,13 +649,17 @@ const AddProduct = () => {
 
               {/* RIGHT: sticky live preview */}
               <Grid2 size={{ xs: 12, md: 4 }}>
-                <Box sx={{ position: { md: "sticky" }, top: 24 }}>
+                <Box
+                  width="100%"
+                  padding="0 20px"
+                  sx={{ position: { md: "sticky" } }}
+                >
                   <Paper
                     elevation={0}
                     sx={{
                       border: "1px solid",
                       borderColor: "divider",
-                      borderRadius: 3,
+                      borderRadius: 2,
                       overflow: "hidden",
                     }}
                   >
@@ -690,7 +699,7 @@ const AddProduct = () => {
                           letterSpacing: 1,
                         }}
                       >
-                        Preview
+                        Xem trước
                       </Typography>
                       <Typography
                         sx={{
@@ -800,7 +809,7 @@ const AddProduct = () => {
                         sx={{
                           mt: 2.5,
                           py: 1.3,
-                          borderRadius: 2.5,
+                          borderRadius: 1,
                           textTransform: "none",
                           fontSize: "1rem",
                         }}
