@@ -104,6 +104,7 @@ const validationSchema = Yup.object({
     .required("MRP Price is required"),
   sellingPrice: Yup.number()
     .positive("Selling Price should be greater than zero")
+    .max(Yup.ref("mrpPrice"), "Giá bán phải nhỏ hơn hoặc bằng giá niêm yết")
     .required("Selling Price is required"),
   quantity: Yup.number()
     .positive("Quantity should be greater than zero")
@@ -112,6 +113,8 @@ const validationSchema = Yup.object({
   category: Yup.string().required("Category is required"),
   sizes: Yup.string().required("Sizes are required"),
 });
+
+const MAX_THUMBNAILS = 4;
 
 // Small layout primitive so every section reads the same way:
 // an eyebrow label, a title, then its fields.
@@ -151,6 +154,7 @@ const SectionCard = ({ eyebrow, title, children }) => (
 const AddProduct = () => {
   const [uploadImage, setUploadingImage] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const formik = useFormik({
     initialValues: {
@@ -189,19 +193,19 @@ const AddProduct = () => {
       console.error("Image upload failed:", err);
     } finally {
       setUploadingImage(false);
+      // Reset input so selecting the same file again still fires onChange
+      event.target.value = "";
     }
-
-    const image = await uploadToCloudinary(file);
-
-    console.log("Image URL:", image);
-
-    formik.setFieldValue("images", [...formik.values.images, image]);
   };
 
   const handleRemoveImage = (index) => {
     const updated = [...formik.values.images];
     updated.splice(index, 1);
     formik.setFieldValue("images", updated);
+    setSelectedImageIndex((prev) => {
+      if (updated.length === 0) return 0;
+      return prev >= updated.length ? updated.length - 1 : prev;
+    });
   };
 
   const childCategory = (category, parentCategoryId) => {
@@ -228,6 +232,10 @@ const AddProduct = () => {
     formik.values.category2,
   ).find((c) => c.categoryId === formik.values.category3);
 
+  const previewImages = formik.values.images;
+  const thumbnailImages = previewImages.slice(0, MAX_THUMBNAILS);
+  const extraImageCount = Math.max(0, previewImages.length - MAX_THUMBNAILS);
+
   return (
     <ThemeProvider theme={theme}>
       {/* Remove this if you already load Space Grotesk / Inter globally */}
@@ -241,12 +249,22 @@ const AddProduct = () => {
             <Grid2 container spacing={3}>
               {/* LEFT: form sections */}
               <Grid2 size={{ xs: 12, md: 8 }}>
-                <Box
-                  // width="100%"
-                  sx={{ display: "flex", flexDirection: "column", gap: 3 }}
-                >
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   <SectionCard title="Hình ảnh sản phẩm">
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1.5 }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexWrap: "nowrap",
+                        gap: 1.5,
+                        overflowX: "auto",
+                        pb: 0.75,
+                        "&::-webkit-scrollbar": { height: 6 },
+                        "&::-webkit-scrollbar-thumb": {
+                          backgroundColor: "#D8D7D2",
+                          borderRadius: 4,
+                        },
+                      }}
+                    >
                       <input
                         type="file"
                         accept="image/*"
@@ -254,7 +272,7 @@ const AddProduct = () => {
                         style={{ display: "none" }}
                         onChange={handleImageChange}
                       />
-                      <label htmlFor="fileInput">
+                      <label htmlFor="fileInput" style={{ flex: "0 0 auto" }}>
                         <Box
                           sx={{
                             width: 96,
@@ -296,18 +314,26 @@ const AddProduct = () => {
                       </label>
 
                       {formik.values.images.map((image, index) => (
-                        <Box key={index} sx={{ position: "relative" }}>
+                        <Box
+                          key={index}
+                          sx={{ position: "relative", flex: "0 0 auto" }}
+                        >
                           <Box
                             component="img"
                             src={image}
                             alt={`Product ${index + 1}`}
+                            onClick={() => setSelectedImageIndex(index)}
                             sx={{
                               width: 96,
                               height: 96,
                               objectFit: "cover",
                               borderRadius: 1,
                               border: "1px solid",
-                              borderColor: "divider",
+                              borderColor:
+                                index === selectedImageIndex
+                                  ? "primary.main"
+                                  : "divider",
+                              cursor: "pointer",
                             }}
                           />
                           <IconButton
@@ -375,6 +401,8 @@ const AddProduct = () => {
                         name="mrpPrice"
                         label="Giá niêm yết"
                         type="number"
+                        inputProps={{ min: 0, step: "1000" }}
+                        onWheel={(e) => e.target.blur()}
                         value={formik.values.mrpPrice}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -393,6 +421,8 @@ const AddProduct = () => {
                         name="sellingPrice"
                         label="Giá bán"
                         type="number"
+                        inputProps={{ min: 0, step: "1000" }}
+                        onWheel={(e) => e.target.blur()}
                         value={formik.values.sellingPrice}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -412,6 +442,8 @@ const AddProduct = () => {
                         name="quantity"
                         label="Số lượng sản phẩm"
                         type="number"
+                        inputProps={{ min: 0, step: "1" }}
+                        onWheel={(e) => e.target.blur()}
                         value={formik.values.quantity}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -652,8 +684,8 @@ const AddProduct = () => {
                 <Box
                   sx={{
                     width: "100%",
-                    position: { md: "sticky" },
-                    top: 24,
+                    position: { xs: "static", md: "sticky" },
+                    top: { md: 16 },
                     alignSelf: "flex-start",
                   }}
                 >
@@ -666,34 +698,120 @@ const AddProduct = () => {
                       overflow: "hidden",
                     }}
                   >
-                    <Box
-                      sx={{
-                        aspectRatio: "1 / 1",
-                        backgroundColor: "#F1F0EC",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {formik.values.images[0] ? (
+                    {/* Gallery: main image + up to 4 thumbnails */}
+                    <Box sx={{ p: { xs: 1.5, sm: 2 } }}>
+                      <Box
+                        sx={{
+                          width: 250,
+                          height: 250,
+                          maxWidth: "100%",
+                          backgroundColor: "#F1F0EC",
+                          borderRadius: 1.5,
+                          overflow: "hidden",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          mx: "auto",
+                        }}
+                      >
+                        {previewImages.length > 0 ? (
+                          <Box
+                            component="img"
+                            src={
+                              previewImages[selectedImageIndex] ||
+                              previewImages[0]
+                            }
+                            alt="Ảnh chính sản phẩm"
+                            sx={{
+                              width: 250,
+                              height: 250,
+                              maxWidth: "100%",
+                              objectFit: "cover",
+                              display: "block",
+                            }}
+                          />
+                        ) : (
+                          <Inventory2OutlinedIcon
+                            sx={{ fontSize: 48, color: "#C7C6C0" }}
+                          />
+                        )}
+                      </Box>
+
+                      {previewImages.length > 1 && (
                         <Box
-                          component="img"
-                          src={formik.values.images[0]}
-                          alt="preview"
                           sx={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
+                            display: "flex",
+                            gap: 1,
+                            mt: 1.25,
+                            width: 250,
+                            maxWidth: "100%",
+                            mx: "auto",
+                            overflowX: "auto",
+                            pb: 0.5,
+                            "&::-webkit-scrollbar": { height: 4 },
+                            "&::-webkit-scrollbar-thumb": {
+                              backgroundColor: "#D8D7D2",
+                              borderRadius: 4,
+                            },
                           }}
-                        />
-                      ) : (
-                        <Inventory2OutlinedIcon
-                          sx={{ fontSize: 48, color: "#C7C6C0" }}
-                        />
+                        >
+                          {thumbnailImages.map((image, index) => {
+                            const isActive = index === selectedImageIndex;
+                            return (
+                              <Box
+                                key={index}
+                                component="img"
+                                src={image}
+                                alt={`Ảnh phụ ${index + 1}`}
+                                onClick={() => setSelectedImageIndex(index)}
+                                sx={{
+                                  flex: "0 0 auto",
+                                  width: { xs: 52, sm: 60, md: 56, lg: 60 },
+                                  height: { xs: 52, sm: 60, md: 56, lg: 60 },
+                                  objectFit: "cover",
+                                  borderRadius: 1,
+                                  cursor: "pointer",
+                                  border: "2px solid",
+                                  borderColor: isActive
+                                    ? "primary.main"
+                                    : "divider",
+                                  opacity: isActive ? 1 : 0.85,
+                                  transition:
+                                    "border-color .15s ease, opacity .15s ease",
+                                  "&:hover": { opacity: 1 },
+                                }}
+                              />
+                            );
+                          })}
+
+                          {extraImageCount > 0 && (
+                            <Box
+                              sx={{
+                                flex: "0 0 auto",
+                                width: { xs: 52, sm: 60, md: 56, lg: 60 },
+                                height: { xs: 52, sm: 60, md: 56, lg: 60 },
+                                borderRadius: 1,
+                                border: "1px solid",
+                                borderColor: "divider",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                backgroundColor: "#F1F0EC",
+                                color: "text.secondary",
+                                fontSize: "0.8rem",
+                                fontWeight: 600,
+                              }}
+                            >
+                              +{extraImageCount}
+                            </Box>
+                          )}
+                        </Box>
                       )}
                     </Box>
 
-                    <Box sx={{ p: 2.5 }}>
+                    <Box
+                      sx={{ px: { xs: 2, sm: 2.5 }, pb: { xs: 2, sm: 2.5 } }}
+                    >
                       <Typography
                         variant="overline"
                         sx={{
