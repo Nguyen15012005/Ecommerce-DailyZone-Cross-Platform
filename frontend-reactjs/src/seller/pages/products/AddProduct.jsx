@@ -35,6 +35,7 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CloseIcon from "@mui/icons-material/Close";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
+import { toast } from "react-toastify";
 
 const theme = createTheme({
   palette: {
@@ -182,18 +183,29 @@ const AddProduct = () => {
     },
   });
 
+  const MAX_IMAGES = 7;
+
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
+
+    // Giới hạn tối đa 5 ảnh
+    if (formik.values.images.length >= MAX_IMAGES) {
+      toast.warning("Bạn chỉ được thêm tối đa 7 ảnh.");
+      event.target.value = "";
+      return;
+    }
+
     setUploadingImage(true);
+
     try {
       const image = await uploadToCloudinary(file);
+
       formik.setFieldValue("images", [...formik.values.images, image]);
     } catch (err) {
       console.error("Image upload failed:", err);
     } finally {
       setUploadingImage(false);
-      // Reset input so selecting the same file again still fires onChange
       event.target.value = "";
     }
   };
@@ -258,6 +270,7 @@ const AddProduct = () => {
                         gap: 1.5,
                         overflowX: "auto",
                         pb: 0.75,
+                        maxWidth: 750,
                         "&::-webkit-scrollbar": { height: 6 },
                         "&::-webkit-scrollbar-thumb": {
                           backgroundColor: "#D8D7D2",
@@ -272,46 +285,48 @@ const AddProduct = () => {
                         style={{ display: "none" }}
                         onChange={handleImageChange}
                       />
-                      <label htmlFor="fileInput" style={{ flex: "0 0 auto" }}>
-                        <Box
-                          sx={{
-                            width: 96,
-                            height: 96,
-                            borderRadius: 1,
-                            border: "1.5px dashed",
-                            borderColor: "divider",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            gap: 0.5,
-                            cursor: "pointer",
-                            position: "relative",
-                            transition:
-                              "border-color .15s ease, background-color .15s ease",
-                            "&:hover": {
-                              borderColor: "primary.main",
-                              backgroundColor: "rgba(63,58,201,0.04)",
-                            },
-                          }}
-                        >
-                          {uploadImage ? (
-                            <CircularProgress size={22} />
-                          ) : (
-                            <>
-                              <AddPhotoAlternateIcon
-                                sx={{ color: "text.secondary" }}
-                              />
-                              <Typography
-                                variant="caption"
-                                sx={{ color: "text.secondary" }}
-                              >
-                                Tải ảnh
-                              </Typography>
-                            </>
-                          )}
-                        </Box>
-                      </label>
+                      {formik.values.images.length < 7 && (
+                        <label htmlFor="fileInput" style={{ flex: "0 0 auto" }}>
+                          <Box
+                            sx={{
+                              width: 96,
+                              height: 96,
+                              borderRadius: 1,
+                              border: "1.5px dashed",
+                              borderColor: "divider",
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: 0.5,
+                              cursor: "pointer",
+                              position: "relative",
+                              transition:
+                                "border-color .15s ease, background-color .15s ease",
+                              "&:hover": {
+                                borderColor: "primary.main",
+                                backgroundColor: "rgba(63,58,201,0.04)",
+                              },
+                            }}
+                          >
+                            {uploadImage ? (
+                              <CircularProgress size={22} />
+                            ) : (
+                              <>
+                                <AddPhotoAlternateIcon
+                                  sx={{ color: "text.secondary" }}
+                                />
+                                <Typography
+                                  variant="caption"
+                                  sx={{ color: "text.secondary" }}
+                                >
+                                  Tải ảnh
+                                </Typography>
+                              </>
+                            )}
+                          </Box>
+                        </label>
+                      )}
 
                       {formik.values.images.map((image, index) => (
                         <Box
