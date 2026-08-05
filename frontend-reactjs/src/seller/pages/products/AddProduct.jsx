@@ -256,370 +256,392 @@ const AddProduct = () => {
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       />
       <Box>
-        <Box>
-          <form onSubmit={formik.handleSubmit}>
-            <Grid2 container spacing={3}>
-              {/* LEFT: form sections */}
-              <Grid2 size={{ xs: 12, md: 8 }}>
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                  <SectionCard title="Hình ảnh sản phẩm">
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexWrap: "nowrap",
-                        gap: 1.5,
-                        overflowX: "auto",
-                        pb: 0.75,
-                        maxWidth: 750,
-                        "&::-webkit-scrollbar": { height: 6 },
-                        "&::-webkit-scrollbar-thumb": {
-                          backgroundColor: "#D8D7D2",
-                          borderRadius: 4,
-                        },
-                      }}
-                    >
-                      <input
-                        type="file"
-                        accept="image/*"
-                        id="fileInput"
-                        style={{ display: "none" }}
-                        onChange={handleImageChange}
-                      />
-                      {formik.values.images.length < 7 && (
-                        <label htmlFor="fileInput" style={{ flex: "0 0 auto" }}>
-                          <Box
-                            sx={{
-                              width: 96,
-                              height: 96,
-                              borderRadius: 1,
-                              border: "1.5px dashed",
-                              borderColor: "divider",
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              gap: 0.5,
-                              cursor: "pointer",
-                              position: "relative",
-                              transition:
-                                "border-color .15s ease, background-color .15s ease",
-                              "&:hover": {
-                                borderColor: "primary.main",
-                                backgroundColor: "rgba(63,58,201,0.04)",
-                              },
-                            }}
-                          >
-                            {uploadImage ? (
-                              <CircularProgress size={22} />
-                            ) : (
-                              <>
-                                <AddPhotoAlternateIcon
-                                  sx={{ color: "text.secondary" }}
-                                />
-                                <Typography
-                                  variant="caption"
-                                  sx={{ color: "text.secondary" }}
-                                >
-                                  Tải ảnh
-                                </Typography>
-                              </>
-                            )}
-                          </Box>
-                        </label>
-                      )}
-
-                      {formik.values.images.map((image, index) => (
+        <form onSubmit={formik.handleSubmit}>
+          <Grid2 container spacing={3}>
+            {/* LEFT: form sections */}
+            <Grid2 size={{ xs: 12, md: 8 }}>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                <SectionCard title="Hình ảnh sản phẩm">
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "nowrap",
+                      gap: 1.5,
+                      overflowX: "auto",
+                      pb: 0.75,
+                      maxWidth: 750,
+                      "&::-webkit-scrollbar": { height: 6 },
+                      "&::-webkit-scrollbar-thumb": {
+                        backgroundColor: "#D8D7D2",
+                        borderRadius: 4,
+                      },
+                    }}
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="fileInput"
+                      style={{ display: "none" }}
+                      onChange={handleImageChange}
+                    />
+                    {formik.values.images.length < 7 && (
+                      <label htmlFor="fileInput" style={{ flex: "0 0 auto" }}>
                         <Box
-                          key={index}
-                          sx={{ position: "relative", flex: "0 0 auto" }}
+                          sx={{
+                            width: 96,
+                            height: 96,
+                            borderRadius: 1,
+                            border: "1.5px dashed",
+                            borderColor: "divider",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 0.5,
+                            cursor: "pointer",
+                            position: "relative",
+                            transition:
+                              "border-color .15s ease, background-color .15s ease",
+                            "&:hover": {
+                              borderColor: "primary.main",
+                              backgroundColor: "rgba(63,58,201,0.04)",
+                            },
+                          }}
                         >
-                          <Box
-                            component="img"
-                            src={image}
-                            alt={`Product ${index + 1}`}
-                            onClick={() => setSelectedImageIndex(index)}
-                            sx={{
-                              width: 96,
-                              height: 96,
-                              objectFit: "cover",
-                              borderRadius: 1,
-                              border: "1px solid",
-                              borderColor:
-                                index === selectedImageIndex
-                                  ? "primary.main"
-                                  : "divider",
-                              cursor: "pointer",
-                            }}
-                          />
-                          <IconButton
-                            onClick={() => handleRemoveImage(index)}
-                            size="small"
-                            sx={{
-                              position: "absolute",
-                              top: -8,
-                              right: -8,
-                              backgroundColor: "#fff",
-                              boxShadow: "0 1px 4px rgba(0,0,0,0.25)",
-                              width: 22,
-                              height: 22,
-                              "&:hover": { backgroundColor: "#fff" },
-                            }}
-                          >
-                            <CloseIcon sx={{ fontSize: "0.9rem" }} />
-                          </IconButton>
-                        </Box>
-                      ))}
-                    </Box>
-                  </SectionCard>
-
-                  <SectionCard title="Thông tin sản phẩm">
-                    <TextField
-                      fullWidth
-                      id="title"
-                      name="title"
-                      label="Tên sản phẩm"
-                      value={formik.values.title}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      error={
-                        formik.touched.title && Boolean(formik.errors.title)
-                      }
-                      helperText={formik.touched.title && formik.errors.title}
-                      required
-                    />
-                    <TextField
-                      multiline
-                      rows={4}
-                      fullWidth
-                      id="description"
-                      name="description"
-                      label="Mô tả sản phảm"
-                      value={formik.values.description}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      error={
-                        formik.touched.description &&
-                        Boolean(formik.errors.description)
-                      }
-                      helperText={
-                        formik.touched.description && formik.errors.description
-                      }
-                      required
-                    />
-                  </SectionCard>
-
-                  <SectionCard title="Giá bán - Tồn kho">
-                    <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-                      <TextField
-                        sx={{ flex: "1 1 200px" }}
-                        id="mrpPrice"
-                        name="mrpPrice"
-                        label="Giá niêm yết"
-                        type="number"
-                        inputProps={{ min: 0, step: "1000" }}
-                        onWheel={(e) => e.target.blur()}
-                        value={formik.values.mrpPrice}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.mrpPrice &&
-                          Boolean(formik.errors.mrpPrice)
-                        }
-                        helperText={
-                          formik.touched.mrpPrice && formik.errors.mrpPrice
-                        }
-                        required
-                      />
-                      <TextField
-                        sx={{ flex: "1 1 200px" }}
-                        id="sellingPrice"
-                        name="sellingPrice"
-                        label="Giá bán"
-                        type="number"
-                        inputProps={{ min: 0, step: "1000" }}
-                        onWheel={(e) => e.target.blur()}
-                        value={formik.values.sellingPrice}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.sellingPrice &&
-                          Boolean(formik.errors.sellingPrice)
-                        }
-                        helperText={
-                          formik.touched.sellingPrice &&
-                          formik.errors.sellingPrice
-                        }
-                        required
-                      />
-                      <TextField
-                        sx={{ flex: "1 1 200px" }}
-                        id="quantity"
-                        name="quantity"
-                        label="Số lượng sản phẩm"
-                        type="number"
-                        inputProps={{ min: 0, step: "1" }}
-                        onWheel={(e) => e.target.blur()}
-                        value={formik.values.quantity}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                          formik.touched.quantity &&
-                          Boolean(formik.errors.quantity)
-                        }
-                        helperText={
-                          formik.touched.quantity && formik.errors.quantity
-                        }
-                        required
-                      />
-                    </Box>
-                  </SectionCard>
-
-                  <SectionCard title="Màu sắc - Kích cỡ">
-                    <Box>
-                      <Typography
-                        variant="body2"
-                        sx={{ mb: 1, fontWeight: 500 }}
-                      >
-                        Màu sắc
-                      </Typography>
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-                        {colors.map((c) => {
-                          const selected = formik.values.color === c.name;
-                          return (
-                            <Box
-                              key={c.name}
-                              onClick={() =>
-                                formik.setFieldValue("color", c.name)
-                              }
-                              sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                                gap: 0.5,
-                                cursor: "pointer",
-                              }}
-                            >
-                              <Box
-                                sx={{
-                                  width: 34,
-                                  height: 34,
-                                  borderRadius: "50%",
-                                  backgroundColor: c.hex,
-                                  border:
-                                    c.name === "White"
-                                      ? "1px solid #DDD"
-                                      : "none",
-                                  outline: selected
-                                    ? "2px solid"
-                                    : "2px solid transparent",
-                                  outlineColor: selected
-                                    ? "primary.main"
-                                    : "transparent",
-                                  outlineOffset: "3px",
-                                  transition: "outline-color .15s ease",
-                                }}
+                          {uploadImage ? (
+                            <CircularProgress size={22} />
+                          ) : (
+                            <>
+                              <AddPhotoAlternateIcon
+                                sx={{ color: "text.secondary" }}
                               />
                               <Typography
                                 variant="caption"
-                                sx={{
-                                  color: selected
-                                    ? "primary.main"
-                                    : "text.secondary",
-                                  fontWeight: selected ? 600 : 400,
-                                }}
+                                sx={{ color: "text.secondary" }}
                               >
-                                {c.name}
+                                Tải ảnh
                               </Typography>
-                            </Box>
-                          );
-                        })}
-                      </Box>
-                      {formik.touched.color && formik.errors.color && (
-                        <Typography
-                          variant="caption"
-                          sx={{ color: "error.main", display: "block", mt: 1 }}
+                            </>
+                          )}
+                        </Box>
+                      </label>
+                    )}
+
+                    {formik.values.images.map((image, index) => (
+                      <Box
+                        key={index}
+                        sx={{ position: "relative", flex: "0 0 auto" }}
+                      >
+                        <Box
+                          component="img"
+                          src={image}
+                          alt={`Product ${index + 1}`}
+                          onClick={() => setSelectedImageIndex(index)}
+                          sx={{
+                            width: 96,
+                            height: 96,
+                            objectFit: "cover",
+                            borderRadius: 1,
+                            border: "1px solid",
+                            borderColor:
+                              index === selectedImageIndex
+                                ? "primary.main"
+                                : "divider",
+                            cursor: "pointer",
+                          }}
+                        />
+                        <IconButton
+                          onClick={() => handleRemoveImage(index)}
+                          size="small"
+                          sx={{
+                            position: "absolute",
+                            top: -8,
+                            right: -8,
+                            backgroundColor: "#fff",
+                            boxShadow: "0 1px 4px rgba(0,0,0,0.25)",
+                            width: 22,
+                            height: 22,
+                            "&:hover": { backgroundColor: "#fff" },
+                          }}
                         >
-                          {formik.errors.color}
-                        </Typography>
-                      )}
-                    </Box>
+                          <CloseIcon sx={{ fontSize: "0.9rem" }} />
+                        </IconButton>
+                      </Box>
+                    ))}
+                  </Box>
+                </SectionCard>
 
-                    <Divider />
+                <SectionCard title="Thông tin sản phẩm">
+                  <TextField
+                    fullWidth
+                    id="title"
+                    name="title"
+                    label="Tên sản phẩm"
+                    value={formik.values.title}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.title && Boolean(formik.errors.title)}
+                    helperText={formik.touched.title && formik.errors.title}
+                    required
+                  />
+                  <TextField
+                    multiline
+                    rows={4}
+                    fullWidth
+                    id="description"
+                    name="description"
+                    label="Mô tả sản phảm"
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.description &&
+                      Boolean(formik.errors.description)
+                    }
+                    helperText={
+                      formik.touched.description && formik.errors.description
+                    }
+                    required
+                  />
+                </SectionCard>
 
-                    <Box>
-                      <Typography
-                        variant="body2"
-                        sx={{ mb: 1, fontWeight: 500 }}
-                      >
-                        Kích cỡ
-                      </Typography>
-                      <ToggleButtonGroup
-                        exclusive
-                        value={formik.values.sizes}
-                        onChange={(e, val) =>
-                          val && formik.setFieldValue("sizes", val)
-                        }
-                        sx={{ flexWrap: "wrap", gap: 1 }}
-                      >
-                        {sizeOptions.map((s) => (
-                          <ToggleButton
-                            key={s}
-                            value={s}
+                <SectionCard title="Giá bán - Tồn kho">
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <TextField
+                      sx={{ flex: "1 1 200px" }}
+                      id="mrpPrice"
+                      name="mrpPrice"
+                      label="Giá niêm yết"
+                      type="number"
+                      inputProps={{ min: 0, step: "1000" }}
+                      onWheel={(e) => e.target.blur()}
+                      value={formik.values.mrpPrice}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={
+                        formik.touched.mrpPrice &&
+                        Boolean(formik.errors.mrpPrice)
+                      }
+                      helperText={
+                        formik.touched.mrpPrice && formik.errors.mrpPrice
+                      }
+                      required
+                    />
+                    <TextField
+                      sx={{ flex: "1 1 200px" }}
+                      id="sellingPrice"
+                      name="sellingPrice"
+                      label="Giá bán"
+                      type="number"
+                      inputProps={{ min: 0, step: "1000" }}
+                      onWheel={(e) => e.target.blur()}
+                      value={formik.values.sellingPrice}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={
+                        formik.touched.sellingPrice &&
+                        Boolean(formik.errors.sellingPrice)
+                      }
+                      helperText={
+                        formik.touched.sellingPrice &&
+                        formik.errors.sellingPrice
+                      }
+                      required
+                    />
+                    <TextField
+                      sx={{ flex: "1 1 200px" }}
+                      id="quantity"
+                      name="quantity"
+                      label="Số lượng sản phẩm"
+                      type="number"
+                      inputProps={{ min: 0, step: "1" }}
+                      onWheel={(e) => e.target.blur()}
+                      value={formik.values.quantity}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={
+                        formik.touched.quantity &&
+                        Boolean(formik.errors.quantity)
+                      }
+                      helperText={
+                        formik.touched.quantity && formik.errors.quantity
+                      }
+                      required
+                    />
+                  </Box>
+                </SectionCard>
+
+                <SectionCard title="Màu sắc - Kích cỡ">
+                  <Box>
+                    <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                      Màu sắc
+                    </Typography>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+                      {colors.map((c) => {
+                        const selected = formik.values.color === c.name;
+                        return (
+                          <Box
+                            key={c.name}
+                            onClick={() =>
+                              formik.setFieldValue("color", c.name)
+                            }
                             sx={{
-                              borderRadius: "10px !important",
-                              border: "1px solid !important",
-                              borderColor: "divider",
-                              minWidth: 56,
-                              textTransform: "none",
-                              "&.Mui-selected": {
-                                backgroundColor: "primary.main",
-                                color: "#fff",
-                                borderColor: "primary.main",
-                                "&:hover": { backgroundColor: "primary.dark" },
-                              },
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              gap: 0.5,
+                              cursor: "pointer",
                             }}
                           >
-                            {s}
-                          </ToggleButton>
-                        ))}
-                      </ToggleButtonGroup>
-                      {formik.touched.sizes && formik.errors.sizes && (
-                        <Typography
-                          variant="caption"
-                          sx={{ color: "error.main", display: "block", mt: 1 }}
-                        >
-                          {formik.errors.sizes}
-                        </Typography>
-                      )}
+                            <Box
+                              sx={{
+                                width: 34,
+                                height: 34,
+                                borderRadius: "50%",
+                                backgroundColor: c.hex,
+                                border:
+                                  c.name === "White"
+                                    ? "1px solid #DDD"
+                                    : "none",
+                                outline: selected
+                                  ? "2px solid"
+                                  : "2px solid transparent",
+                                outlineColor: selected
+                                  ? "primary.main"
+                                  : "transparent",
+                                outlineOffset: "3px",
+                                transition: "outline-color .15s ease",
+                              }}
+                            />
+                            <Typography
+                              variant="caption"
+                              sx={{
+                                color: selected
+                                  ? "primary.main"
+                                  : "text.secondary",
+                                fontWeight: selected ? 600 : 400,
+                              }}
+                            >
+                              {c.name}
+                            </Typography>
+                          </Box>
+                        );
+                      })}
                     </Box>
-                  </SectionCard>
-
-                  <SectionCard title="Danh mục">
-                    <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-                      <FormControl
-                        size="small"
-                        sx={{ flex: "1 1 220px" }}
-                        error={
-                          formik.touched.category &&
-                          Boolean(formik.errors.category)
-                        }
-                        required
+                    {formik.touched.color && formik.errors.color && (
+                      <Typography
+                        variant="caption"
+                        sx={{ color: "error.main", display: "block", mt: 1 }}
                       >
-                        <InputLabel id="category-label">Danh mục 1</InputLabel>
-                        <Select
-                          labelId="category-label"
-                          id="category"
-                          name="category"
-                          value={formik.values.category}
-                          label="Danh mục 1"
-                          onChange={(e) => {
-                            formik.setFieldValue("category", e.target.value);
-                            formik.setFieldValue("category2", "");
-                            formik.setFieldValue("category3", "");
+                        {formik.errors.color}
+                      </Typography>
+                    )}
+                  </Box>
+
+                  <Divider />
+
+                  <Box>
+                    <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                      Kích cỡ
+                    </Typography>
+                    <ToggleButtonGroup
+                      exclusive
+                      value={formik.values.sizes}
+                      onChange={(e, val) =>
+                        val && formik.setFieldValue("sizes", val)
+                      }
+                      sx={{ flexWrap: "wrap", gap: 1 }}
+                    >
+                      {sizeOptions.map((s) => (
+                        <ToggleButton
+                          key={s}
+                          value={s}
+                          sx={{
+                            borderRadius: "10px !important",
+                            border: "1px solid !important",
+                            borderColor: "divider",
+                            minWidth: 56,
+                            textTransform: "none",
+                            "&.Mui-selected": {
+                              backgroundColor: "primary.main",
+                              color: "#fff",
+                              borderColor: "primary.main",
+                              "&:hover": { backgroundColor: "primary.dark" },
+                            },
                           }}
-                          onBlur={formik.handleBlur}
                         >
-                          {mainCategory.map((item) => (
+                          {s}
+                        </ToggleButton>
+                      ))}
+                    </ToggleButtonGroup>
+                    {formik.touched.sizes && formik.errors.sizes && (
+                      <Typography
+                        variant="caption"
+                        sx={{ color: "error.main", display: "block", mt: 1 }}
+                      >
+                        {formik.errors.sizes}
+                      </Typography>
+                    )}
+                  </Box>
+                </SectionCard>
+
+                <SectionCard title="Danh mục">
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <FormControl
+                      size="small"
+                      sx={{ flex: "1 1 220px" }}
+                      error={
+                        formik.touched.category &&
+                        Boolean(formik.errors.category)
+                      }
+                      required
+                    >
+                      <InputLabel id="category-label">Danh mục 1</InputLabel>
+                      <Select
+                        labelId="category-label"
+                        id="category"
+                        name="category"
+                        value={formik.values.category}
+                        label="Danh mục 1"
+                        onChange={(e) => {
+                          formik.setFieldValue("category", e.target.value);
+                          formik.setFieldValue("category2", "");
+                          formik.setFieldValue("category3", "");
+                        }}
+                        onBlur={formik.handleBlur}
+                      >
+                        {mainCategory.map((item) => (
+                          <MenuItem
+                            value={item.categoryId}
+                            key={item.categoryId}
+                          >
+                            {item.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      {formik.touched.category && formik.errors.category && (
+                        <FormHelperText>
+                          {formik.errors.category}
+                        </FormHelperText>
+                      )}
+                    </FormControl>
+
+                    <FormControl size="small" sx={{ flex: "1 1 220px" }}>
+                      <InputLabel id="category2-label">Danh mục 2</InputLabel>
+                      <Select
+                        labelId="category2-label"
+                        id="category2"
+                        name="category2"
+                        value={formik.values.category2}
+                        label="Danh mục 2"
+                        onChange={(e) => {
+                          formik.setFieldValue("category2", e.target.value);
+                          formik.setFieldValue("category3", "");
+                        }}
+                        onBlur={formik.handleBlur}
+                      >
+                        {formik.values.category &&
+                          categoryTwo[formik.values.category]?.map((item) => (
                             <MenuItem
                               value={item.categoryId}
                               key={item.categoryId}
@@ -627,348 +649,325 @@ const AddProduct = () => {
                               {item.name}
                             </MenuItem>
                           ))}
-                        </Select>
-                        {formik.touched.category && formik.errors.category && (
-                          <FormHelperText>
-                            {formik.errors.category}
-                          </FormHelperText>
-                        )}
-                      </FormControl>
+                      </Select>
+                    </FormControl>
 
-                      <FormControl size="small" sx={{ flex: "1 1 220px" }}>
-                        <InputLabel id="category2-label">Danh mục 2</InputLabel>
-                        <Select
-                          labelId="category2-label"
-                          id="category2"
-                          name="category2"
-                          value={formik.values.category2}
-                          label="Danh mục 2"
-                          onChange={(e) => {
-                            formik.setFieldValue("category2", e.target.value);
-                            formik.setFieldValue("category3", "");
-                          }}
-                          onBlur={formik.handleBlur}
-                        >
-                          {formik.values.category &&
-                            categoryTwo[formik.values.category]?.map((item) => (
-                              <MenuItem
-                                value={item.categoryId}
-                                key={item.categoryId}
-                              >
-                                {item.name}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </FormControl>
+                    <FormControl size="small" sx={{ flex: "1 1 220px" }}>
+                      <InputLabel id="category3-label">Danh mục 3</InputLabel>
+                      <Select
+                        labelId="category3-label"
+                        id="category3"
+                        name="category3"
+                        value={formik.values.category3}
+                        label="Danh mục 3"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      >
+                        <MenuItem value="">
+                          <em>Không</em>
+                        </MenuItem>
+                        {formik.values.category2 &&
+                          childCategory(
+                            categoryThree[formik.values.category],
+                            formik.values.category2,
+                          ).map((item) => (
+                            <MenuItem
+                              value={item.categoryId}
+                              key={item.categoryId}
+                            >
+                              {item.name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </SectionCard>
+              </Box>
+            </Grid2>
 
-                      <FormControl size="small" sx={{ flex: "1 1 220px" }}>
-                        <InputLabel id="category3-label">Danh mục 3</InputLabel>
-                        <Select
-                          labelId="category3-label"
-                          id="category3"
-                          name="category3"
-                          value={formik.values.category3}
-                          label="Danh mục 3"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                        >
-                          <MenuItem value="">
-                            <em>Không</em>
-                          </MenuItem>
-                          {formik.values.category2 &&
-                            childCategory(
-                              categoryThree[formik.values.category],
-                              formik.values.category2,
-                            ).map((item) => (
-                              <MenuItem
-                                value={item.categoryId}
-                                key={item.categoryId}
-                              >
-                                {item.name}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </FormControl>
-                    </Box>
-                  </SectionCard>
-                </Box>
-              </Grid2>
-
-              {/* RIGHT: sticky live preview */}
-              <Grid2 size={{ xs: 12, md: 4 }}>
-                <Box
+            {/* RIGHT: sticky live preview */}
+            <Grid2 size={{ xs: 12, md: 4 }}>
+              <div className="text-center">
+                <Typography
+                  variant="overline"
                   sx={{
-                    width: "100%",
-                    position: { xs: "static", md: "sticky" },
-                    top: { md: 16 },
-                    alignSelf: "flex-start",
+                    color: "text.secondary",
+                    fontWeight: 700,
+                    letterSpacing: 1,
+                    textAlign: "center",
                   }}
                 >
-                  <Paper
-                    elevation={0}
-                    sx={{
-                      border: "1px solid",
-                      borderColor: "divider",
-                      borderRadius: 2,
-                      overflow: "hidden",
-                    }}
-                  >
-                    {/* Gallery: main image + up to 4 thumbnails */}
-                    <Box sx={{ p: { xs: 1.5, sm: 2 } }}>
+                  Xem trước
+                </Typography>
+              </div>
+              <Box
+                sx={{
+                  width: "100%",
+                  position: { xs: "static", md: "sticky" },
+                  top: { md: 0 },
+                  alignSelf: "flex-start",
+                }}
+              >
+                <Paper
+                  elevation={0}
+                  sx={{
+                    border: "1px solid",
+                    borderColor: "divider",
+                    borderRadius: 2,
+                    overflow: "hidden",
+                  }}
+                >
+                  {/* Gallery: main image + up to 4 thumbnails */}
+                  <Box sx={{ p: { xs: 1.5, sm: 2 } }}>
+                    <Box
+                      sx={{
+                        width: 250,
+                        height: 250,
+                        maxWidth: "100%",
+                        backgroundColor: "#F1F0EC",
+                        borderRadius: 1.5,
+                        overflow: "hidden",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        mx: "auto",
+                      }}
+                    >
+                      {previewImages.length > 0 ? (
+                        <Box
+                          component="img"
+                          src={
+                            previewImages[selectedImageIndex] ||
+                            previewImages[0]
+                          }
+                          alt="Ảnh chính sản phẩm"
+                          sx={{
+                            width: 250,
+                            height: 250,
+                            maxWidth: "100%",
+                            objectFit: "cover",
+                            display: "block",
+                          }}
+                        />
+                      ) : (
+                        <Inventory2OutlinedIcon
+                          sx={{ fontSize: 48, color: "#C7C6C0" }}
+                        />
+                      )}
+                    </Box>
+
+                    {previewImages.length > 1 && (
                       <Box
                         sx={{
-                          width: 250,
-                          height: 250,
-                          maxWidth: "100%",
-                          backgroundColor: "#F1F0EC",
-                          borderRadius: 1.5,
-                          overflow: "hidden",
                           display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
+                          gap: 1,
+                          mt: 1.25,
+                          width: 250,
+                          maxWidth: "100%",
                           mx: "auto",
+                          overflowX: "auto",
+                          pb: 0.5,
+                          "&::-webkit-scrollbar": { height: 4 },
+                          "&::-webkit-scrollbar-thumb": {
+                            backgroundColor: "#D8D7D2",
+                            borderRadius: 4,
+                          },
                         }}
                       >
-                        {previewImages.length > 0 ? (
-                          <Box
-                            component="img"
-                            src={
-                              previewImages[selectedImageIndex] ||
-                              previewImages[0]
-                            }
-                            alt="Ảnh chính sản phẩm"
-                            sx={{
-                              width: 250,
-                              height: 250,
-                              maxWidth: "100%",
-                              objectFit: "cover",
-                              display: "block",
-                            }}
-                          />
-                        ) : (
-                          <Inventory2OutlinedIcon
-                            sx={{ fontSize: 48, color: "#C7C6C0" }}
-                          />
-                        )}
-                      </Box>
-
-                      {previewImages.length > 1 && (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            gap: 1,
-                            mt: 1.25,
-                            width: 250,
-                            maxWidth: "100%",
-                            mx: "auto",
-                            overflowX: "auto",
-                            pb: 0.5,
-                            "&::-webkit-scrollbar": { height: 4 },
-                            "&::-webkit-scrollbar-thumb": {
-                              backgroundColor: "#D8D7D2",
-                              borderRadius: 4,
-                            },
-                          }}
-                        >
-                          {thumbnailImages.map((image, index) => {
-                            const isActive = index === selectedImageIndex;
-                            return (
-                              <Box
-                                key={index}
-                                component="img"
-                                src={image}
-                                alt={`Ảnh phụ ${index + 1}`}
-                                onClick={() => setSelectedImageIndex(index)}
-                                sx={{
-                                  flex: "0 0 auto",
-                                  width: { xs: 52, sm: 60, md: 56, lg: 60 },
-                                  height: { xs: 52, sm: 60, md: 56, lg: 60 },
-                                  objectFit: "cover",
-                                  borderRadius: 1,
-                                  cursor: "pointer",
-                                  border: "2px solid",
-                                  borderColor: isActive
-                                    ? "primary.main"
-                                    : "divider",
-                                  opacity: isActive ? 1 : 0.85,
-                                  transition:
-                                    "border-color .15s ease, opacity .15s ease",
-                                  "&:hover": { opacity: 1 },
-                                }}
-                              />
-                            );
-                          })}
-
-                          {extraImageCount > 0 && (
+                        {thumbnailImages.map((image, index) => {
+                          const isActive = index === selectedImageIndex;
+                          return (
                             <Box
+                              key={index}
+                              component="img"
+                              src={image}
+                              alt={`Ảnh phụ ${index + 1}`}
+                              onClick={() => setSelectedImageIndex(index)}
                               sx={{
                                 flex: "0 0 auto",
                                 width: { xs: 52, sm: 60, md: 56, lg: 60 },
                                 height: { xs: 52, sm: 60, md: 56, lg: 60 },
+                                objectFit: "cover",
                                 borderRadius: 1,
-                                border: "1px solid",
-                                borderColor: "divider",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                backgroundColor: "#F1F0EC",
-                                color: "text.secondary",
-                                fontSize: "0.8rem",
-                                fontWeight: 600,
+                                cursor: "pointer",
+                                border: "2px solid",
+                                borderColor: isActive
+                                  ? "primary.main"
+                                  : "divider",
+                                opacity: isActive ? 1 : 0.85,
+                                transition:
+                                  "border-color .15s ease, opacity .15s ease",
+                                "&:hover": { opacity: 1 },
                               }}
-                            >
-                              +{extraImageCount}
-                            </Box>
-                          )}
-                        </Box>
-                      )}
-                    </Box>
+                            />
+                          );
+                        })}
+
+                        {extraImageCount > 0 && (
+                          <Box
+                            sx={{
+                              flex: "0 0 auto",
+                              width: { xs: 52, sm: 60, md: 56, lg: 60 },
+                              height: { xs: 52, sm: 60, md: 56, lg: 60 },
+                              borderRadius: 1,
+                              border: "1px solid",
+                              borderColor: "divider",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              backgroundColor: "#F1F0EC",
+                              color: "text.secondary",
+                              fontSize: "0.8rem",
+                              fontWeight: 600,
+                            }}
+                          >
+                            +{extraImageCount}
+                          </Box>
+                        )}
+                      </Box>
+                    )}
+                  </Box>
+
+                  <Box sx={{ px: { xs: 2, sm: 2.5 }, pb: { xs: 2, sm: 2.5 } }}>
+                    <Typography
+                      sx={{
+                        fontFamily: '"Space Grotesk", sans-serif',
+                        fontWeight: 600,
+                        fontSize: "1.05rem",
+                        mt: 0.25,
+                        mb: 1,
+                      }}
+                      noWrap
+                    >
+                      {formik.values.title || "Untitled product"}
+                    </Typography>
+
+                    <Typography
+                      variant="overline"
+                      sx={{
+                        color: "text.secondary",
+                        fontWeight: 600,
+                        fontSize: "0.7rem",
+                        letterSpacing: 1,
+                      }}
+                    >
+                      {formik.values.description || "Untitled product"}
+                    </Typography>
 
                     <Box
-                      sx={{ px: { xs: 2, sm: 2.5 }, pb: { xs: 2, sm: 2.5 } }}
+                      sx={{
+                        display: "flex",
+                        alignItems: "baseline",
+                        gap: 1,
+                        flexWrap: "wrap",
+                      }}
                     >
-                      <Typography
-                        variant="overline"
-                        sx={{
-                          color: "text.secondary",
-                          fontWeight: 700,
-                          letterSpacing: 1,
-                        }}
-                      >
-                        Xem trước
-                      </Typography>
                       <Typography
                         sx={{
                           fontFamily: '"Space Grotesk", sans-serif',
-                          fontWeight: 600,
-                          fontSize: "1.05rem",
-                          mt: 0.25,
-                          mb: 1,
+                          fontWeight: 700,
+                          fontSize: "1.4rem",
                         }}
-                        noWrap
                       >
-                        {formik.values.title || "Untitled product"}
+                        {selling > 0 ? `₫${selling.toLocaleString()}` : "—"}
                       </Typography>
-
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "baseline",
-                          gap: 1,
-                          flexWrap: "wrap",
-                        }}
-                      >
+                      {mrp > 0 && selling > 0 && selling < mrp && (
                         <Typography
-                          sx={{
-                            fontFamily: '"Space Grotesk", sans-serif',
-                            fontWeight: 700,
-                            fontSize: "1.4rem",
-                          }}
-                        >
-                          {selling > 0 ? `₫${selling.toLocaleString()}` : "—"}
-                        </Typography>
-                        {mrp > 0 && selling > 0 && selling < mrp && (
-                          <Typography
-                            sx={{
-                              color: "text.secondary",
-                              textDecoration: "line-through",
-                              fontSize: "0.9rem",
-                            }}
-                          >
-                            ₫{mrp.toLocaleString()}
-                          </Typography>
-                        )}
-                        {discountPercent > 0 && (
-                          <Chip
-                            label={`-${discountPercent}%`}
-                            size="small"
-                            sx={{
-                              backgroundColor: "rgba(31,138,95,0.12)",
-                              color: "success.main",
-                              fontWeight: 600,
-                            }}
-                          />
-                        )}
-                      </Box>
-
-                      {(selectedC1 || selectedC2 || selectedC3) && (
-                        <Typography
-                          variant="caption"
                           sx={{
                             color: "text.secondary",
-                            display: "block",
-                            mt: 1.5,
+                            textDecoration: "line-through",
+                            fontSize: "0.9rem",
                           }}
                         >
-                          {[
-                            selectedC1?.name,
-                            selectedC2?.name,
-                            selectedC3?.name,
-                          ]
-                            .filter(Boolean)
-                            .join(" / ")}
+                          ₫{mrp.toLocaleString()}
                         </Typography>
                       )}
-
-                      <Box
-                        sx={{
-                          display: "flex",
-                          gap: 1,
-                          mt: 1.5,
-                          flexWrap: "wrap",
-                        }}
-                      >
-                        {formik.values.color && (
-                          <Chip
-                            label={formik.values.color}
-                            size="small"
-                            variant="outlined"
-                          />
-                        )}
-                        {formik.values.sizes && (
-                          <Chip
-                            label={formik.values.sizes}
-                            size="small"
-                            variant="outlined"
-                          />
-                        )}
-                        {formik.values.quantity && (
-                          <Chip
-                            label={`${formik.values.quantity} in stock`}
-                            size="small"
-                            variant="outlined"
-                          />
-                        )}
-                      </Box>
-
-                      <Button
-                        sx={{
-                          mt: 2.5,
-                          py: 1.3,
-                          borderRadius: 1,
-                          textTransform: "none",
-                          fontSize: "1rem",
-                        }}
-                        color="primary"
-                        variant="contained"
-                        fullWidth
-                        type="submit"
-                        onClick={formik.handleSubmit}
-                        disabled={submitting}
-                      >
-                        {submitting ? (
-                          <CircularProgress size={22} sx={{ color: "#fff" }} />
-                        ) : (
-                          "Add Product"
-                        )}
-                      </Button>
+                      {discountPercent > 0 && (
+                        <Chip
+                          label={`-${discountPercent}%`}
+                          size="small"
+                          sx={{
+                            backgroundColor: "rgba(31,138,95,0.12)",
+                            color: "success.main",
+                            fontWeight: 600,
+                          }}
+                        />
+                      )}
                     </Box>
-                  </Paper>
-                </Box>
-              </Grid2>
+
+                    {(selectedC1 || selectedC2 || selectedC3) && (
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          color: "text.secondary",
+                          display: "block",
+                          mt: 1.5,
+                        }}
+                      >
+                        {[selectedC1?.name, selectedC2?.name, selectedC3?.name]
+                          .filter(Boolean)
+                          .join(" / ")}
+                      </Typography>
+                    )}
+
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 1,
+                        mt: 1.5,
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {formik.values.color && (
+                        <Chip
+                          label={formik.values.color}
+                          size="small"
+                          variant="outlined"
+                        />
+                      )}
+                      {formik.values.sizes && (
+                        <Chip
+                          label={formik.values.sizes}
+                          size="small"
+                          variant="outlined"
+                        />
+                      )}
+                      {formik.values.quantity && (
+                        <Chip
+                          label={`${formik.values.quantity} in stock`}
+                          size="small"
+                          variant="outlined"
+                        />
+                      )}
+                    </Box>
+
+                    <Button
+                      sx={{
+                        mt: 2.5,
+                        py: 1.3,
+                        borderRadius: 1,
+                        textTransform: "none",
+                        fontSize: "1rem",
+                      }}
+                      color="primary"
+                      variant="contained"
+                      fullWidth
+                      type="submit"
+                      onClick={formik.handleSubmit}
+                      disabled={submitting}
+                    >
+                      {submitting ? (
+                        <CircularProgress size={22} sx={{ color: "#fff" }} />
+                      ) : (
+                        "Add Product"
+                      )}
+                    </Button>
+                  </Box>
+                </Paper>
+              </Box>
             </Grid2>
-          </form>
-        </Box>
+          </Grid2>
+        </form>
       </Box>
     </ThemeProvider>
   );
