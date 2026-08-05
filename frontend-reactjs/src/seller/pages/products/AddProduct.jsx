@@ -242,7 +242,7 @@ const AddProduct = () => {
               {/* LEFT: form sections */}
               <Grid2 size={{ xs: 12, md: 8 }}>
                 <Box
-                  width="100%"
+                  // width="100%"
                   sx={{ display: "flex", flexDirection: "column", gap: 3 }}
                 >
                   <SectionCard title="Hình ảnh sản phẩm">
@@ -650,9 +650,12 @@ const AddProduct = () => {
               {/* RIGHT: sticky live preview */}
               <Grid2 size={{ xs: 12, md: 4 }}>
                 <Box
-                  width="100%"
-                  padding="0 20px"
-                  sx={{ position: { md: "sticky" } }}
+                  sx={{
+                    width: "100%",
+                    position: { md: "sticky" },
+                    top: 24,
+                    alignSelf: "flex-start",
+                  }}
                 >
                   <Paper
                     elevation={0}
