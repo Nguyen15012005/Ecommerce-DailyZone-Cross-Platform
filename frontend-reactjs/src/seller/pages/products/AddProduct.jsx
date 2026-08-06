@@ -472,117 +472,125 @@ const AddProduct = () => {
                 </SectionCard>
 
                 <SectionCard title="Màu sắc - Kích cỡ">
-                  <Box>
-                    <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-                      Màu sắc
-                    </Typography>
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-                      {colors.map((c) => {
-                        const selected = formik.values.color === c.name;
-                        return (
-                          <Box
-                            key={c.name}
-                            onClick={() =>
-                              formik.setFieldValue("color", c.name)
-                            }
-                            sx={{
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "center",
-                              gap: 0.5,
-                              cursor: "pointer",
-                            }}
-                          >
+                  <div className="flex justify-between">
+                    <Box>
+                      <Typography
+                        variant="body2"
+                        sx={{ mb: 1, fontWeight: 500 }}
+                      >
+                        Màu sắc
+                      </Typography>
+                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+                        {colors.map((c) => {
+                          const selected = formik.values.color === c.name;
+                          return (
                             <Box
+                              key={c.name}
+                              onClick={() =>
+                                formik.setFieldValue("color", c.name)
+                              }
                               sx={{
-                                width: 34,
-                                height: 34,
-                                borderRadius: "50%",
-                                backgroundColor: c.hex,
-                                border:
-                                  c.name === "White"
-                                    ? "1px solid #DDD"
-                                    : "none",
-                                outline: selected
-                                  ? "2px solid"
-                                  : "2px solid transparent",
-                                outlineColor: selected
-                                  ? "primary.main"
-                                  : "transparent",
-                                outlineOffset: "3px",
-                                transition: "outline-color .15s ease",
-                              }}
-                            />
-                            <Typography
-                              variant="caption"
-                              sx={{
-                                color: selected
-                                  ? "primary.main"
-                                  : "text.secondary",
-                                fontWeight: selected ? 600 : 400,
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                gap: 0.5,
+                                cursor: "pointer",
                               }}
                             >
-                              {c.name}
-                            </Typography>
-                          </Box>
-                        );
-                      })}
-                    </Box>
-                    {formik.touched.color && formik.errors.color && (
-                      <Typography
-                        variant="caption"
-                        sx={{ color: "error.main", display: "block", mt: 1 }}
-                      >
-                        {formik.errors.color}
-                      </Typography>
-                    )}
-                  </Box>
-
-                  <Divider />
-
-                  <Box>
-                    <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
-                      Kích cỡ
-                    </Typography>
-                    <ToggleButtonGroup
-                      exclusive
-                      value={formik.values.sizes}
-                      onChange={(e, val) =>
-                        val && formik.setFieldValue("sizes", val)
-                      }
-                      sx={{ flexWrap: "wrap", gap: 1 }}
-                    >
-                      {sizeOptions.map((s) => (
-                        <ToggleButton
-                          key={s}
-                          value={s}
-                          sx={{
-                            borderRadius: "10px !important",
-                            border: "1px solid !important",
-                            borderColor: "divider",
-                            minWidth: 56,
-                            textTransform: "none",
-                            "&.Mui-selected": {
-                              backgroundColor: "primary.main",
-                              color: "#fff",
-                              borderColor: "primary.main",
-                              "&:hover": { backgroundColor: "primary.dark" },
-                            },
-                          }}
+                              <Box
+                                sx={{
+                                  width: 34,
+                                  height: 34,
+                                  borderRadius: "50%",
+                                  backgroundColor: c.hex,
+                                  border:
+                                    c.name === "White"
+                                      ? "1px solid #DDD"
+                                      : "none",
+                                  outline: selected
+                                    ? "2px solid"
+                                    : "2px solid transparent",
+                                  outlineColor: selected
+                                    ? "primary.main"
+                                    : "transparent",
+                                  outlineOffset: "3px",
+                                  transition: "outline-color .15s ease",
+                                }}
+                              />
+                              <Typography
+                                variant="caption"
+                                sx={{
+                                  color: selected
+                                    ? "primary.main"
+                                    : "text.secondary",
+                                  fontWeight: selected ? 600 : 400,
+                                }}
+                              >
+                                {c.name}
+                              </Typography>
+                            </Box>
+                          );
+                        })}
+                      </Box>
+                      {formik.touched.color && formik.errors.color && (
+                        <Typography
+                          variant="caption"
+                          sx={{ color: "error.main", display: "block", mt: 1 }}
                         >
-                          {s}
-                        </ToggleButton>
-                      ))}
-                    </ToggleButtonGroup>
-                    {formik.touched.sizes && formik.errors.sizes && (
+                          {formik.errors.color}
+                        </Typography>
+                      )}
+                    </Box>
+
+                    <Divider />
+
+                    <Box>
                       <Typography
-                        variant="caption"
-                        sx={{ color: "error.main", display: "block", mt: 1 }}
+                        variant="body2"
+                        sx={{ mb: 1, fontWeight: 500 }}
                       >
-                        {formik.errors.sizes}
+                        Kích cỡ
                       </Typography>
-                    )}
-                  </Box>
+                      <ToggleButtonGroup
+                        exclusive
+                        value={formik.values.sizes}
+                        onChange={(e, val) =>
+                          val && formik.setFieldValue("sizes", val)
+                        }
+                        sx={{ flexWrap: "wrap", gap: 1 }}
+                      >
+                        {sizeOptions.map((s) => (
+                          <ToggleButton
+                            key={s}
+                            value={s}
+                            sx={{
+                              borderRadius: "10px !important",
+                              border: "1px solid !important",
+                              borderColor: "divider",
+                              minWidth: 56,
+                              textTransform: "none",
+                              "&.Mui-selected": {
+                                backgroundColor: "primary.main",
+                                color: "#fff",
+                                borderColor: "primary.main",
+                                "&:hover": { backgroundColor: "primary.dark" },
+                              },
+                            }}
+                          >
+                            {s}
+                          </ToggleButton>
+                        ))}
+                      </ToggleButtonGroup>
+                      {formik.touched.sizes && formik.errors.sizes && (
+                        <Typography
+                          variant="caption"
+                          sx={{ color: "error.main", display: "block", mt: 1 }}
+                        >
+                          {formik.errors.sizes}
+                        </Typography>
+                      )}
+                    </Box>
+                  </div>
                 </SectionCard>
 
                 <SectionCard title="Danh mục">
