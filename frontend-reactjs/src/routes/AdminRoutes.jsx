@@ -1,18 +1,16 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import AdminHome from "../admin/pages/home/AdminHome";
+import Dashboard from "../admin/pages/dashboard";
 
-const AdminRoutes = () => {
-  return (
-    <Routes>
-      {/* <Route path="/" element={<SellersTable />} /> */}
-      {/* <Route path="/coupon" element={<Coupon />} />
-      <Route path="/add-coupon" element={<CouponForm />} />
-      <Route path="/home-grid" element={<GridTable />} />
-      <Route path="/electronics-category" element={<ElectronicsTable />} />
-      <Route path="/shop-by-category" element={<ShopByCategoryTable />} />
-      <Route path="/deals" element={<Deal />} /> */}
-    </Routes>
-  );
-};
-
-export default AdminRoutes;
+export const adminRoutes = [
+  {
+    path: "/admin",
+    element: <AdminHome />,
+    children: [
+      {
+        index: true, // Route mặc định cho /seller
+        element: <Dashboard />,
+      },
+    ],
+  },
+];

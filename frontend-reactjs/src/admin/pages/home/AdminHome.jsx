@@ -1,8 +1,8 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import DrawerList from "../../../common/drawer/DrawerList";
+import { DrawerList1 } from "../../../common/drawer/DrawerList";
 
-const SellerHome = () => {
+const AdminHome = () => {
   const toggleDrawer = () => {};
 
   return (
@@ -36,7 +36,7 @@ const SellerHome = () => {
       <div className="lg:flex lg:h-[90vh] bg-[#fefdfa]">
         {/* DRAWER */}
         <section className="hidden lg:block h-full">
-          <DrawerList toggleDrawer={toggleDrawer} />
+          <DrawerList1 toggleDrawer={toggleDrawer} />
         </section>
 
         {/* CONTENT */}
@@ -48,4 +48,4 @@ const SellerHome = () => {
   );
 };
 
-export default SellerHome;
+export default AdminHome;

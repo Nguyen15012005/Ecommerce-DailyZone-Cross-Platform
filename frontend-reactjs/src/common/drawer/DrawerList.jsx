@@ -50,6 +50,20 @@ const menu = [
   },
 ];
 
+const menu1 = [
+  {
+    name: "Đây là Trang của admin",
+    path: "/admin",
+    icon: <Dashboard className="text-[#C9A96E]" />,
+    activeIcon: <Dashboard className="text-white" />,
+  },
+  {
+    name: "Tổng quan",
+    path: "/admin",
+    icon: <Dashboard className="text-[#C9A96E]" />,
+    activeIcon: <Dashboard className="text-white" />,
+  },
+];
 const menu2 = [
   {
     name: "Tài khoản",
@@ -70,3 +84,7 @@ const DrawerList = ({ toggleDrawer }) => {
 };
 
 export default DrawerList;
+
+export const DrawerList1 = ({ toggleDrawer }) => {
+  return <DrawerItem menu={menu1} menu2={menu2} toggleDrawer={toggleDrawer} />;
+};
