@@ -941,7 +941,7 @@ const AddProduct = () => {
                       )}
                     </Box>
 
-                    {/* <Button
+                    <Button
                       sx={{
                         mt: 2.5,
                         py: 1.3,
@@ -961,7 +961,7 @@ const AddProduct = () => {
                       ) : (
                         "Add Product"
                       )}
-                    </Button> */}
+                    </Button>
                   </Box>
                 </Paper>
               </Box>
