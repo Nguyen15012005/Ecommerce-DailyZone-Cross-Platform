@@ -193,7 +193,7 @@ const AuthOtpLogin = ({
               </button>
             </form>
 
-            {/* {location.pathname !== "/admin/login" && registerTo && (
+            {location.pathname !== "/admin/login" && registerTo && (
               <p className="mt-6 text-center text-sm text-[#8B7355]">
                 {registerPrompt}{" "}
                 <Link
@@ -203,7 +203,7 @@ const AuthOtpLogin = ({
                   {registerLabel}
                 </Link>
               </p>
-            )} */}
+            )}
             <div className="mt-2 flex justify-center items-center">
               <button
                 onClick={() => {
