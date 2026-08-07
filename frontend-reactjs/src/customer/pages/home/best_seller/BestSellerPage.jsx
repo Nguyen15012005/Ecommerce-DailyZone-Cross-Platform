@@ -83,7 +83,7 @@ const products = [
       "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=800&q=80",
   },
   {
-    id: 8,
+    id: 9,
     category: "Trang sức",
     name: "Vòng Cổ Luxury",
     price: "1.099.000đ",
@@ -93,7 +93,7 @@ const products = [
       "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=800&q=80",
   },
   {
-    id: 8,
+    id: 10,
     category: "Trang sức",
     name: "Vòng Cổ Luxury",
     price: "1.099.000đ",
