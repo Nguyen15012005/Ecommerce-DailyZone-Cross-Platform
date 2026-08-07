@@ -7,14 +7,19 @@ import Payment from "../seller/pages/payment/Payment";
 import Transaction from "../seller/pages/transaction/Transaction";
 import Dashboard from "./../seller/pages/dashboard/Dashboard";
 import SellerHome from "../seller/pages/home/SellerHome";
+import ProtectedRoute from "./ProtectedRoute";
 
 export const sellerRoutes = [
   {
     path: "/seller",
-    element: <SellerHome />,
+    element: (
+      <ProtectedRoute allowedRoles={["SELLER"]}>
+        <SellerHome />
+      </ProtectedRoute>
+    ),
     children: [
       {
-        index: true, // Route mặc định cho /seller
+        index: true,
         element: <Dashboard />,
       },
       {

@@ -168,6 +168,27 @@ export const verifySellerEmail = createAsyncThunk(
   },
 );
 
+export const sendAdminLoginOtp = createAsyncThunk(
+  "auth/sendAdminLoginOtp",
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URL}/auth/sent/login-signup-otp`,
+        {
+          email: `signing_${email}`,
+          role: "ADMIN",
+        },
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        extractErrorMessage(error, "Không thể gửi OTP cho Admin."),
+      );
+    }
+  },
+);
+
 const initialState = {
   otpSent: false,
   sendOtpLoading: false,
@@ -310,6 +331,20 @@ const authSlice = createSlice({
       .addCase(registerSellerUser.rejected, (state, action) => {
         state.registerLoading = false;
         state.registerError = action.payload;
+      });
+
+    builder
+      .addCase(sendAdminLoginOtp.pending, (state) => {
+        state.sendOtpLoading = true;
+        state.sendOtpError = null;
+      })
+      .addCase(sendAdminLoginOtp.fulfilled, (state) => {
+        state.sendOtpLoading = false;
+        state.otpSent = true;
+      })
+      .addCase(sendAdminLoginOtp.rejected, (state, action) => {
+        state.sendOtpLoading = false;
+        state.sendOtpError = action.payload;
       });
   },
 });

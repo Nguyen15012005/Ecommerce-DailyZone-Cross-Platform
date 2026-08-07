@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -23,31 +23,33 @@ const otpSchema = Yup.object({
 });
 
 const LogoButton = ({ onClick }) => (
-  <button
-    type="button"
-    onClick={onClick}
-    className="mx-auto mb-8 flex items-center justify-center gap-2"
-  >
-    <div className="flex cursor-pointer items-center gap-2 lg:gap-3">
-      <div className="flex flex-col leading-none">
-        <span className="font-serif text-[26px] text-[#C9A96E] lg:text-[40px]">
-          D
-        </span>
-        <span className="-mt-4 ml-2 font-serif text-[26px] text-[#C9A96E] lg:-mt-6 lg:ml-3 lg:text-[40px]">
-          Z
-        </span>
-      </div>
+  <div className="flex-col">
+    <button
+      type="button"
+      onClick={onClick}
+      className="mx-auto mb-8 flex items-center justify-center gap-2"
+    >
+      <div className="flex cursor-pointer items-center gap-2 lg:gap-3">
+        <div className="flex flex-col leading-none">
+          <span className="font-serif text-[26px] text-[#C9A96E] lg:text-[40px]">
+            D
+          </span>
+          <span className="-mt-4 ml-2 font-serif text-[26px] text-[#C9A96E] lg:-mt-6 lg:ml-3 lg:text-[40px]">
+            Z
+          </span>
+        </div>
 
-      <div className="flex flex-col">
-        <h1 className="mb-1 font-serif text-[14px] tracking-[2px] text-[#3B2B12] sm:text-[16px] lg:mb-2 lg:text-[20px] lg:tracking-[3px]">
-          DAILY ZONE
-        </h1>
-        <span className="hidden text-[8px] uppercase tracking-[5px] text-[#8B7355] sm:block lg:text-[9px]">
-          Style your life
-        </span>
+        <div className="flex flex-col">
+          <h1 className="mb-1 font-serif text-[14px] tracking-[2px] text-[#3B2B12] sm:text-[16px] lg:mb-2 lg:text-[20px] lg:tracking-[3px]">
+            DAILY ZONE
+          </h1>
+          <span className="hidden text-[8px] uppercase tracking-[5px] text-[#8B7355] sm:block lg:text-[9px]">
+            Style your life
+          </span>
+        </div>
       </div>
-    </div>
-  </button>
+    </button>
+  </div>
 );
 
 const AuthOtpLogin = ({
@@ -69,6 +71,7 @@ const AuthOtpLogin = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const {
     otpSent,
     sendOtpLoading,
@@ -76,13 +79,22 @@ const AuthOtpLogin = ({
     loginLoading,
     loginError,
     isAuthenticated,
+    role,
   } = useSelector((s) => s.auth);
 
   const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
-    if (isAuthenticated) navigate(redirectTo, { replace: true });
-  }, [isAuthenticated, navigate, redirectTo]);
+    if (!isAuthenticated) return;
+
+    if (role === "ADMIN") {
+      navigate("/admin", { replace: true });
+    } else if (role === "SELLER") {
+      navigate("/seller", { replace: true });
+    } else {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, role, navigate]);
 
   useEffect(() => {
     if (countdown <= 0) return undefined;
@@ -149,7 +161,7 @@ const AuthOtpLogin = ({
 
         {!otpSent ? (
           <>
-            <h1 className="mb-1 text-xl font-semibold text-[#221A0F]">
+            <h1 className="mb-1 text-2xl font-semibold text-[#6f5530]">
               {title}
             </h1>
             <p className="mb-6 text-sm text-[#8B7355]">{subtitle}</p>
@@ -168,7 +180,7 @@ const AuthOtpLogin = ({
               <button
                 type="submit"
                 disabled={sendOtpLoading}
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-[#221A0F] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#3B2B12] disabled:cursor-not-allowed disabled:opacity-40"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-[#a37d49] py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#503f24] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {sendOtpLoading ? (
                   <>
@@ -181,7 +193,7 @@ const AuthOtpLogin = ({
               </button>
             </form>
 
-            {registerTo && (
+            {/* {location.pathname !== "/admin/login" && registerTo && (
               <p className="mt-6 text-center text-sm text-[#8B7355]">
                 {registerPrompt}{" "}
                 <Link
@@ -191,7 +203,23 @@ const AuthOtpLogin = ({
                   {registerLabel}
                 </Link>
               </p>
-            )}
+            )} */}
+            <div className="mt-2 flex justify-center items-center">
+              <button
+                onClick={() => {
+                  if (location.pathname === "/admin/login") {
+                    navigate("/login");
+                  } else {
+                    navigate("/admin/login");
+                  }
+                }}
+                className="mt-4 justify-center text-sm text-[#8B7355] underline hover:text-[#1a0f02]"
+              >
+                {location.pathname === "/admin/login"
+                  ? "Quay lại trang đăng nhập của khách hàng"
+                  : "Quản trị hệ thống đăng nhập tại đây"}
+              </button>
+            </div>
           </>
         ) : (
           <>
