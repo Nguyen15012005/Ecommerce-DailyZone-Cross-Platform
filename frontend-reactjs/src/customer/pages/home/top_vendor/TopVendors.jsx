@@ -108,7 +108,7 @@ const vendors = [
     verified: true,
   },
   {
-    id: 8,
+    id: 9,
     name: "Samsung Store",
     category: "Điện tử",
     banner:
@@ -121,7 +121,7 @@ const vendors = [
     verified: true,
   },
   {
-    id: 8,
+    id: 10,
     name: "Samsung Store",
     category: "Điện tử",
     banner:
