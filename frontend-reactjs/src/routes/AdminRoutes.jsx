@@ -1,7 +1,7 @@
 import AdminHome from "../admin/pages/home/AdminHome";
-import Dashboard from "../admin/pages/dashboard";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminLogin from "../admin/pages/auth/LoginAdmin";
+import Dashboard from "../admin/pages/dashboard/Dashboard";
 
 export const adminRoutes = [
   {
