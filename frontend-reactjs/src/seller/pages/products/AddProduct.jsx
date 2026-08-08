@@ -21,7 +21,6 @@ import {
   createTheme,
   ThemeProvider,
 } from "@mui/material";
-import { uploadToCloudinary } from "../../../../util/UploadToCloudinary";
 import { menLevelTwo } from "../../../data/category/level_two/menLevelTwo";
 import { womenLevelTwo } from "../../../data/category/level_two/womenLevelTwo";
 import { furnitureLevelTwo } from "../../../data/category/level_two/furnitureLevelTwo";
@@ -36,6 +35,7 @@ import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CloseIcon from "@mui/icons-material/Close";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import { toast } from "react-toastify";
+import { uploadToCloudinary } from "../../../util/uploadToCloudinary";
 
 const theme = createTheme({
   palette: {
