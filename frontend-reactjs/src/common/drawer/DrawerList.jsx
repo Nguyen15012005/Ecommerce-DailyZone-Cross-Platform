@@ -3,13 +3,19 @@ import {
   AccountBalanceWallet,
   AccountBox,
   Add,
+  Category,
   Dashboard,
   Inventory,
+  Inventory2,
+  LocalOffer,
   Logout,
+  People,
+  RateReview,
   Receipt,
   ShoppingBag,
 } from "@mui/icons-material";
 import DrawerItem from "./DrawerItem";
+import { ShoppingCart, Store } from "lucide-react";
 
 const menu = [
   {
@@ -52,16 +58,52 @@ const menu = [
 
 const menu1 = [
   {
-    name: "Đây là Trang của admin",
+    name: "Tổng quan",
     path: "/admin",
     icon: <Dashboard className="text-[#C9A96E]" />,
     activeIcon: <Dashboard className="text-white" />,
   },
   {
-    name: "Tổng quan",
-    path: "/admin",
-    icon: <Dashboard className="text-[#C9A96E]" />,
-    activeIcon: <Dashboard className="text-white" />,
+    name: "Quản lý sản phẩm",
+    path: "/admin/products",
+    icon: <Inventory2 className="text-[#C9A96E]" />,
+    activeIcon: <Inventory2 className="text-white" />,
+  },
+  {
+    name: "Quản lý danh mục",
+    path: "/admin/categories",
+    icon: <Category className="text-[#C9A96E]" />,
+    activeIcon: <Category className="text-white" />,
+  },
+  {
+    name: "Quản lý đơn hàng",
+    path: "/admin/orders",
+    icon: <ShoppingCart className="text-[#C9A96E]" />,
+    activeIcon: <ShoppingCart className="text-white" />,
+  },
+  {
+    name: "Quản lý người dùng",
+    path: "/admin/users",
+    icon: <People className="text-[#C9A96E]" />,
+    activeIcon: <People className="text-white" />,
+  },
+  {
+    name: "Quản lý cửa hàng",
+    path: "/admin/stores",
+    icon: <Store className="text-[#C9A96E]" />,
+    activeIcon: <Store className="text-white" />,
+  },
+  {
+    name: "Quản lý khuyến mãi",
+    path: "/admin/promotions",
+    icon: <LocalOffer className="text-[#C9A96E]" />,
+    activeIcon: <LocalOffer className="text-white" />,
+  },
+  {
+    name: "Quản lý đánh giá",
+    path: "/admin/reviews",
+    icon: <RateReview className="text-[#C9A96E]" />,
+    activeIcon: <RateReview className="text-white" />,
   },
 ];
 const menu2 = [
