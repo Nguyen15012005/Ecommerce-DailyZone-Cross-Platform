@@ -8,7 +8,7 @@ const AdminHome = () => {
   return (
     <div>
       {/* HEADER */}
-      {/* <div className="w-full flex h-[80px] items-center justify-between border-b border-black px-4 md:px-6 lg:px-10">
+      <div className="w-full flex h-[80px] items-center justify-between border-b border-black px-4 md:px-6 lg:px-10">
         <div className="flex items-center gap-3">
           <div className="flex cursor-pointer items-center gap-2 lg:gap-3">
             <div className="flex flex-col leading-none">
@@ -30,7 +30,7 @@ const AdminHome = () => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
 
       {/* MAIN LAYOUT */}
       <div className="lg:flex lg:h-[90vh] bg-[#fefdfa]">
