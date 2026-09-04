@@ -5,7 +5,8 @@ package iuh.fit.backend.config;
  * @created 4/15/2026
  * @description
  */
+
 public class JWT_CONSTANT {
-    public static final String SECRET_KEY = "my_super_secret_key_which_is_long_enough_123456";
-    public static final String JWT_HEADER="Authorization";
+    public static final String SECRET_KEY = System.getenv("JWT_SECRET_KEY");
+    public static final String JWT_HEADER = "Authorization";
 }
